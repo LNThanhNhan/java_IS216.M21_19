@@ -1,7 +1,7 @@
 CREATE TABLE supply (
     idsup        NUMBER(10)     NOT NULL,
     idper        NUMBER(10)     NOT NULL,
-    idchar       NUMBER(10)     NOT NULL,
+    idchar       NUMBER(10),
     created      DATE, 
     needfood     SMALLINT       NOT NULL,
     neednecess   SMALLINT       NOT NULL,
@@ -40,13 +40,13 @@ ALTER TABLE supply
     MODIFY created DEFAULT SYSDATE;
 
 --BANG Supply
-INSERT INTO Supply VALUES(1, 1, 11, TO_DATE('12/04/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Xin ho tro luong thuc gom gao va luong kho' );
+INSERT INTO Supply VALUES(1, 1, 1, TO_DATE('12/04/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Xin ho tro luong thuc gom gao va luong kho' );
 INSERT INTO Supply VALUES(2, 2, NULL, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 2, 'Toi mong muon duoc ho tro day du, dac biet la luong thuc');
 INSERT INTO Supply VALUES(3, 3, NULL, TO_DATE('15/04/2022','dd/mm/yyyy'), 1, 1, 1,1, 'Toi xin cac trung tam ho tro nhanh nhat co the');
 INSERT INTO Supply VALUES(4, 4, NULL, TO_DATE('15/04/2022','dd/mm/yyyy'), 1, 1, 1,1, 'Gia dinh toi hien dang bi covid, rat can luong thuc và cac vat dung y te');
-INSERT INTO Supply VALUES(5, 5, 20, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Xin ho tro gao, sua, man, muoi va que test nhanh');
-INSERT INTO Supply VALUES(6, 6, 15, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Mong yeu cau se duoc ho tro nhanh');
-INSERT INTO Supply VALUES(7, 7, 16, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Toi can gao, trung, giay ve sinh, nhiet ke va que test nhanh');
-INSERT INTO Supply VALUES(8, 8, 17, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Toi hien dang mot minh va bi covid, hien tai khong con gi trong nha. Mong duoc ho tro nhanh nhat co the');
-INSERT INTO Supply VALUES(9, 9, 18, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Xin ho tro gao, sua, con, que test nhanh');
-INSERT INTO Supply VALUES(10,10, 19, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1,3 , 'Xin ho tro gao, mi tom, thuoc ho, que test nhanh');
+INSERT INTO Supply VALUES(5, 5, 2, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Xin ho tro gao, sua, man, muoi va que test nhanh');
+INSERT INTO Supply VALUES(6, 6, 5, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Mong yeu cau se duoc ho tro nhanh');
+INSERT INTO Supply VALUES(7, 7, 6, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Toi can gao, trung, giay ve sinh, nhiet ke va que test nhanh');
+INSERT INTO Supply VALUES(8, 8, 7, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Toi hien dang mot minh va bi covid, hien tai khong con gi trong nha. Mong duoc ho tro nhanh nhat co the');
+INSERT INTO Supply VALUES(9, 9, 8, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 3, 'Xin ho tro gao, sua, con, que test nhanh');
+INSERT INTO Supply VALUES(10,10, 9, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1,3 , 'Xin ho tro gao, mi tom, thuoc ho, que test nhanh');
