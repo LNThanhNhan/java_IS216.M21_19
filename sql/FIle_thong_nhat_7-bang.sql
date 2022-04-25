@@ -242,104 +242,94 @@ ALTER TABLE doctor
     ADD CONSTRAINT subject_doc CHECK(subject>=1 and subject <=5);
     
 --============================================
-INSERT INTO account VALUES ('heulwen', '123456789', 1);
-INSERT INTO account VALUES ('eudora', 'qwerty', 1);
-INSERT INTO account VALUES ('roderick', 'password123', 1);
-INSERT INTO account VALUES ('orborne', '12345678', 1);
-INSERT INTO account VALUES ('elfleda', '111111', 1);
-INSERT INTO account VALUES ('griselda', '123123', 1);
 
-INSERT INTO account VALUES ('phelan', 'qwerty123', 1);
-INSERT INTO account VALUES ('boniface', '000000', 1);
-INSERT INTO account VALUES ('augustus' , '1q2w345', 1);
-INSERT INTO account VALUES ('mortimer' , 'aa12345678', 1);
-INSERT INTO account VALUES ('glenda' , 'abc123', 1);
-INSERT INTO account VALUES ('bellamy' , 'princess', 1);
-INSERT INTO account VALUES ('jocelyn' , 'qwertyuiop', 1);
-INSERT INTO account VALUES ('devlin' , 'abc123', 1);
-INSERT INTO account VALUES ('jocasta' , 'abc123', 1);
-INSERT INTO account VALUES ('grainne' , '123456', 1);
+INSERT INTO account VALUES ('user01' , '123123', 4);
+INSERT INTO account VALUES ('user02' , '123123', 4);
+INSERT INTO account VALUES ('user03' , '123123', 4);
+INSERT INTO account VALUES ('user04' , '123123', 4);
+INSERT INTO account VALUES ('user05' , '123123', 4);
+INSERT INTO account VALUES ('user06' , '123123', 4);
+INSERT INTO account VALUES ('user07' , '123123', 4);
+INSERT INTO account VALUES ('user08' , '123123', 4);
+INSERT INTO account VALUES ('user09' , '123123', 4);
+INSERT INTO account VALUES ('user10' , '123123', 4);
 
-INSERT INTO account VALUES ('harding' , '25251325', 2);
-INSERT INTO account VALUES ('jethro' , '123456', 2);
-INSERT INTO account VALUES ('isolde' , '147852369', 2);
-INSERT INTO account VALUES ('jezebel' , '987654321', 2);
-INSERT INTO account VALUES ('amabel' , 'windowns', 2);
-INSERT INTO account VALUES ('reginald' , 'linuxxx', 2);
-INSERT INTO account VALUES ('gladys' , 'samsam', 2);
-INSERT INTO account VALUES ('riselda' , 'dontknow', 2);
-INSERT INTO account VALUES ('almira' , 'hieu123', 2);
-INSERT INTO account VALUES ('selina' , 'viptop1', 2);
+INSERT INTO account VALUES ('user11' , '123123', 3);
+INSERT INTO account VALUES ('user12' , '123123', 3);
+INSERT INTO account VALUES ('user13' , '123123', 3);
+INSERT INTO account VALUES ('user14' , '123123', 3);
+INSERT INTO account VALUES ('user15' , '123123', 3);
+INSERT INTO account VALUES ('user16' , '123123', 3);
+INSERT INTO account VALUES ('user17' , '123123', 3);
+INSERT INTO account VALUES ('user18' , '123123', 3);
+INSERT INTO account VALUES ('user19' , '123123', 3);
+INSERT INTO account VALUES ('user20' , '123123', 3);
 
-INSERT INTO account VALUES ('username01' , '123123', 4);
-INSERT INTO account VALUES ('username02' , '123123', 4);
-INSERT INTO account VALUES ('username03' , '123123', 4);
-INSERT INTO account VALUES ('username04' , '123123', 4);
-INSERT INTO account VALUES ('username05' , '123123', 4);
-INSERT INTO account VALUES ('username06' , '123123', 4);
-INSERT INTO account VALUES ('username07' , '123123', 4);
-INSERT INTO account VALUES ('username08' , '123123', 4);
-INSERT INTO account VALUES ('username09' , '123123', 4);
-INSERT INTO account VALUES ('username10' , '123123', 4);
+INSERT INTO account VALUES ('user21' , '25251325', 2);
+INSERT INTO account VALUES ('user22' , '123456', 2);
+INSERT INTO account VALUES ('user23' , '147852369', 2);
+INSERT INTO account VALUES ('user24' , '987654321', 2);
+INSERT INTO account VALUES ('user25' , 'windowns', 2);
+INSERT INTO account VALUES ('user26' , 'linuxxx', 2);
+INSERT INTO account VALUES ('user27' , 'samsam', 2);
+INSERT INTO account VALUES ('user28' , 'dontknow', 2);
+INSERT INTO account VALUES ('user29' , 'hieu123', 2);
+INSERT INTO account VALUES ('user30' , 'viptop1', 2);
 
-INSERT INTO account VALUES ('username11' , '123123', 3);
-INSERT INTO account VALUES ('username12' , '123123', 3);
-INSERT INTO account VALUES ('username13' , '123123', 3);
-INSERT INTO account VALUES ('username14' , '123123', 3);
-INSERT INTO account VALUES ('username15' , '123123', 3);
-INSERT INTO account VALUES ('username16' , '123123', 3);
-INSERT INTO account VALUES ('username17' , '123123', 3);
-INSERT INTO account VALUES ('username18' , '123123', 3);
-INSERT INTO account VALUES ('username19' , '123123', 3);
-INSERT INTO account VALUES ('username20' , '123123', 3);
+INSERT INTO account VALUES ('user31', '123456789', 1);
+INSERT INTO account VALUES ('user32', 'qwerty', 1);
+INSERT INTO account VALUES ('user33', 'password123', 1);
+INSERT INTO account VALUES ('user34', '12345678', 1);
+INSERT INTO account VALUES ('user35', '111111', 1);
+INSERT INTO account VALUES ('user36', '123123', 1);
 
 --insert person
-INSERT INTO person VALUES (idper.nextval, 'heulwen', 'Mai Hoai An', 0, '0353975568', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '26 DUONG 15', 0);
-INSERT INTO person VALUES (idper.nextval, 'eudora', 'Pham Duy Anh', 0, '0962475039', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '46 DUONG 15', 0);
-INSERT INTO person VALUES (idper.nextval, 'roderick', 'Ha Minh Dai', 1, '0399019601', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '110/1 CHUONG DUONG', 0);
-INSERT INTO person VALUES (idper.nextval, 'orborne', 'Nguyen Van Ngoc Hieu', 1, '0346638188','Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '1060/4 KHA VAN CAN', 0);
-INSERT INTO person VALUES (idper.nextval, 'elfleda', 'Nguyen Xuan Hoa', 0, '0971545751', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '76/36/2C DUONG 19', 0);
-INSERT INTO person VALUES (idper.nextval, 'griselda', 'Vu Gia Hoa', 1, '0394304299', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '51 DUONG 15', 0);
+INSERT INTO person VALUES (idper.nextval, 'user31', 'Mai Hoai An', 0, '0353975568', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '26 DUONG 15', 0);
+INSERT INTO person VALUES (idper.nextval, 'user32', 'Pham Duy Anh', 0, '0962475039', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '46 DUONG 15', 0);
+INSERT INTO person VALUES (idper.nextval, 'user33', 'Ha Minh Dai', 1, '0399019601', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '110/1 CHUONG DUONG', 0);
+INSERT INTO person VALUES (idper.nextval, 'user34', 'Nguyen Van Ngoc Hieu', 1, '0346638188','Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '1060/4 KHA VAN CAN', 0);
+INSERT INTO person VALUES (idper.nextval, 'user35', 'Nguyen Xuan Hoa', 0, '0971545751', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '76/36/2C DUONG 19', 0);
+INSERT INTO person VALUES (idper.nextval, 'user36', 'Vu Gia Hoa', 1, '0394304299', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '51 DUONG 15', 0);
 INSERT INTO person VALUES (idper.nextval, null, 'Nguyen Tri Thanh', 1, '0336074664', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '1060/10 KHA VAN CAN', 0);
 INSERT INTO person VALUES (idper.nextval, null, 'Nguyen Duc Nghia', 1, '0868437363', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '45 DUONG 17', 0);
 INSERT INTO person VALUES (idper.nextval, null, 'Nguyen Minh Long', 1, '0329853968', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '1060/10 KHA VAN CAN', 0);
 INSERT INTO person VALUES (idper.nextval, null, 'Tran Huy Khanh', 1, '0375210196', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '46 DUONG 15', 0);
 
 --insert employee
-INSERT INTO employee VALUES (idper.nextval, 'harding', 'Nguyen Thi Ly', 0, SYSDATE, '0984626764', '56/11-CHUONG DUONG- LINH CHIEU- THU DUC');
-INSERT INTO employee VALUES (idper.nextval, 'jethro', 'Nguyen Thi Xoa', 0, SYSDATE, '0378574588', '29/1B DUONG 16- TO 2- KP1- LINH CHIEU- THU DUC');
-INSERT INTO employee VALUES (idper.nextval, 'isolde', 'Tran Thi Uyen', 0, SYSDATE, '0862121185', '1034/3 TO 8- KP1-  LINH CHIEU- THU DUC');
-INSERT INTO employee VALUES (idper.nextval, 'jezebel', 'Nguyen Bui Thuy Vy' , 0, SYSDATE, '0332448466', '1104/4A KHA VAN CAN- LINH CHIEU- THU DUC');
-INSERT INTO employee VALUES (idper.nextval, 'amabel', 'Than Trong Thien An', 1, SYSDATE, '0865101714', '1046 KHA VAN CAN-  LINH CHIEU- THU DUC');
-INSERT INTO employee VALUES (idper.nextval, 'reginald', 'Ngo Thi Thoa' , 0, SYSDATE, '0348425066', '1/1096 KHA VAN CAN-  LINH CHIEU- THU DUC');
-INSERT INTO employee VALUES (idper.nextval, 'gladys', 'Dang Thi Ngoc Yen', 0, SYSDATE, '0354306079', '28/33 DUONG 16- LINH CHIEU- THU DUC');
-INSERT INTO employee VALUES (idper.nextval, 'griselda', 'Truong Thi Mang', 0, SYSDATE, '0368334441', '37A DUONG 17-  LINH CHIEU- THU DUC');
-INSERT INTO employee VALUES (idper.nextval, 'almira', 'Nguyen Thi Chi Mai', 0, SYSDATE, '0374916079', '56 HOANG DIEU 2- LINH CHIEU- THU DUC');
-INSERT INTO employee VALUES (idper.nextval, 'selina', 'Nguyen Mai Quynh', 0, SYSDATE, '0348606057', '34/9 DUONG 16- LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user21', 'Nguyen Thi Ly', 0, SYSDATE, '0984626764', '56/11-CHUONG DUONG- LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user22', 'Nguyen Thi Xoa', 0, SYSDATE, '0378574588', '29/1B DUONG 16- TO 2- KP1- LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user23', 'Tran Thi Uyen', 0, SYSDATE, '0862121185', '1034/3 TO 8- KP1-  LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user24', 'Nguyen Bui Thuy Vy' , 0, SYSDATE, '0332448466', '1104/4A KHA VAN CAN- LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user25', 'Than Trong Thien An', 1, SYSDATE, '0865101714', '1046 KHA VAN CAN-  LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user26', 'Ngo Thi Thoa' , 0, SYSDATE, '0348425066', '1/1096 KHA VAN CAN-  LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user27', 'Dang Thi Ngoc Yen', 0, SYSDATE, '0354306079', '28/33 DUONG 16- LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user28', 'Truong Thi Mang', 0, SYSDATE, '0368334441', '37A DUONG 17-  LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user29', 'Nguyen Thi Chi Mai', 0, SYSDATE, '0374916079', '56 HOANG DIEU 2- LINH CHIEU- THU DUC');
+INSERT INTO employee VALUES (idper.nextval, 'user30', 'Nguyen Mai Quynh', 0, SYSDATE, '0348606057', '34/9 DUONG 16- LINH CHIEU- THU DUC');
 
 --insert charity
-INSERT INTO charity VALUES (idchar.nextval, 'username11', 'Tinh  Thuong', '0373484186', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '72 DUONG 17',1, 1, 1,0);
-INSERT INTO charity VALUES (idchar.nextval, 'username12', 'Hoa Tu Bi', '0347694188', 'Ho Chi Minh', 'QUAN 1', 'BEN NGHE', '32 DUONG LE DUAN', 1, 1, 0, 0);
-INSERT INTO Charity VALUES(idchar.nextval, 'username13', 'Hoa Hao', '0398437179', 'Ho Chi Minh', 'THU DUC',  'LINH TRUNG', '6/2D KHU PHO 2' ,1,1,1,0);
-INSERT INTO Charity VALUES(idchar.nextval, 'username14', 'Mai Am', '0374892969', 'Ho Chi Minh', 'THU DUC', 'LINH TRUNG', '22 DUONG 1', 1,1,1,0);
-INSERT INTO Charity VALUES(idchar.nextval, 'username15', 'Bep Com Van Tinh', '0358806568', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '4/14 DUONG 18', 1,1,1,0);
-INSERT INTO Charity VALUES(idchar.nextval, 'username16', 'Huong Sen', '0343804268', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '108 DUONG HOANG DIEU 2', 1,1,1,0);
-INSERT INTO Charity VALUES(idchar.nextval, 'username17', 'Tinh Nguyen Tre', '0335181173', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '109 HEM 21 DUONG 11', 1,1,1,0);
-INSERT INTO Charity VALUES(idchar.nextval, 'username18', 'Suc Song', '0334658575', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '69 DUONG TRUONG TRE', 1,1,1,0);
-INSERT INTO Charity VALUES(idchar.nextval, 'username19', 'Minh Tam', '0396171180', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '83/1QUOC LO 1A', 1,1,1,0);
-INSERT INTO Charity VALUES(idchar.nextval, 'username20', 'Mam Non', '0967596794', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '31 DUONG 10', 1,1,1,0);
+INSERT INTO charity VALUES (idchar.nextval, 'user11', 'Tinh  Thuong', '0373484186', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '72 DUONG 17',1, 1, 1,0);
+INSERT INTO charity VALUES (idchar.nextval, 'user12', 'Hoa Tu Bi', '0347694188', 'Ho Chi Minh', 'QUAN 1', 'BEN NGHE', '32 DUONG LE DUAN', 1, 1, 0, 0);
+INSERT INTO Charity VALUES(idchar.nextval, 'user13', 'Hoa Hao', '0398437179', 'Ho Chi Minh', 'THU DUC',  'LINH TRUNG', '6/2D KHU PHO 2' ,1,1,1,0);
+INSERT INTO Charity VALUES(idchar.nextval, 'user14', 'Mai Am', '0374892969', 'Ho Chi Minh', 'THU DUC', 'LINH TRUNG', '22 DUONG 1', 1,1,1,0);
+INSERT INTO Charity VALUES(idchar.nextval, 'user15', 'Bep Com Van Tinh', '0358806568', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '4/14 DUONG 18', 1,1,1,0);
+INSERT INTO Charity VALUES(idchar.nextval, 'user16', 'Huong Sen', '0343804268', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '108 DUONG HOANG DIEU 2', 1,1,1,0);
+INSERT INTO Charity VALUES(idchar.nextval, 'user17', 'Tinh Nguyen Tre', '0335181173', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '109 HEM 21 DUONG 11', 1,1,1,0);
+INSERT INTO Charity VALUES(idchar.nextval, 'user18', 'Suc Song', '0334658575', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '69 DUONG TRUONG TRE', 1,1,1,0);
+INSERT INTO Charity VALUES(idchar.nextval, 'user19', 'Minh Tam', '0396171180', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '83/1QUOC LO 1A', 1,1,1,0);
+INSERT INTO Charity VALUES(idchar.nextval, 'user20', 'Mam Non', '0967596794', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '31 DUONG 10', 1,1,1,0);
 
 --insert doctor
-insert into doctor values(iddoc.nextval,'username01','Ho Thi Ha',0,'0935716315',1,1,'Benh vien nhi dong 1','Ho Chi Minh');
-insert into doctor values(iddoc.nextval,'username02','Nguyen Phuong',0,'0764518719',2,1,'Benh vien Ung buou','Ho Chi Minh');
-insert into doctor values(iddoc.nextval,'username03','Pham Nhat Linh',1,'0930750831',6,1,'Benh vien Da Khoa Thu Duc','Ho Chi Minh');
-insert into doctor values(iddoc.nextval,'username04','Nguyen Minh Cong',1,'0944508031',2,1,'Benh vien Quan Bình Thanh','Ho Chi Minh');
-insert into doctor values(iddoc.nextval,'username05','Nguyen Thanh Quan',1,'0768502537',4,1,'Benh vien Quan 1','Ho Chi Minh');
-insert into doctor values(iddoc.nextval,'username06','Nguyen Quynh Phuong Anh',0,'0984476843',9,4,'Benh vien Da Khoa Hoàng Long','Ho Chi Minh');
-insert into doctor values(iddoc.nextval,'username07','Nguyen Thi Hai Lien',0,'0957270143',8,5,'Benh vien Dai hoc Y duoc','Ho Chi Minh');
-insert into doctor values(iddoc.nextval,'username08','Nguyen Van Chanh',1,'0959016831',6,1,'Benh vien Cho Ray','Ho Chi Minh');
-insert into doctor values(iddoc.nextval,'username09','Le Tuan Thanh',1,'0946097020',7,1,'Benh vien Thong Nhat','Ho Chi Minh');
-insert into doctor values(iddoc.nextval,'username10','Tran Quynh Kim',0,'0937169708',3,2,'Benh vien Thong Nhat','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user01','Ho Thi Ha',0,'0935716315',1,1,'Benh vien nhi dong 1','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user02','Nguyen Phuong',0,'0764518719',2,1,'Benh vien Ung buou','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user03','Pham Nhat Linh',1,'0930750831',6,1,'Benh vien Da Khoa Thu Duc','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user04','Nguyen Minh Cong',1,'0944508031',2,1,'Benh vien Quan Bình Thanh','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user05','Nguyen Thanh Quan',1,'0768502537',4,1,'Benh vien Quan 1','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user06','Nguyen Quynh Phuong Anh',0,'0984476843',9,4,'Benh vien Da Khoa Hoàng Long','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user07','Nguyen Thi Hai Lien',0,'0957270143',8,5,'Benh vien Dai hoc Y duoc','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user08','Nguyen Van Chanh',1,'0959016831',6,1,'Benh vien Cho Ray','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user09','Le Tuan Thanh',1,'0946097020',7,1,'Benh vien Thong Nhat','Ho Chi Minh');
+insert into doctor values(iddoc.nextval,'user10','Tran Quynh Kim',0,'0937169708',3,2,'Benh vien Thong Nhat','Ho Chi Minh');
 
 --insert advisory
 insert into advisory values(idad.nextval,1,NULL,default,1986,170,80,1,NULL,'Xin tu van hau covid 19');
