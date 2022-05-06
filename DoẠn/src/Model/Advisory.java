@@ -46,6 +46,14 @@ public class Advisory {
     public Advisory() {
     }
 
+    public int getIdper() {
+        return idper;
+    }
+
+    public void setIdper(int idper) {
+        this.idper = idper;
+    }
+
     public int getIdad() {
         return idad;
     }
