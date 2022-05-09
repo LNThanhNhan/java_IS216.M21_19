@@ -34,11 +34,15 @@ ALTER TABLE supply
 --5: Dã huy
 ALTER TABLE supply
     ADD CONSTRAINT status_sup CHECK(status>=1 and status <=5);
+--trang thai ban dau la da mo
 ALTER TABLE supply
     MODIFY status DEFAULT 1;
+--ngay tao mac dinh la ngay hien tai
 ALTER TABLE supply
     MODIFY created DEFAULT SYSDATE;
-
+--Yeu cau phai co it nhat 1 loai yeu cau duoc chon
+ALTER TABLE supply
+    ADD CONSTRAINT fill_a_need_sup CHECK (needfood =1 or neednecess=1 or needequip=1);    
 --BANG Supply
 INSERT INTO Supply VALUES(1, 1, 1, TO_DATE('12/04/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Xin ho tro luong thuc gom gao va luong kho' );
 INSERT INTO Supply VALUES(2, 2, NULL, TO_DATE('13/04/2022','dd/mm/yyyy'), 1, 1, 1, 2, 'Toi mong muon duoc ho tro day du, dac biet la luong thuc');

@@ -27,16 +27,21 @@ ALTER TABLE advisory
 --3: Hoàn thành
 ALTER TABLE advisory
     ADD CONSTRAINT status_ad CHECK(status>=1 and status <=3);
+--trang thai ban dau la da mo
 ALTER TABLE advisory
     MODIFY status DEFAULT 1;
+--ngay tao mac dinh la ngay hien tai
 ALTER TABLE advisory
     MODIFY created DEFAULT SYSDATE;
+--Nam sinh phai nho hon hoac bang nam tao yeu cau
 ALTER TABLE advisory
     ADD CONSTRAINT yearbirth_created_ad CHECK(yearbirth >= EXTRACT(YEAR FROM created));
 ALTER TABLE advisory
     ADD CONSTRAINT yearbirth_ad CHECK(yearbirth >0);
+--Chieu cao khong la so am
 ALTER TABLE advisory
     ADD CONSTRAINT height_ad CHECK(height >0);
+--Can nang khong la so am
 ALTER TABLE advisory
     ADD CONSTRAINT weight_ad CHECK(weight >0);
 

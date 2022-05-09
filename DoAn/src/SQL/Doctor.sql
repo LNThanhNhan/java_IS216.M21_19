@@ -37,13 +37,13 @@ ALTER TABLE doctor
 ALTER TABLE doctor
     ADD CONSTRAINT subject_doc CHECK(subject>=1 and subject <=5);
     
-insert into doctor values(1,'username01','Ho Thi Ha',0,'0935716315',1,1,'Benh vien nhi dong 1','Ho Chi Minh');
-insert into doctor values(2,'username02','Nguyen Phuong',0,'0764518719',2,1,'Benh vien Ung buou','Ho Chi Minh');
-insert into doctor values(3,'username03','Pham Nhat Linh',1,'0930750831',6,1,'Benh vien Da Khoa Thu Duc','Ho Chi Minh');
-insert into doctor values(4,'username04','Nguyen Minh Cong',1,'0944508031',2,1,'Benh vien Quan Binh Thanh','Ho Chi Minh');
-insert into doctor values(5,'username05','Nguyen Thanh Quan',1,'0768502537',4,1,'Benh vien Quan 1','Ho Chi Minh');
-insert into doctor values(6,'username06','Nguyen Quynh Phuong Anh',0,'0984476843',9,4,'Benh vien Da Khoa Hoang Long','Ho Chi Minh');
-insert into doctor values(7,'username07','Nguyen Thi Hai Lien',0,'0957270143',8,5,'Benh vien Dai hoc Y duoc','Ho Chi Minh');
-insert into doctor values(8,'username08','Nguyen Van Chanh',1,'0959016831',6,1,'Benh vien Cho Ray','Ho Chi Minh');
-insert into doctor values(9,'username09','Le Tuan Thanh',1,'0946097020',7,1,'Benh vien Thong Nhat','Ho Chi Minh');
-insert into doctor values(10,'username10','Tran Quynh Kim',0,'0937169708',3,2,'Benh vien Thong Nhat','Ho Chi Minh');
+insert into doctor values(1,'user01','Ho Thi Ha',0,'0935716315',1,1,'Benh vien nhi dong 1','Ho Chi Minh');
+insert into doctor values(2,'user02','Nguyen Phuong',0,'0764518719',2,1,'Benh vien Ung buou','Ho Chi Minh');
+insert into doctor values(3,'user03','Pham Nhat Linh',1,'0930750831',6,1,'Benh vien Da Khoa Thu Duc','Ho Chi Minh');
+insert into doctor values(4,'user04','Nguyen Minh Cong',1,'0944508031',2,1,'Benh vien Quan Bình Thanh','Ho Chi Minh');
+insert into doctor values(5,'user05','Nguyen Thanh Quan',1,'0768502537',4,1,'Benh vien Quan 1','Ho Chi Minh');
+insert into doctor values(6,'user06','Nguyen Quynh Phuong Anh',0,'0984476843',9,4,'Benh vien Da Khoa Hoàng Long','Ho Chi Minh');
+insert into doctor values(7,'user07','Nguyen Thi Hai Lien',0,'0957270143',8,5,'Benh vien Dai hoc Y duoc','Ho Chi Minh');
+insert into doctor values(8,'user08','Nguyen Van Chanh',1,'0959016831',6,1,'Benh vien Cho Ray','Ho Chi Minh');
+insert into doctor values(9,'user09','Le Tuan Thanh',1,'0946097020',7,1,'Benh vien Thong Nhat','Ho Chi Minh');
+insert into doctor values(10,'user10','Tran Quynh Kim',0,'0937169708',3,2,'Benh vien Thong Nhat','Ho Chi Minh');
