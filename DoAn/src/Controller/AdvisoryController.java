@@ -6,7 +6,6 @@ package Controller;
 
 import Database.OracleConnection;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -24,8 +23,8 @@ public class AdvisoryController {
                     + "join person p\n"
                     + "on a.idper=p.idper";
             ArrayList<HashMap> list= new ArrayList<HashMap>(); 
-            Statement stat = con.createStatement();
-            ResultSet rs = stat.executeQuery(sql);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 HashMap<String,String> ad= new HashMap<String,String>();
                 ad.put("name",rs.getString("name"));
@@ -41,20 +40,61 @@ public class AdvisoryController {
                 list.add(ad);
             }
             rs.close();
-            stat.close();
+            st.close();
             con.close();
             return list;
         }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (UnsupportedOperationException ex) {
-            ex.printStackTrace();
+        catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        } catch (UnsupportedOperationException uoe) {
+            uoe.printStackTrace();
         }catch (Exception ex) {
             ex.printStackTrace();
         }
         return new ArrayList<HashMap>();
     }
-    public String DateToString(Date date)
+    public  ArrayList<HashMap> getAdvisoryByProvince(String province)
+    {
+        try{
+            Connection con = OracleConnection.getOracleConnection();
+            String sql = "SELECT name,gender,phone,province,created,yearbirth,height,weight,pastmedicalhistory,detail\n"
+                    + "FROM advisory a\n"
+                    + "JOIN person p\n"
+                    + "ON a.idper=p.idper\n"
+                    + "WHERE province= ?";
+            ArrayList<HashMap> list= new ArrayList<HashMap>(); 
+            PreparedStatement pt = con.prepareStatement(sql);
+            pt.setString(1,province);
+            ResultSet rs = pt.executeQuery();
+            while (rs.next()) {
+                HashMap<String,String> ad= new HashMap<String,String>();
+                ad.put("name",rs.getString("name"));
+                ad.put("gender",Integer.toString(rs.getInt("gender")));
+                ad.put("phone",rs.getString("phone"));
+                ad.put("province",rs.getString("province"));
+                ad.put("created",this.DateToString(rs.getDate("created")));
+                ad.put("yearbirth",Integer.toString(rs.getInt("yearbirth")));
+                ad.put("height",Integer.toString(rs.getInt("height")));
+                ad.put("weight",Integer.toString(rs.getInt("weight")));
+                ad.put("pastmedicalhistory",rs.getString("pastmedicalhistory"));
+                ad.put("detail",rs.getString("detail"));
+                list.add(ad);
+            }
+            rs.close();
+            pt.close();
+            con.close();
+            return list;
+        }
+        catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        } catch (UnsupportedOperationException uoe) {
+            uoe.printStackTrace();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new ArrayList<HashMap>();
+    }
+    private String DateToString(Date date)
     {
         SimpleDateFormat sdf=new SimpleDateFormat("dd/mm/yyyy");
         return sdf.format(date);

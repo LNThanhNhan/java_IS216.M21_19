@@ -22,15 +22,15 @@ public class DoctorScreen extends javax.swing.JFrame {
     private ArrayList<HashMap> list;
     public DoctorScreen() {
         initComponents();
-//        setLocationRelativeTo(null);
-//        model=(DefaultTableModel)AdvisoryTable.getModel();
-//        model.setColumnIdentifiers(new Object[]{
-//            "Họ tên"
-//        });
-        AdvisoryController adcon=new AdvisoryController();
-        list=adcon.getAdvisory();
-        model= new AdvisoryTableModel().setAdvisoryTable(list);       
-        AdvisoryTable.setModel(model);
+        setLocationRelativeTo(null);
+        model=(DefaultTableModel)AdvisoryTable.getModel();
+        model.setColumnIdentifiers(new Object[]{
+            "Họ tên"
+        });
+//        AdvisoryController adcon=new AdvisoryController();
+//        list=adcon.getAdvisory();
+//        model= new AdvisoryTableModel().setAdvisoryTable(list);       
+//        AdvisoryTable.setModel(model);
     }
 
     /**
@@ -46,7 +46,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         Username = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        ProvinceTxtField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         AcceptButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,10 +65,10 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel1.setText("Tìm kiếm theo thành phố");
         jLabel1.setToolTipText("Nhập vào tỉnh/ thành phố để tìm yêu cầu");
 
-        jTextField1.setToolTipText("Nhập tỉnh/thành phố");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        ProvinceTxtField.setToolTipText("Nhập tỉnh/thành phố");
+        ProvinceTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                ProvinceTxtFieldActionPerformed(evt);
             }
         });
 
@@ -117,7 +117,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                         .addGap(58, 58, 58)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ProvinceTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(SearchButton))
                     .addGroup(layout.createSequentialGroup()
@@ -141,7 +141,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ProvinceTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2)
                     .addComponent(SearchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,9 +153,9 @@ public class DoctorScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void ProvinceTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinceTxtFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_ProvinceTxtFieldActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -186,7 +186,10 @@ public class DoctorScreen extends javax.swing.JFrame {
 
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
         // TODO add your handling code here:
-        AcceptButton.setVisible(false);
+        AdvisoryController adcon=new AdvisoryController();
+        list=adcon.getAdvisoryByProvince(ProvinceTxtField.getText());
+        model= new AdvisoryTableModel().setAdvisoryTable(list);       
+        AdvisoryTable.setModel(model);
     }//GEN-LAST:event_SearchButtonActionPerformed
 
     /**
@@ -231,12 +234,12 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JButton AcceptButton;
     private javax.swing.JTable AdvisoryTable;
     private javax.swing.JLabel Greeting;
+    private javax.swing.JTextField ProvinceTxtField;
     private javax.swing.JButton SearchButton;
     private javax.swing.JLabel Username;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     public static javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
     
