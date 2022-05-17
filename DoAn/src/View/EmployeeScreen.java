@@ -565,7 +565,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Get coordinates
+    //Get coordinates.
     int xy, xx;
     private void TopPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TopPanelMouseClicked
         // TODO add your handling code here:
