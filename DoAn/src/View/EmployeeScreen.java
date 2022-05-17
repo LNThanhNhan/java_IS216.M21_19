@@ -35,6 +35,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
      * Creates new form EmployeeScreen
      */
     
+    
     private CardLayout cardLayout;
     
     public enum OSType {Windows, MacOS, Linux}
@@ -564,6 +565,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Get coordinates
     int xy, xx;
     private void TopPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TopPanelMouseClicked
         // TODO add your handling code here:
@@ -763,14 +765,17 @@ public class EmployeeScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_index7PanelMousePressed
 
+    //Set color for Jpanel being clicked
     void setColor(JPanel panel) {
         panel.setBackground(new Color(106,180,254));
     }
 
+    //reset color for all Jpanel except Jpanel being 
     void resetColor(JPanel panel) {
         panel.setBackground(new Color(106,197,254));
     }
     
+    //set desing for Jtable
     public void SetTabel(JTable table) {
         
         //table.setBackground(new Color(0,0,0,0));
@@ -783,6 +788,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
        
     }
     
+    //Get Operating System
     public static OSType getOSType() {
         if (detectedOS == null) {
             String os = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH);
@@ -801,6 +807,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
 
     }
 
+    //Check Operating System
     public void CheckOSType() {
         EmployeeScreen.this.getRootPane().setBorder(new LineBorder(new Color(76, 41, 211)));
         TitleLabel.setText(this.getTitle());
