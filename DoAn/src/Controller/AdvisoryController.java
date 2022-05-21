@@ -5,6 +5,7 @@
 package Controller;
 
 import Database.OracleConnection;
+import View.ChangeValue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.sql.*;
@@ -31,7 +32,7 @@ public class AdvisoryController {
                 ad.put("gender",Integer.toString(rs.getInt("gender")));
                 ad.put("phone",rs.getString("phone"));
                 ad.put("province",rs.getString("province"));
-                ad.put("created",this.DateToString(rs.getDate("created")));
+                ad.put("created",ChangeValue.DateToString(rs.getDate("created")));
                 ad.put("yearbirth",Integer.toString(rs.getInt("yearbirth")));
                 ad.put("height",Integer.toString(rs.getInt("height")));
                 ad.put("weight",Integer.toString(rs.getInt("weight")));
@@ -72,7 +73,7 @@ public class AdvisoryController {
                 ad.put("gender",Integer.toString(rs.getInt("gender")));
                 ad.put("phone",rs.getString("phone"));
                 ad.put("province",rs.getString("province"));
-                ad.put("created",this.DateToString(rs.getDate("created")));
+                ad.put("created",ChangeValue.DateToString(rs.getDate("created")));
                 ad.put("yearbirth",Integer.toString(rs.getInt("yearbirth")));
                 ad.put("height",Integer.toString(rs.getInt("height")));
                 ad.put("weight",Integer.toString(rs.getInt("weight")));
@@ -93,10 +94,5 @@ public class AdvisoryController {
             ex.printStackTrace();
         }
         return new ArrayList<HashMap>();
-    }
-    private String DateToString(Date date)
-    {
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/mm/yyyy");
-        return sdf.format(date);
     }
 }
