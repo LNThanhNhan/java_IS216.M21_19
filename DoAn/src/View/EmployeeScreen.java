@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.PersonController;
+import Process.PersonController;
 import Model.Person;
 import Model.PersonTableModel;
 import java.awt.BorderLayout;

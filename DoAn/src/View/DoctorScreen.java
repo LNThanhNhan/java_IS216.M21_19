@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.AdvisoryController;
+import Process.AdvisoryController;
 import javax.swing.table.DefaultTableModel;
 import Model.AdvisoryTableModel;
 import java.util.ArrayList;
