@@ -49,6 +49,18 @@ public class Doctor {
     public Doctor() {
     }
     
+    public Doctor(int iddoc, String username, String name, int gender, String phone, int accademicrank, int subject, String workunits, String province) {
+        this.iddoc = iddoc;
+        this.username = username;
+        this.name = name;
+        this.gender = gender;
+        this.phone = phone;
+        this.accademicrank = accademicrank;
+        this.subject = subject;
+        this.workunits = workunits;
+        this.province = province;
+    }
+    
     public int getIddoc() {
         return iddoc;
     }

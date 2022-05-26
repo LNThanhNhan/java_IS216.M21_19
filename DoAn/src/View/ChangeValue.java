@@ -119,7 +119,7 @@ public class ChangeValue {
     }
     public static String DateToString(Date date)
     {
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(date);
     }
     public static String[] getProvince()

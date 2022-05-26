@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Luong Nguyen Thanh Nhan
  */
 public class AdvisoryTableModel {
-    private String[] listColumn = {"Họ và Tên", "Giới tính","Số điện thoại", "Tỉnh/Thành phố","Ngày tạo", "Năm sinh", "Chiều cao(cm)", "Cân nặng(kg)","Tiền sử bệnh án","Mô tả"}; 
+    private String[] listColumn = {"Mã tư vấn","Họ và Tên", "Giới tính", "Năm sinh","Ngày tạo", "Tỉnh/Thành phố"}; 
     public DefaultTableModel setAdvisoryTable(ArrayList<HashMap> listItem) {
         
         DefaultTableModel dtm = new DefaultTableModel(){
@@ -32,16 +32,12 @@ public class AdvisoryTableModel {
             {
                 HashMap<String,String> ad=listItem.get(i);
                 obj = new Object[column];
-                obj[0]=ad.get("name");
-                if(Integer.parseInt(ad.get("gender"))==1) obj[1]="Nam";else obj[1]="Nữ";
-                obj[2]=ad.get("phone");
-                obj[3]=ad.get("province");
+                obj[0]=ad.get("idad");
+                obj[1]=ad.get("name");
+                if(Integer.parseInt(ad.get("gender"))==1) obj[2]="Nam";else obj[2]="Nữ";
+                obj[3]=ad.get("yearbirth");
                 obj[4]=ad.get("created");
-                obj[5]=ad.get("yearbirth");
-                obj[6]=ad.get("height");
-                obj[7]=ad.get("weight");
-                obj[8]=ad.get("pastmedicalhistory");
-                obj[9]=ad.get("detail");
+                obj[5]=ad.get("province");
                 dtm.addRow(obj);
             }
         }
