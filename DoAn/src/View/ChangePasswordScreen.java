@@ -3,18 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
-
+import Process.AccountController;
+import java.awt.Color;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Luong Nguyen Thanh Nhan
  */
 public class ChangePasswordScreen extends javax.swing.JFrame {
-
+    private AccountController acccon;
     /**
      * Creates new form ChangePasswordScreen
      */
     public ChangePasswordScreen() {
+        acccon=new AccountController();
         initComponents();
+        this.getContentPane().setBackground(new Color(106,197,254));
+        ShowUserNameLabel.setText("user10");
+        setLocationRelativeTo(null);
+    }
+    
+    public ChangePasswordScreen(String username) {
+        acccon=new AccountController();
+        initComponents();
+        this.getContentPane().setBackground(new Color(106,197,254));
+        ShowUserNameLabel.setText(username);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -36,40 +50,42 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
         ConfirmPasswordLabel = new javax.swing.JLabel();
         ConfirmPasswordField = new javax.swing.JPasswordField();
         ChangPasswordButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ĐỔI MẬT KHẨU");
+        setBackground(new java.awt.Color(106, 197, 254));
+        setPreferredSize(new java.awt.Dimension(512, 360));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Đổi mật khẩu của bạn");
 
-        usernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         usernameLabel.setText("Tên tài khoản");
 
-        CurrentPasswordLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CurrentPasswordLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         CurrentPasswordLabel.setText("Mật khẩu hiện tại");
 
-        NewPasswordLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        NewPasswordLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         NewPasswordLabel.setText("Mật khẩu mới");
-
-        NewPasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NewPasswordFieldActionPerformed(evt);
-            }
-        });
 
         ShowUserNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ShowUserNameLabel.setText("username");
 
-        ConfirmPasswordLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ConfirmPasswordLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         ConfirmPasswordLabel.setText("Xác nhận mật khẩu");
 
+        ChangPasswordButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         ChangPasswordButton.setText("Đổi mật khẩu");
+        ChangPasswordButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ChangPasswordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ChangPasswordButtonActionPerformed(evt);
             }
         });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/change_password_bg.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,10 +94,7 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -92,48 +105,80 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
                             .addComponent(NewPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ConfirmPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(219, 219, 219)
-                        .addComponent(ChangPasswordButton)))
-                .addContainerGap(234, Short.MAX_VALUE))
+                        .addGap(188, 188, 188)
+                        .addComponent(ChangPasswordButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(143, 143, 143)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(usernameLabel)
+                            .addComponent(ShowUserNameLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CurrentPasswordLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CurrentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(NewPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(ConfirmPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(usernameLabel)
-                    .addComponent(ShowUserNameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CurrentPasswordLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CurrentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NewPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ConfirmPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(ChangPasswordButton)
-                .addGap(22, 22, 22))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NewPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NewPasswordFieldActionPerformed
-
     private void ChangPasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangPasswordButtonActionPerformed
         // TODO add your handling code here:
-        
+        if(!(new String(NewPasswordField.getPassword()).equals(new String(ConfirmPasswordField.getPassword()))))
+            JOptionPane.showMessageDialog(null, "Mật xác nhận không trùng với mật khẩu mới",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        else if(new String(CurrentPasswordField.getPassword()).equals("")||
+                new String(NewPasswordField.getPassword()).equals("")||
+                new String(ConfirmPasswordField.getPassword()).equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền đủ thông tin",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            int result=acccon.ChangePassword(ShowUserNameLabel.getText(), 
+                                            new String(CurrentPasswordField.getPassword()), 
+                                            new String(NewPasswordField.getPassword()));
+            if(result==1)
+            {
+                JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công");
+                CurrentPasswordField.setText("");
+                NewPasswordField.setText("");
+                ConfirmPasswordField.setText("");
+            }
+            else
+            {
+                CurrentPasswordField.setText("");
+                NewPasswordField.setText("");
+                ConfirmPasswordField.setText("");
+            }
+        }
     }//GEN-LAST:event_ChangPasswordButtonActionPerformed
 
     /**
@@ -147,7 +192,7 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -162,7 +207,9 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ChangePasswordScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -181,6 +228,7 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
     private javax.swing.JLabel NewPasswordLabel;
     private javax.swing.JLabel ShowUserNameLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }
