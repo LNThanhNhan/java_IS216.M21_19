@@ -21,6 +21,7 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
         this.getContentPane().setBackground(new Color(106,197,254));
         ShowUserNameLabel.setText("user10");
         setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
     
     public ChangePasswordScreen(String username) {
@@ -29,6 +30,7 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
         this.getContentPane().setBackground(new Color(106,197,254));
         ShowUserNameLabel.setText(username);
         setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
 
     /**
