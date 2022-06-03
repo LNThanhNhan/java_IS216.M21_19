@@ -6,6 +6,7 @@ package View;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -139,4 +140,17 @@ public class ChangeValue {
     };
         return province;
     }
+
+public static int getValueCheckBox(JCheckBox cb){ 
+        if(cb.isSelected()==true)
+            return 1;
+        else
+            return 0;
+    }
+public static boolean getValueCheckBoxBoolean(int cb){
+    if(cb == 1)
+        return true;
+    else
+        return false;
+}
 }
