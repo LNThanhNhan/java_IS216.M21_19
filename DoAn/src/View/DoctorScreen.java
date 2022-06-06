@@ -442,7 +442,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         pmhTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("HỆ THỐNG HỖ TRỢ BỆNH NHÂN COVID");
+        setTitle("HỆ THỐNG HỖ TRỢ BỆNH NHÂN COVID-19");
         setLocationByPlatform(true);
         setName("DoctorFrame"); // NOI18N
         setUndecorated(true);
@@ -933,7 +933,7 @@ public class DoctorScreen extends javax.swing.JFrame {
             ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ChangePasswordButtonLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1277,7 +1277,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         PhoneWaitLabel.setText("null");
 
         jLabel33.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel33.setText("TIền sử bệnh án");
+        jLabel33.setText("Tiền sử bệnh án");
 
         pmhTextArea.setEditable(false);
         pmhTextArea.setColumns(20);

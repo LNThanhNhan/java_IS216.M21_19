@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="H&#x1ec6; TH&#x1ed0;NG H&#x1ed6; TR&#x1ee2; B&#x1ec6;NH NH&#xc2;N COVID"/>
+    <Property name="title" type="java.lang.String" value="H&#x1ec6; TH&#x1ed0;NG H&#x1ed6; TR&#x1ee2; B&#x1ec6;NH NH&#xc2;N COVID-19"/>
     <Property name="locationByPlatform" type="boolean" value="true"/>
     <Property name="name" type="java.lang.String" value="DoctorFrame" noResource="true"/>
     <Property name="undecorated" type="boolean" value="true"/>
@@ -1014,9 +1014,9 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -1865,7 +1865,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI Semibold" size="14" style="0"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="TI&#x1ec1;n s&#x1eed; b&#x1ec7;nh &#xe1;n"/>
+                            <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n s&#x1eed; b&#x1ec7;nh &#xe1;n"/>
                           </Properties>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane6">
