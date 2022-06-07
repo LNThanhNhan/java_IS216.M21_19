@@ -379,7 +379,19 @@ public class PersonScreen extends javax.swing.JFrame {
     }
 
 }
-    
+    private void setPersonInformation()
+    {
+        NameLabel.setText(person.getName());
+        UsernameLabel.setText(person.getUsername());
+        IdperLabel.setText(Integer.toString(person.getIdper()));
+        GenderLabel.setText(ChangeValue.Gender(person.getGender()));
+        PhoneLabel.setText(person.getPhone());
+        ProvinceLabel.setText(person.getProvince());
+        DistrictLabel.setText(person.getDistrict());
+        TownLabel.setText(person.getTown());
+        AddressLabel.setText(person.getAddress());
+        StatusLabel.setText(ChangeValue.PersonStatus(person.getStatus()));
+    }
     public PersonScreen() {
         initComponents();
         person = new Person(2,"user32","Phạm Duy Anh",0,"0962475039","Gia Lai","Chư Sê","Chư Sê","904B Hùng Vương",0);
@@ -390,6 +402,8 @@ public class PersonScreen extends javax.swing.JFrame {
         
         setTableManageSupply(person.getIdper());
         setTableManageAdvisory(person.getIdper());
+        
+        setPersonInformation();
         resizeColumnWidth(AdvisoryTable);
         resizeColumnWidth(SupplyTable);
         
@@ -433,7 +447,10 @@ public class PersonScreen extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
         RightPanel = new javax.swing.JPanel();
         card1Panel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -494,7 +511,27 @@ public class PersonScreen extends javax.swing.JFrame {
         card3Panel = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
+        NameLabel = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        DistrictLabel = new javax.swing.JLabel();
+        TownLabel = new javax.swing.JLabel();
+        AddressLabel = new javax.swing.JLabel();
+        ProvinceLabel = new javax.swing.JLabel();
+        GenderLabel = new javax.swing.JLabel();
+        PhoneLabel = new javax.swing.JLabel();
+        UsernameLabel = new javax.swing.JLabel();
+        IdperLabel = new javax.swing.JLabel();
+        StatusLabel = new javax.swing.JLabel();
         card4Panel = new javax.swing.JPanel();
 
         UpdateSupplyMenuItem.setText("Sửa");
@@ -711,8 +748,9 @@ public class PersonScreen extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel9.setText("QUẢN LÝ THÔNG TIN");
 
-        jLabel23.setIcon(new javax.swing.ImageIcon("D:\\java_IS216.M21_19\\DoAn\\src\\Resource\\Logo_small.png")); // NOI18N
-        jLabel23.setText("jLabel23");
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Logo_small.png"))); // NOI18N
+
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/280330629_550982506429944_1903421778733697740_n.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -725,32 +763,55 @@ public class PersonScreen extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(index1Panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 38, Short.MAX_VALUE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel8))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel33))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(jLabel34)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jLabel23)
-                .addGap(57, 57, 57)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel21)
+                        .addGap(131, 131, 131))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel33)
+                        .addGap(18, 18, 18)))
                 .addComponent(jLabel9)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(index1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(index2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(index3Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(index4Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         ParentPanel.add(jPanel2, java.awt.BorderLayout.LINE_START);
@@ -922,7 +983,7 @@ public class PersonScreen extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddSupplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DeleteSupplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -990,7 +1051,7 @@ public class PersonScreen extends javax.swing.JFrame {
                     .addComponent(HaveStatus1CheckBox)
                     .addComponent(SearchSupplyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1008,13 +1069,14 @@ public class PersonScreen extends javax.swing.JFrame {
         card1PanelLayout.setVerticalGroup(
             card1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(card1PanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(card1PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(card1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(card1PanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(card1PanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         RightPanel.add(card1Panel, "card1");
@@ -1215,13 +1277,13 @@ public class PersonScreen extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddAdvisoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DeleteAdvisoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UpdateAdvisoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RefeshAdvisoryButton))
-                .addGap(47, 47, 47))
+                .addGap(56, 56, 56))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1288,8 +1350,8 @@ public class PersonScreen extends javax.swing.JFrame {
                     .addComponent(AdvisorySearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(HaveStatus1CheckBox1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout card2PanelLayout = new javax.swing.GroupLayout(card2Panel);
@@ -1307,10 +1369,10 @@ public class PersonScreen extends javax.swing.JFrame {
             card2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, card2PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(card2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(card2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(card2PanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 14, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1335,29 +1397,140 @@ public class PersonScreen extends javax.swing.JFrame {
         jPanel21.setBackground(new java.awt.Color(255, 255, 255));
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder("THÔNG TIN TÀI KHOẢN"));
 
+        NameLabel.setText("Tên người dùng");
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel29.setText("NGƯỜI DÙNG");
+
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NameLabel)
+                    .addComponent(jLabel29))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel29)
+                .addGap(33, 33, 33)
+                .addComponent(NameLabel)
+                .addGap(166, 166, 166))
         );
 
         jPanel22.setBackground(new java.awt.Color(255, 255, 255));
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder("THÔNG TIN CÁ NHÂN"));
 
+        jLabel25.setText("Mã người dùng");
+
+        jLabel23.setText("Tên tài khoản");
+
+        jLabel24.setText("Giới tính");
+
+        jLabel26.setText("Số điện thoại");
+
+        jLabel27.setText("Tỉnh, thành phố");
+
+        jLabel28.setText("Quận, Huyện, Thị Xã");
+
+        jLabel30.setText("Xã, Phường, Thị trấn");
+
+        jLabel31.setText("Địa chỉ ");
+
+        jLabel32.setText("Tình trạng của tài khoản");
+
+        DistrictLabel.setText("null");
+
+        TownLabel.setText("null");
+
+        AddressLabel.setText("null");
+
+        ProvinceLabel.setText("null");
+
+        GenderLabel.setText("null");
+
+        PhoneLabel.setText("null");
+
+        UsernameLabel.setText("null");
+
+        IdperLabel.setText("null");
+
+        StatusLabel.setText("null");
+
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 492, Short.MAX_VALUE)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel31)
+                    .addComponent(jLabel32))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(StatusLabel)
+                    .addComponent(AddressLabel)
+                    .addComponent(TownLabel)
+                    .addComponent(DistrictLabel)
+                    .addComponent(ProvinceLabel)
+                    .addComponent(PhoneLabel)
+                    .addComponent(GenderLabel)
+                    .addComponent(UsernameLabel)
+                    .addComponent(IdperLabel))
+                .addContainerGap(289, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(IdperLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(UsernameLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(GenderLabel))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(PhoneLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(ProvinceLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(DistrictLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(TownLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(AddressLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(StatusLabel))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout card3PanelLayout = new javax.swing.GroupLayout(card3Panel);
@@ -1396,7 +1569,7 @@ public class PersonScreen extends javax.swing.JFrame {
         );
         card4PanelLayout.setVerticalGroup(
             card4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 603, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
 
         RightPanel.add(card4Panel, "card4");
@@ -1813,6 +1986,7 @@ public class PersonScreen extends javax.swing.JFrame {
     private javax.swing.JPanel ActionsPanel;
     private javax.swing.JButton AddAdvisoryButton;
     private javax.swing.JButton AddSupplyButton;
+    private javax.swing.JLabel AddressLabel;
     private javax.swing.JPopupMenu AdvisoryPopupMenu;
     private javax.swing.JTextField AdvisorySearchTextField;
     private javax.swing.JTable AdvisoryTable;
@@ -1825,35 +1999,44 @@ public class PersonScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem DeleteSupplyMenuItem;
     private javax.swing.JTextArea DetailAdTextField;
     private javax.swing.JTextArea DetailTextField;
+    private javax.swing.JLabel DistrictLabel;
+    private javax.swing.JLabel GenderLabel;
     private javax.swing.JCheckBox HaveStatus1CheckBox;
     private javax.swing.JCheckBox HaveStatus1CheckBox1;
     private javax.swing.JTextField HeightTextField;
     private javax.swing.JTextField IdadTextField;
+    private javax.swing.JLabel IdperLabel;
     private javax.swing.JTextField IdsupTextField;
     private javax.swing.JLabel MaximizeLabel;
     private javax.swing.JLabel MinimizeLabel;
     private javax.swing.JTextField NameDoctorTextField;
+    private javax.swing.JLabel NameLabel;
     private javax.swing.JTextField NameTextField;
     private javax.swing.JCheckBox NeedEquipCheckBox;
     private javax.swing.JCheckBox NeedFoodCheckBox;
     private javax.swing.JCheckBox NeedNecessCheckBox;
     private javax.swing.JPanel ParentPanel;
     private javax.swing.JTextArea PastMedicalHistoryTextField;
+    private javax.swing.JLabel PhoneLabel;
+    private javax.swing.JLabel ProvinceLabel;
     private javax.swing.JButton RefeshAdvisoryButton;
     private javax.swing.JButton RefeshSupplyButton;
     private javax.swing.JPanel RightPanel;
     private javax.swing.JTextField SearchSupplyTextField;
     private javax.swing.JTextField StatusAdTextField;
+    private javax.swing.JLabel StatusLabel;
     private javax.swing.JTextField StatusTextField;
     private javax.swing.JPopupMenu SupplyPopupMenu;
     private javax.swing.JTable SupplyTable;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JPanel TitlePanel;
     private javax.swing.JPanel TopPanel;
+    private javax.swing.JLabel TownLabel;
     private javax.swing.JButton UpdateAdvisoryButton;
     private javax.swing.JMenuItem UpdateAdvisoryMenuItem;
     private javax.swing.JButton UpdateSupplyButton;
     private javax.swing.JMenuItem UpdateSupplyMenuItem;
+    private javax.swing.JLabel UsernameLabel;
     private javax.swing.JTextField WeightTextField;
     private javax.swing.JTextField YearBirthTextField;
     private javax.swing.JPanel card1Panel;
@@ -1881,8 +2064,21 @@ public class PersonScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

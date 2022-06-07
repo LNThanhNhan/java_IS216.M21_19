@@ -306,7 +306,7 @@ public class CharityScreen extends javax.swing.JFrame {
         handleComboBoxEventForSearchScreen();
         setDoctorInformation();
         addSelectRowEventForSearchScreen();
-        DoctorAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/doctorNu.png")));
+      //  DoctorAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/doctorNu.png")));
         //=============================================================
         //Bỏ chi tiết yêu cầu đang chờ vào scrollpane
         jScrollPane2.getViewport().setView(DetailPanel);

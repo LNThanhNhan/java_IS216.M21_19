@@ -257,7 +257,9 @@ public class SupplyController {
             else if (sqlex.getErrorCode() == 20081){
                 JOptionPane.showMessageDialog(null, "Yêu cầu tiếp tế này không còn tồn tại",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
-            
+            else if (sqlex.getErrorCode() == 2290){
+                JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);}
             return 1;
         }
         
