@@ -295,6 +295,7 @@ public class DoctorScreen extends javax.swing.JFrame {
     public DoctorScreen() {
         adcon = new AdvisoryController();
         doctor=new Doctor(10,"user10","Trần Văn B",0,"0937976863",1,2,"Bệnh viện K","Hà Nội");
+        this.setPreferredSize(new Dimension(1270, 540));
         initComponents();
         setLocationRelativeTo(null);
         SetTableColor(AdvisoryTable);
@@ -330,8 +331,6 @@ public class DoctorScreen extends javax.swing.JFrame {
         TopPanel = new javax.swing.JPanel();
         ActionsPanel = new javax.swing.JPanel();
         MinimizeButton = new javax.swing.JLabel();
-        MaximizeButton = new javax.swing.JLabel();
-        CloseLabel = new javax.swing.JLabel();
         TitlePanel = new javax.swing.JPanel();
         TitleLabel = new javax.swing.JLabel();
         ParentPanel = new javax.swing.JPanel();
@@ -468,6 +467,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         ActionsPanel.setBackground(new java.awt.Color(106, 128, 254));
         ActionsPanel.setMinimumSize(new java.awt.Dimension(200, 30));
         ActionsPanel.setPreferredSize(new java.awt.Dimension(150, 30));
+        ActionsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         MinimizeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/web-page.png"))); // NOI18N
         MinimizeButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -476,22 +476,6 @@ public class DoctorScreen extends javax.swing.JFrame {
             }
         });
         ActionsPanel.add(MinimizeButton);
-
-        MaximizeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/maximize.png"))); // NOI18N
-        MaximizeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                MaximizeButtonMousePressed(evt);
-            }
-        });
-        ActionsPanel.add(MaximizeButton);
-
-        CloseLabel.setPreferredSize(new java.awt.Dimension(18, 18));
-        CloseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                CloseLabelMousePressed(evt);
-            }
-        });
-        ActionsPanel.add(CloseLabel);
 
         TopPanel.add(ActionsPanel, java.awt.BorderLayout.LINE_END);
 
@@ -509,6 +493,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         LeftPanel.setPreferredSize(new java.awt.Dimension(230, 570));
 
         index1Panel.setBackground(new java.awt.Color(106, 197, 254));
+        index1Panel.setFont(new java.awt.Font("Cascadia Code", 1, 12)); // NOI18N
         index1Panel.setPreferredSize(new java.awt.Dimension(174, 50));
         index1Panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -736,10 +721,10 @@ public class DoctorScreen extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("CHI TIẾT YÊU CẦU"));
         jPanel1.setPreferredSize(new java.awt.Dimension(300, 485));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         jLabel5.setText("Họ và tên");
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("Giới tính");
 
         NameValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -754,7 +739,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         YearbirthValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         YearbirthValueLabel.setText("null");
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         jLabel19.setText("Mã tư vấn");
 
         IdadValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -766,19 +751,19 @@ public class DoctorScreen extends javax.swing.JFrame {
         DetailTextArea.setWrapStyleWord(true);
         jScrollPane3.setViewportView(DetailTextArea);
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel21.setText("Tỉnh/Thành phố");
 
         ProvinceValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ProvinceValueLabel.setText("null");
 
-        CreatedValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CreatedValueLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
         CreatedValueLabel.setText("null");
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setText("Ngày tạo");
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         jLabel25.setText("Mô tả vấn đề cần tư vấn");
 
         AcceptButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/ChapNhanButton.png"))); // NOI18N
@@ -819,14 +804,14 @@ public class DoctorScreen extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(YearbirthValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(25, 25, 25)
+                                    .addComponent(jLabel21)
+                                    .addGap(17, 17, 17)
                                     .addComponent(ProvinceValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(CreatedValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel25))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel19)
@@ -1472,22 +1457,6 @@ public class DoctorScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MinimizeButtonMousePressed
 
-    private void MaximizeButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MaximizeButtonMousePressed
-        // TODO add your handling code here:
-
-        if (DoctorScreen.this.getExtendedState() == MAXIMIZED_BOTH) {
-            DoctorScreen.this.setExtendedState(JFrame.NORMAL);
-        } else {
-            DoctorScreen.this.setExtendedState(MAXIMIZED_BOTH);
-        }
-
-    }//GEN-LAST:event_MaximizeButtonMousePressed
-
-    private void CloseLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseLabelMousePressed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_CloseLabelMousePressed
-
     private void index1PanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_index1PanelMousePressed
         // TODO add your handling code here:
         setColor(index1Panel);
@@ -1672,12 +1641,8 @@ public class DoctorScreen extends javax.swing.JFrame {
             TopPanel.add(TitlePanel, BorderLayout.EAST);
             TopPanel.add(ActionsPanel, BorderLayout.WEST);
 
-            ActionsPanel.remove(CloseLabel);
-            ActionsPanel.remove(MaximizeButton);
             ActionsPanel.remove(MinimizeButton);
 
-            ActionsPanel.add(CloseLabel);
-            ActionsPanel.add(MaximizeButton);
             ActionsPanel.add(MinimizeButton);
 
             TitlePanel.remove(TitleLabel);
@@ -1692,13 +1657,9 @@ public class DoctorScreen extends javax.swing.JFrame {
             TopPanel.add(TitlePanel, BorderLayout.WEST);
             TopPanel.add(ActionsPanel, BorderLayout.EAST);
 
-            ActionsPanel.remove(CloseLabel);
-            ActionsPanel.remove(MaximizeButton);
             ActionsPanel.remove(MinimizeButton);
 
             ActionsPanel.add(MinimizeButton);
-            ActionsPanel.add(MaximizeButton);
-            ActionsPanel.add(CloseLabel);
 
             TitlePanel.remove(TitleLabel);
             TitlePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 8));
@@ -1750,7 +1711,6 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JPanel ActionsPanel;
     private javax.swing.JTable AdvisoryTable;
     private javax.swing.JPanel ChangePasswordButton;
-    private javax.swing.JLabel CloseLabel;
     private javax.swing.JLabel CreatedValueLabel;
     private javax.swing.JLabel CreatedWaitLabel;
     private javax.swing.JPanel DetailPanel;
@@ -1774,7 +1734,6 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JLabel LogoLabel;
     private javax.swing.JLabel LogoutLabel;
     private javax.swing.JLabel MapLabel;
-    private javax.swing.JLabel MaximizeButton;
     private javax.swing.JLabel MinimizeButton;
     private javax.swing.JLabel NameValueLabel;
     private javax.swing.JLabel NameWaitLabel;
