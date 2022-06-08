@@ -42,4 +42,37 @@ public class SupplyTableModel {
         }
         return dtm;
     }
+    
+    
+    
+    
+    
+    private String[] listColumnCharity = {"Mã tiếp tế","Họ và Tên","Ngày tạo", "Tỉnh/Thành phố"}; 
+    public DefaultTableModel setSupplyTableCharity(ArrayList<HashMap> listItem) {
+        
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };;
+        dtm.setColumnIdentifiers(listColumnCharity);
+        int rows=listItem.size();
+        int column = listColumnCharity.length;
+        Object[] obj = null;
+        if(rows>0)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                HashMap<String,String> ad=listItem.get(i);
+                obj = new Object[column];
+                obj[0]=ad.get("idsup");
+                obj[1]=ad.get("name");
+                obj[2]=ad.get("created");
+                obj[3]=ad.get("province");
+                dtm.addRow(obj);
+            }
+        }
+        return dtm;
+    }
 }

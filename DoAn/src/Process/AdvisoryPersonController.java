@@ -231,11 +231,11 @@ public class AdvisoryPersonController {
             
             ps.close();
             con.close();
-//        } catch (SQLException sqlex) {
-//            if (sqlex.getErrorCode() == 20172){
-//                JOptionPane.showMessageDialog(null, "Trạng thái yêu cầu không hợp lệ!",
-//                        "Lỗi!", JOptionPane.ERROR_MESSAGE);}
-//            return 1;
+        } catch (SQLException sqlex) {
+            if (sqlex.getErrorCode() == 20172){
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn một yêu cầu trước khi sửa",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);}
+            return 1;
         }
         
         catch (Exception ex) {

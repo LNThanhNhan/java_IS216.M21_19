@@ -48,7 +48,20 @@ public class Charity {
 
     public Charity() {
     }
-
+public Charity(int idchar, String username, String name, String phone, String province, String district, String town, String address, int hasfood, int hasnecess, int hasequip, int point) {
+        this.idchar = idchar;
+        this.username = username;
+        this.name = name;
+        this.phone = phone;
+        this.province = province;
+        this.district = district;
+        this.town = town;
+        this.address = address;
+        this.hasfood = hasfood;
+        this.hasnecess = hasnecess;
+        this.hasequip = hasequip;
+        this.point = point;
+    }
     public int getIdchar() {
         return idchar;
     }
