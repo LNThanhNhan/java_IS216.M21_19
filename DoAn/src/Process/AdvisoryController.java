@@ -239,12 +239,14 @@ public class AdvisoryController {
     {
         try{
             con = OracleConnection.getOracleConnection();
+            con.setAutoCommit(false);
             String CallProc = "{call PROC_ACCEPT_ADVISORY(?,?)}";
             CallableStatement callSt=con.prepareCall(CallProc);;
             callSt.setString(1,iddoc);
             callSt.setString(2,idad);
             callSt.execute();
             callSt.close();
+            con.commit();
             con.close();
             return 1;
         }catch (SQLException sqle) {
