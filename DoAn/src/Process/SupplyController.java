@@ -517,7 +517,7 @@ public class SupplyController {
         try{
             con = OracleConnection.getOracleConnection();
             String CallProc = "{call PROC_ACCEPT_SUPPLY(?,?)}";
-            CallableStatement callSt=con.prepareCall(CallProc);;
+            CallableStatement callSt=con.prepareCall(CallProc);
             callSt.setString(1,idchar);
             callSt.setString(2,idsup);
             callSt.execute();
@@ -528,10 +528,13 @@ public class SupplyController {
             if (sqle.getErrorCode() == 20212)
                 JOptionPane.showMessageDialog(null, "Trạng thái yêu cầu này không hợp lệ để nhận, vui lòng tải lại!",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);
-            else if (sqle.getErrorCode() == 20212)
+            else if (sqle.getErrorCode() == 20213)
+                JOptionPane.showMessageDialog(null, "Không đủ điều kiện chấp nhận yêu cầu này!",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+            else if (sqle.getErrorCode() == 20214)
                 JOptionPane.showMessageDialog(null, "Yêu cầu này không còn tồn tại, vui lòng tải lại!",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);
-            sqle.printStackTrace();
+            //sqle.printStackTrace();
         } catch (UnsupportedOperationException e) {
             e.printStackTrace();
         }catch (Exception ex) {

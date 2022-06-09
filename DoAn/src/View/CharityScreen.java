@@ -297,7 +297,7 @@ public class CharityScreen extends javax.swing.JFrame {
     }
     public CharityScreen() {    
         supcon = new SupplyController();
-        charity=new Charity(10,"user20","Tiếp Sức","0967596794","Hồ Chí Minh","1","Cầu Ông Lãnh", "31 Đường 10",1,1,1,120);
+        charity=new Charity(10,"user20","Tiếp Sức","0967596794","Hồ Chí Minh","1","Cầu Ông Lãnh", "31 Đường 10",0,1,1,120);
         initComponents();
         setLocationRelativeTo(null);
         SetTableColor(SupplyTable);
