@@ -112,7 +112,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         {
             if(e.getStateChange()==ItemEvent.SELECTED)
             {
-                if(0==ProvinceComboBox.getSelectedIndex())
+                if(0!=ProvinceComboBox.getSelectedIndex())
                 {
                     refreshForSearchScreen();
                     //Dung để thực hiện xử lý truy xuất đồng thời 

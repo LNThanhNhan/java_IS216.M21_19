@@ -171,7 +171,7 @@ public class AdvisoryPersonController {
             if (sqlex.getErrorCode() == 20003)
             {
                 JOptionPane.showMessageDialog(null, "Không thể gửi thêm yêu cầu khi yêu cầu trước chưa được hoàn thành!",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+                        "Lỗi!", JOptionPane.WARNING_MESSAGE);
             }
             return 1;
         } 
@@ -233,7 +233,7 @@ public class AdvisoryPersonController {
             con.close();
         } catch (SQLException sqlex) {
             if (sqlex.getErrorCode() == 20172){
-                JOptionPane.showMessageDialog(null, "Vui lòng chọn một yêu cầu trước khi sửa",
+                JOptionPane.showMessageDialog(null, "Trạng thái đơn yêu cầu không hợp lệ",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
             return 1;
         }

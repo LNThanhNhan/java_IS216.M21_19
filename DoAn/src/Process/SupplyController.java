@@ -188,19 +188,24 @@ public class SupplyController {
             if (sqlex.getErrorCode() == 1400)
             {
                 JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
-            } else if (sqlex.getErrorCode() == 20500)
+                        "Lỗi!", JOptionPane.WARNING_MESSAGE);
+            }
+            else if (sqlex.getErrorCode() == 2290)
+            {
+                JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
+                        "Lỗi!", JOptionPane.WARNING_MESSAGE);
+            }else if (sqlex.getErrorCode() == 20500)
             {
                 JOptionPane.showMessageDialog(null, "Yêu cầu về lương thực chưa được hoàn thành",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+                        "Lỗi!", JOptionPane.WARNING_MESSAGE);
             } else if (sqlex.getErrorCode() == 20501)
             {
                 JOptionPane.showMessageDialog(null, "Yêu cầu về nhu yếu phẩm chưa được hoàn thành",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+                        "Lỗi!", JOptionPane.WARNING_MESSAGE);
             } else if (sqlex.getErrorCode() == 20502)
             {
                 JOptionPane.showMessageDialog(null, "Yêu cầu về vật dụng chưa được hoàn thành",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+                        "Lỗi!", JOptionPane.WARNING_MESSAGE);
             } else if (sqlex.getErrorCode() == 20010)
             {
                 JOptionPane.showMessageDialog(null, "Người dùng không tồn tại!",
@@ -231,10 +236,12 @@ public class SupplyController {
         } catch (SQLException sqlex) {
             if (sqlex.getErrorCode() == 20152) {
                 JOptionPane.showMessageDialog(null, "Trạng thái yêu cầu không hợp lệ, không thể xóa!",
+                        "Cảnh báo!", JOptionPane.ERROR_MESSAGE);
+            }else if (sqlex.getErrorCode() == 20153) {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn một yêu cầu trước khi xóa!",
                         "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
-            }
+            } 
             return 1;
-            
         } catch (Exception ex)
         {
             ex.printStackTrace();
@@ -262,15 +269,18 @@ public class SupplyController {
             ps.close();
             con.close();
         } catch (SQLException sqlex) {
-            if (sqlex.getErrorCode() == 1407){
-                JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
+            if (sqlex.getErrorCode() == 20142){
+                JOptionPane.showMessageDialog(null, "Trạng thái yêu cầu không hợp lệ!",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
+//            else if (sqlex.getErrorCode() == 1407){
+//                JOptionPane.showMessageDialog(null, "Vui lòng chọn tối thiểu một danh mục cần tiếp tế!",
+//                        "Lỗi!", JOptionPane.WARNING_MESSAGE);}
             else if (sqlex.getErrorCode() == 20081){
                 JOptionPane.showMessageDialog(null, "Yêu cầu tiếp tế này không còn tồn tại",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
             else if (sqlex.getErrorCode() == 2290){
-                JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);}
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn tối thiểu một danh mục cần tiếp tế!",
+                        "Lỗi!", JOptionPane.WARNING_MESSAGE);}
             return 1;
         }
         

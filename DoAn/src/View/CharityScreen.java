@@ -144,12 +144,11 @@ public class CharityScreen extends javax.swing.JFrame {
                 IdsupValueLabel.setText(Supply.get("idsup"));
                 NameValueLabel.setText(Supply.get("name"));
                 GenderValueLabel.setText(ChangeValue.Gender(Integer.parseInt(Supply.get("gender"))));
-                YearbirthValueLabel.setText(Supply.get("yearbirth"));
                 ProvinceValueLabel.setText(Supply.get("province"));
                 CreatedValueLabel.setText(Supply.get("created"));
-                NeedFoodValueLabel.setText(Supply.get("needfood"));
-                NeedNecessValueLabel.setText(Supply.get("neednecess"));
-                NeedEquipValueLabel.setText(Supply.get("needequip"));
+                NeedFoodValueLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("needfood"))));
+                NeedNecessValueLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("neednecess"))));
+                NeedEquipValueLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("needequip"))));
                 DetailTextArea.setText(Supply.get("detail"));
             } catch (IndexOutOfBoundsException ex) {
                 //Lỗi này phát sinh khi nạp lại bảng dữ liệu thì chỉ số 
@@ -166,7 +165,6 @@ public class CharityScreen extends javax.swing.JFrame {
         IdsupValueLabel.setText("null");
         NameValueLabel.setText("null");
         GenderValueLabel.setText("null");
-        YearbirthValueLabel.setText("null");
         ProvinceValueLabel.setText("null");
         CreatedValueLabel.setText("null");
         NeedFoodValueLabel.setText("null");
@@ -250,12 +248,11 @@ public class CharityScreen extends javax.swing.JFrame {
                 IdsupWaitLabel.setText(Supply.get("idsup"));
                 NameWaitLabel.setText(Supply.get("name"));
                 GenderWaitLabel.setText(ChangeValue.Gender(Integer.parseInt(Supply.get("gender"))));
-                YearbirthWaitLabel.setText(Supply.get("yearbirth"));
                 ProvinceWaitLabel.setText(Supply.get("province"));
                 CreatedWaitLabel.setText(Supply.get("created"));
-                NeedFoodWaitLabel.setText(Supply.get("needfood"));
-                NeedNecessWaitLabel.setText(Supply.get("needness"));
-                NeedEquipWaitLabel.setText(Supply.get("needequip"));
+                NeedFoodWaitLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("needfood"))));
+                NeedNecessWaitLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("neednecess"))));
+                NeedEquipWaitLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("needequip"))));
                 PhoneWaitLabel.setText(Supply.get("phone"));
                 DetailWaitTextArea.setText(Supply.get("detail"));
             } catch (IndexOutOfBoundsException ex) {
@@ -271,7 +268,6 @@ public class CharityScreen extends javax.swing.JFrame {
         IdsupWaitLabel.setText("null");
         NameWaitLabel.setText("null");
         GenderWaitLabel.setText("null");
-        YearbirthWaitLabel.setText("null");
         ProvinceWaitLabel.setText("null");
         CreatedWaitLabel.setText("null");
         NeedFoodWaitLabel.setText("null");
@@ -313,10 +309,6 @@ public class CharityScreen extends javax.swing.JFrame {
         handleComboBoxEventForSearchScreen();
         setDoctorInformation();
         addSelectRowEventForSearchScreen();
-       // DoctorAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/doctorNu.png")));
-        //=============================================================
-        //Bỏ chi tiết yêu cầu đang chờ vào scrollpane
-        jScrollPane2.getViewport().setView(DetailPanel);
         
         setWaitSupplyTableSize();
         getComboboxItemForWaitScreen();
@@ -371,8 +363,6 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         NameValueLabel = new javax.swing.JLabel();
         GenderValueLabel = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        YearbirthValueLabel = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         IdsupValueLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -396,14 +386,11 @@ public class CharityScreen extends javax.swing.JFrame {
         WaitSupplyTable = new javax.swing.JTable();
         ProvinceWaitSupComboBox = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
         DetailPanel = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         NameWaitLabel = new javax.swing.JLabel();
         GenderWaitLabel = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        YearbirthWaitLabel = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         IdsupWaitLabel = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -683,7 +670,7 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addComponent(index3Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(index4Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         ParentPanel.add(LeftPanel, java.awt.BorderLayout.LINE_START);
@@ -723,13 +710,13 @@ public class CharityScreen extends javax.swing.JFrame {
         SearchPanelLayout.setVerticalGroup(
             SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SearchPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ProvinceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("CHI TIẾT YÊU CẦU"));
@@ -746,12 +733,6 @@ public class CharityScreen extends javax.swing.JFrame {
 
         GenderValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         GenderValueLabel.setText("null");
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel17.setText("Năm sinh");
-
-        YearbirthValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        YearbirthValueLabel.setText("null");
 
         jLabel19.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel19.setText("Mã tiếp tế");
@@ -828,104 +809,99 @@ public class CharityScreen extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(AcceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(112, 112, 112))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(NameValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(NeedNecessValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(GenderValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(YearbirthValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(25, 25, 25)
-                                    .addComponent(ProvinceValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(CreatedValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(NeedFoodValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(NeedEquipValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 8, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(18, 18, 18)
                         .addComponent(IdsupValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RefeshButton)))
+                        .addComponent(RefeshButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(GenderValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ProvinceValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(CreatedValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(NameValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(NeedFoodValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel25)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(NeedNecessValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(NeedEquipValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 11, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(AcceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RefeshButton)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
-                            .addComponent(IdsupValueLabel)))
-                    .addComponent(RefeshButton))
-                .addGap(19, 19, 19)
+                            .addComponent(IdsupValueLabel))))
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(NameValueLabel)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
+                    .addComponent(jLabel5))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GenderValueLabel)
-                    .addComponent(jLabel17)
-                    .addComponent(YearbirthValueLabel))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel14))
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ProvinceValueLabel)
                     .addComponent(jLabel21))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(CreatedValueLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CreatedValueLabel)
+                    .addComponent(jLabel24))
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
-                    .addComponent(NeedFoodValueLabel)
-                    .addComponent(jLabel28)
-                    .addComponent(NeedEquipValueLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(NeedFoodValueLabel))
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel32)
-                    .addComponent(NeedNecessValueLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NeedNecessValueLabel)
+                    .addComponent(jLabel32))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NeedEquipValueLabel)
+                    .addComponent(jLabel28))
+                .addGap(12, 12, 12)
                 .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(AcceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout FindSupplyPanelLayout = new javax.swing.GroupLayout(FindSupplyPanel);
@@ -936,17 +912,17 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(SearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 250, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 253, Short.MAX_VALUE))
         );
         FindSupplyPanelLayout.setVerticalGroup(
             FindSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FindSupplyPanelLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addGroup(FindSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SearchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(22, 22, 22))
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addGroup(FindSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
 
         RightPanel.add(FindSupplyPanel, "FindAdvisoryPanel");
@@ -992,8 +968,6 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(300, 485));
-
         DetailPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("CHI TIẾT YÊU CẦU"));
         DetailPanel.setPreferredSize(new java.awt.Dimension(332, 508));
 
@@ -1008,12 +982,6 @@ public class CharityScreen extends javax.swing.JFrame {
 
         GenderWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         GenderWaitLabel.setText("null");
-
-        jLabel20.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel20.setText("Năm sinh");
-
-        YearbirthWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        YearbirthWaitLabel.setText("null");
 
         jLabel22.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel22.setText("Mã tiếp tế");
@@ -1122,117 +1090,111 @@ public class CharityScreen extends javax.swing.JFrame {
                         .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane5)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel22)
-                                .addGap(18, 18, 18)
-                                .addComponent(IdsupWaitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(WaitRefeshButton))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
                                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ProvinceWaitLabel))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(GenderWaitLabel))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel26)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(CreatedWaitLabel))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(NeedFoodWaitLabel))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel33)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(NeedEquipWaitLabel))
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(NameWaitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(GenderWaitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(YearbirthWaitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(DetailPanelLayout.createSequentialGroup()
-                                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(25, 25, 25)
-                                            .addComponent(ProvinceWaitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(CreatedWaitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 24, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(NeedEquipWaitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(DetailPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(NeedFoodWaitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel29)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(NeedNecessWaitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(NameWaitLabel)))
+                                .addGap(0, 172, Short.MAX_VALUE)))
                         .addContainerGap())
-                    .addGroup(DetailPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PhoneWaitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(118, 118, 118))
                     .addGroup(DetailPanelLayout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(FinishButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(CancelButtonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))))
+                        .addComponent(CancelButtonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38))
+                    .addGroup(DetailPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(18, 18, 18)
+                        .addComponent(IdsupWaitLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(WaitRefeshButton)
+                        .addContainerGap())
+                    .addGroup(DetailPanelLayout.createSequentialGroup()
+                        .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(DetailPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel29)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(NeedNecessWaitLabel))
+                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PhoneWaitLabel)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         DetailPanelLayout.setVerticalGroup(
             DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DetailPanelLayout.createSequentialGroup()
                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DetailPanelLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addComponent(WaitRefeshButton)
+                        .addGap(12, 12, 12)
                         .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
-                            .addComponent(IdsupWaitLabel)))
-                    .addComponent(WaitRefeshButton))
-                .addGap(13, 13, 13)
-                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NameWaitLabel)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(NameWaitLabel)
+                            .addComponent(jLabel16)))
+                    .addGroup(DetailPanelLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(IdsupWaitLabel)
+                            .addComponent(jLabel22))))
+                .addGap(12, 12, 12)
                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(GenderWaitLabel)
-                    .addComponent(jLabel20)
-                    .addComponent(YearbirthWaitLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(GenderWaitLabel))
+                .addGap(12, 12, 12)
                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ProvinceWaitLabel)
                     .addComponent(jLabel23))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CreatedWaitLabel)
-                    .addComponent(jLabel26))
-                .addGap(13, 13, 13)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(12, 12, 12)
                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel29)
-                        .addComponent(NeedNecessWaitLabel))
-                    .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)
-                        .addComponent(NeedFoodWaitLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NeedFoodWaitLabel)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(12, 12, 12)
+                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NeedNecessWaitLabel)
+                    .addComponent(jLabel29))
+                .addGap(12, 12, 12)
+                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel33)
                     .addComponent(NeedEquipWaitLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
                     .addComponent(PhoneWaitLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel27)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CancelButtonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FinishButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
-
-        jScrollPane2.setViewportView(DetailPanel);
 
         javax.swing.GroupLayout WaitingSupplyPanelLayout = new javax.swing.GroupLayout(WaitingSupplyPanel);
         WaitingSupplyPanel.setLayout(WaitingSupplyPanelLayout);
@@ -1242,18 +1204,16 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(WaitingListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addComponent(DetailPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(250, Short.MAX_VALUE))
         );
         WaitingSupplyPanelLayout.setVerticalGroup(
             WaitingSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WaitingSupplyPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(WaitingSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WaitingSupplyPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(WaitingListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(WaitingListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DetailPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1493,7 +1453,7 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel49)
                     .addComponent(AddressLabel))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout CharityInformationPanelLayout = new javax.swing.GroupLayout(CharityInformationPanel);
@@ -1518,7 +1478,7 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CharityInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                     .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1633,40 +1593,6 @@ public class CharityScreen extends javax.swing.JFrame {
         refreshForSearchScreen();
     }//GEN-LAST:event_RefeshButtonMouseClicked
 
-    private void WaitRefeshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaitRefeshButtonMouseClicked
-        // TODO add your handling code here:
-        WaitSupplyTable.getSelectionModel().clearSelection();
-        refreshForWaitScreen();
-    }//GEN-LAST:event_WaitRefeshButtonMouseClicked
-
-    private void CancelButtonLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelButtonLabelMouseClicked
-        // TODO add your handling code here:
-         if (IdsupWaitLabel.getText().equals("null"))
-        JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để hủy",
-            "Lỗi!", JOptionPane.ERROR_MESSAGE);
-        else {
-            int choice = JOptionPane.showConfirmDialog(null,
-                "Hủy tiếp tế yêu cầu này?", "Xác nhận", JOptionPane.OK_CANCEL_OPTION);
-            if (choice == 0) {
-                int result =supcon.CancelSupply(Integer.toString(charity.getIdchar()), IdsupWaitLabel.getText());
-                if(result==1)
-                {
-                    SupplyTable.getSelectionModel().clearSelection();
-                    refreshForSearchScreen();
-                    JOptionPane.showMessageDialog(null, "Hủy thành công");
-
-                    SupplyTable.setModel(setSupplyTableModel());
-                    setSupplyTableSize();
-                    getComboboxItemForSearchScreen();
-
-                    WaitSupplyTable.setModel(setWaitSupplyTableModel());
-                    setWaitSupplyTableSize();
-                    getComboboxItemForWaitScreen();
-                }
-            }
-        }
-    }//GEN-LAST:event_CancelButtonLabelMouseClicked
-
     private void AcceptButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AcceptButtonMouseClicked
         // TODO add your handling code here:
         if (IdsupValueLabel.getText().equals("null"))
@@ -1698,11 +1624,11 @@ public class CharityScreen extends javax.swing.JFrame {
     private void FinishButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FinishButton1MouseClicked
         // TODO add your handling code here:
         if (IdsupWaitLabel.getText().equals("null"))
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để hoàn thành",
-                    "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để hoàn thành",
+            "Lỗi!", JOptionPane.ERROR_MESSAGE);
         else {
             int choice = JOptionPane.showConfirmDialog(null,
-                    "Hoàn thành việc tư vấn yêu cầu này?", "Xác nhận", JOptionPane.OK_CANCEL_OPTION);
+                "Hoàn thành việc tư vấn yêu cầu này?", "Xác nhận", JOptionPane.OK_CANCEL_OPTION);
             if (choice == 0) {
                 int result =supcon.FinishSupply(Integer.parseInt(IdsupWaitLabel.getText()));
                 if(result==1)
@@ -1717,6 +1643,40 @@ public class CharityScreen extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_FinishButton1MouseClicked
+
+    private void CancelButtonLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelButtonLabelMouseClicked
+        // TODO add your handling code here:
+        if (IdsupWaitLabel.getText().equals("null"))
+        JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để hủy",
+            "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        else {
+            int choice = JOptionPane.showConfirmDialog(null,
+                "Hủy tiếp tế yêu cầu này?", "Xác nhận", JOptionPane.OK_CANCEL_OPTION);
+            if (choice == 0) {
+                int result =supcon.CancelSupply(Integer.toString(charity.getIdchar()), IdsupWaitLabel.getText());
+                if(result==1)
+                {
+                    SupplyTable.getSelectionModel().clearSelection();
+                    refreshForSearchScreen();
+                    JOptionPane.showMessageDialog(null, "Hủy thành công");
+
+                    SupplyTable.setModel(setSupplyTableModel());
+                    setSupplyTableSize();
+                    getComboboxItemForSearchScreen();
+
+                    WaitSupplyTable.setModel(setWaitSupplyTableModel());
+                    setWaitSupplyTableSize();
+                    getComboboxItemForWaitScreen();
+                }
+            }
+        }
+    }//GEN-LAST:event_CancelButtonLabelMouseClicked
+
+    private void WaitRefeshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaitRefeshButtonMouseClicked
+        // TODO add your handling code here:
+        WaitSupplyTable.getSelectionModel().clearSelection();
+        refreshForWaitScreen();
+    }//GEN-LAST:event_WaitRefeshButtonMouseClicked
 
     //Set color for Jpanel being clicked
     void setColor(JPanel panel) {
@@ -1895,8 +1855,6 @@ public class CharityScreen extends javax.swing.JFrame {
     private javax.swing.JTable WaitSupplyTable;
     private javax.swing.JPanel WaitingListPanel;
     private javax.swing.JPanel WaitingSupplyPanel;
-    private javax.swing.JLabel YearbirthValueLabel;
-    private javax.swing.JLabel YearbirthWaitLabel;
     private javax.swing.JPanel ind_index1Panel;
     private javax.swing.JPanel ind_index2Panel;
     private javax.swing.JPanel ind_index3Panel;
@@ -1911,11 +1869,9 @@ public class CharityScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -1952,7 +1908,6 @@ public class CharityScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;

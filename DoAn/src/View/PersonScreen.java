@@ -142,68 +142,88 @@ public class PersonScreen extends javax.swing.JFrame {
                 DetailAdTextField.setText(Advisory.get("detail"));
     }
      //Them mot don yeu cau tiep te moi
-     public void SetEvenAddSupply(int idper, int status){ 
-        int check =-1;
+    public void SetEvenAddSupply(int idper, int status) {
+        int check = -1;
         Supply Supply = new Supply();
-        
-        Supply.setIdper(idper);
-        Supply.setNeedfood(getValueCheckBox(NeedFoodCheckBox));
-        Supply.setNeednecess(getValueCheckBox(NeedNecessCheckBox));
-        Supply.setNeedequip(getValueCheckBox(NeedEquipCheckBox));
-        
-        Supply.setDetail(DetailTextField.getText());
-        if(status==1)
+        if (status == 1)
+        {
             JOptionPane.showMessageDialog(null, "Tài khoản đã bị khóa, vui lòng thử lại sau",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
-        else{
-        check =SupplyController.AddSupply(Supply);
-        //int check = SupplyController.AddSupply(Supply);
-        //EmployeeScreen emp = new EmployeeScreen();
-        setTableManageSupply(person.getIdper());
-        resizeColumnWidth(SupplyTable);
-        
-        if(check == 0){ 
-            int option =JOptionPane.showConfirmDialog(null, "Thêm thông tin thành công, bạn muốn tiếp tục?",
-                    "Thông báo!", JOptionPane.YES_NO_OPTION);
-            
-        }  
-        }
-    }
-     
-     public void LimitCharNumber(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
-        String string = txt.getText();
-        int length = string.length();
+                    "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        } else
+        {
+            if (DetailTextField.getText().equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Không dược để trống các thành phần bắt buộc",
+                        "Thông báo!", JOptionPane.WARNING_MESSAGE);
+            } else
+            {
+                Supply.setIdper(idper);
+                Supply.setNeedfood(getValueCheckBox(NeedFoodCheckBox));
+                Supply.setNeednecess(getValueCheckBox(NeedNecessCheckBox));
+                Supply.setNeedequip(getValueCheckBox(NeedEquipCheckBox));
+                Supply.setDetail(DetailTextField.getText());
 
-        if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
-            if (length < lenghth_char_exp) {
-                txt.setEditable(true);
-            } else {
-                txt.setEditable(false);
-            }   
-        }
-        else{
-            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
-                txt.setEditable(true);
-            } else {
-            txt.setEditable(false);
+                check = SupplyController.AddSupply(Supply);
+
+                setTableManageSupply(person.getIdper());
+                resizeColumnWidth(SupplyTable);
+
+                if (check == 0)
+                {
+                    int option = JOptionPane.showConfirmDialog(null, "Thêm thông tin thành công, bạn muốn tiếp tục?",
+                            "Thông báo!", JOptionPane.YES_NO_OPTION);
+                    if (option == JOptionPane.YES_OPTION)
+            {
+                RefeshSupplyDetail();
+            }
+                }
             }
         }
     }
-     
-     public void LimitChar(JTextArea txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
+
+    public void LimitCharNumber(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
+        String string = txt.getText();
+        int length = string.length();
+
+        if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9')
+        {
+            if (length < lenghth_char_exp)
+            {
+                txt.setEditable(true);
+            } else
+            {
+                txt.setEditable(false);
+            }
+        } else
+        {
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE)
+            {
+                txt.setEditable(true);
+            } else
+            {
+                txt.setEditable(false);
+            }
+        }
+    }
+
+    public void LimitChar(JTextArea txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
 
         int length = string.length();
-            if (length < lenghth_char_exp) {
+        if (length < lenghth_char_exp)
+        {
+            txt.setEditable(true);
+        } else
+        {
+            txt.setEditable(false);
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE)
+            {
                 txt.setEditable(true);
-            } else {
+            } else
+            {
                 txt.setEditable(false);
-                if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
-                    txt.setEditable(true);
-                } else {
-                    txt.setEditable(false);
-                }
-            }      
+            }
+        }
     }
      
      
@@ -240,7 +260,10 @@ public class PersonScreen extends javax.swing.JFrame {
         {
             int option = JOptionPane.showConfirmDialog(null, "Thêm thông tin thành công, bạn muốn tiếp tục?",
                     "Thông báo!", JOptionPane.YES_NO_OPTION);
-
+            if (option == JOptionPane.YES_OPTION)
+            {
+                RefeshAdvisoryDetail();
+            }
         }
         }
     }
@@ -270,65 +293,92 @@ public class PersonScreen extends javax.swing.JFrame {
    }
     
     //Ham sua don yeu cau tiep te
-    public void setEventUpdateSupply(int idper, int status){ 
-        int check =-1;
+    public void setEventUpdateSupply(int idper, int status) {
+        int check = -1;
         Supply Supply = new Supply();
-     
-        Supply.setIdsup(parseInt(IdsupTextField.getText()));
-        Supply.setNeedfood(getValueCheckBox(NeedFoodCheckBox));
-        Supply.setNeednecess(getValueCheckBox(NeedNecessCheckBox));
-        Supply.setNeedequip(getValueCheckBox(NeedEquipCheckBox));
-        if(status==1)
+        if (status == 1)
+        {
             JOptionPane.showMessageDialog(null, "Tài khoản đã bị khóa, vui lòng thử lại sau",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
-        else{
-        Supply.setDetail(DetailTextField.getText());
-        
-        check = SupplyController.UpdateSupply(Supply);
-        //int check = SupplyController.AddSupply(Supply);
-        //EmployeeScreen emp = new EmployeeScreen();
-        
-        if(check ==0){
-            JOptionPane.showMessageDialog(null, "Cập nhật thông tin thành công!",
-                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
-        }
-        setTableManageSupply(person.getIdper());
-        resizeColumnWidth(SupplyTable);
+                    "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        } else
+        {
+            if (IdsupTextField.getText().equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để sửa",
+                        "Lỗi!", JOptionPane.WARNING_MESSAGE);
+            } else
+            {
+                if (DetailTextField.getText().equals(""))
+                {
+                    JOptionPane.showMessageDialog(null, "Không dược để trống các thành phần bắt buộc",
+                            "Thông báo!", JOptionPane.WARNING_MESSAGE);
+                } else
+                {
+                    Supply.setIdsup(parseInt(IdsupTextField.getText()));
+                    Supply.setNeedfood(getValueCheckBox(NeedFoodCheckBox));
+                    Supply.setNeednecess(getValueCheckBox(NeedNecessCheckBox));
+                    Supply.setNeedequip(getValueCheckBox(NeedEquipCheckBox));
+                    Supply.setDetail(DetailTextField.getText());
+
+                    check = SupplyController.UpdateSupply(Supply);
+                    //int check = SupplyController.AddSupply(Supply);
+                    //EmployeeScreen emp = new EmployeeScreen();
+
+                    if (check == 0)
+                    {
+                        JOptionPane.showMessageDialog(null, "Cập nhật thông tin thành công!",
+                                "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    setTableManageSupply(person.getIdper());
+                    resizeColumnWidth(SupplyTable);
+                }
+            }
         }
     }
  //Ham sua don yeu cau tu van
-    public void setEventUpdateAdvisory(int idper,int status){ 
-        int check =-1;
+    public void setEventUpdateAdvisory(int idper, int status) {
+        int check = -1;
         Advisory Advisory = new Advisory();
-        if(status==1)
-            JOptionPane.showMessageDialog(null, "Tài khoản đã bị khóa, vui lòng thử lại sau",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
-        else{
-        if (YearBirthTextField.getText().equals("") || HeightTextField.getText().equals("") || WeightTextField.getText().equals("")
-                 || DetailAdTextField.getText().equals(""))
+        if (status == 1)
         {
-            JOptionPane.showConfirmDialog(null, "Không dược để trống các thành phần bắt buộc",
-                    "Thông báo!", JOptionPane.WARNING_MESSAGE);
-        } else{
-        Advisory.setIdad(parseInt(IdadTextField.getText()));
-        Advisory.setYearbirth(Integer.valueOf(YearBirthTextField.getText().toString()));
-        Advisory.setHeight(Integer.valueOf(HeightTextField.getText().toString()));
-        Advisory.setWeight(Integer.valueOf(WeightTextField.getText().toString()));
-        Advisory.setPastmedicalhistory(PastMedicalHistoryTextField.getText());
-        Advisory.setDetail(DetailAdTextField.getText());
-        }
-   
-        check = AdvisoryPersonController.UpdateAdvisory(Advisory);
-        //int check = SupplyController.AddSupply(Supply);
-        //EmployeeScreen emp = new EmployeeScreen();
-        
-        if(check ==0){
-            JOptionPane.showMessageDialog(null, "Cập nhật thông tin thành công!",
-                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
-        }
-        setTableManageAdvisory(person.getIdper());
-        resizeColumnWidth(AdvisoryTable);
-        
+            JOptionPane.showMessageDialog(null, "Tài khoản đã bị khóa, vui lòng thử lại sau",
+                    "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        } else
+        {
+            if (IdadTextField.getText().equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để sửa",
+                        "Lỗi!", JOptionPane.WARNING_MESSAGE);
+            } else
+            {
+                if (YearBirthTextField.getText().equals("") || HeightTextField.getText().equals("") || WeightTextField.getText().equals("")
+                        || DetailAdTextField.getText().equals(""))
+                {
+                    JOptionPane.showMessageDialog(null, "Không dược để trống các thành phần bắt buộc",
+                            "Thông báo!", JOptionPane.WARNING_MESSAGE);
+                } else
+                {
+                    Advisory.setIdad(parseInt(IdadTextField.getText()));
+                    Advisory.setYearbirth(Integer.valueOf(YearBirthTextField.getText().toString()));
+                    Advisory.setHeight(Integer.valueOf(HeightTextField.getText().toString()));
+                    Advisory.setWeight(Integer.valueOf(WeightTextField.getText().toString()));
+                    Advisory.setPastmedicalhistory(PastMedicalHistoryTextField.getText());
+                    Advisory.setDetail(DetailAdTextField.getText());
+
+                    check = AdvisoryPersonController.UpdateAdvisory(Advisory);
+                    //int check = SupplyController.AddSupply(Supply);
+                    //EmployeeScreen emp = new EmployeeScreen();
+                }
+
+                if (check == 0)
+                {
+                    JOptionPane.showMessageDialog(null, "Cập nhật thông tin thành công!",
+                            "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
+                }
+                setTableManageAdvisory(person.getIdper());
+                resizeColumnWidth(AdvisoryTable);
+
+            }
         }
     }
     //Serach by 
@@ -379,7 +429,7 @@ public class PersonScreen extends javax.swing.JFrame {
     }
     public PersonScreen() {
         initComponents();
-        person = new Person(2,"user32","Phạm Duy Anh",0,"0962475039","Gia Lai","Chư Sê","Chư Sê","904B Hùng Vương",0);
+        person = new Person(2,"user32","Phạm Duy Anh",1,"0962475039","Gia Lai","Chư Sê","Chư Sê","904B Hùng Vương",0);
       
         SetTabel(AdvisoryTable);
         SetTabel(SupplyTable);
@@ -502,24 +552,26 @@ public class PersonScreen extends javax.swing.JFrame {
         NameLabel = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
         DistrictLabel = new javax.swing.JLabel();
         TownLabel = new javax.swing.JLabel();
         AddressLabel = new javax.swing.JLabel();
         ProvinceLabel = new javax.swing.JLabel();
         GenderLabel = new javax.swing.JLabel();
         PhoneLabel = new javax.swing.JLabel();
-        UsernameLabel = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
         IdperLabel = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        UsernameLabel = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         StatusLabel = new javax.swing.JLabel();
+        ChangePasswordButton = new com.k33ptoo.components.KButton();
         card4Panel = new javax.swing.JPanel();
 
         UpdateSupplyMenuItem.setText("Sửa");
@@ -739,10 +791,10 @@ public class PersonScreen extends javax.swing.JFrame {
         index4Panel.add(ind_index4Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Sitka Small", 0, 13)); // NOI18N
-        jLabel7.setText("Đổi mật khẩu");
+        jLabel7.setText("Đăng xuất");
         index4Panel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
-        LogoutLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/reset-password.png"))); // NOI18N
+        LogoutLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/logout_small.png"))); // NOI18N
         index4Panel.add(LogoutLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -806,7 +858,7 @@ public class PersonScreen extends javax.swing.JFrame {
                 .addComponent(index3Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(index4Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         ParentPanel.add(jPanel2, java.awt.BorderLayout.LINE_START);
@@ -1047,8 +1099,8 @@ public class PersonScreen extends javax.swing.JFrame {
                     .addComponent(HaveStatus1CheckBox)
                     .addComponent(SearchSupplyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout card1PanelLayout = new javax.swing.GroupLayout(card1Panel);
@@ -1065,11 +1117,14 @@ public class PersonScreen extends javax.swing.JFrame {
         card1PanelLayout.setVerticalGroup(
             card1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(card1PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(card1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGroup(card1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(card1PanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(card1PanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         RightPanel.add(card1Panel, "card1");
@@ -1343,8 +1398,8 @@ public class PersonScreen extends javax.swing.JFrame {
                     .addComponent(AdvisorySearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(HaveStatus1CheckBox1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout card2PanelLayout = new javax.swing.GroupLayout(card2Panel);
@@ -1360,14 +1415,12 @@ public class PersonScreen extends javax.swing.JFrame {
         );
         card2PanelLayout.setVerticalGroup(
             card2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, card2PanelLayout.createSequentialGroup()
+            .addGroup(card2PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(card2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(card2PanelLayout.createSequentialGroup()
-                        .addGap(0, 70, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         RightPanel.add(card2Panel, "card2");
@@ -1388,46 +1441,37 @@ public class PersonScreen extends javax.swing.JFrame {
         );
 
         jPanel21.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder("THÔNG TIN TÀI KHOẢN"));
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "NGƯỜI DÙNG", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14))); // NOI18N
 
         NameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         NameLabel.setText("Tên người dùng");
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel29.setText("NGƯỜI DÙNG");
+        jLabel29.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel29.setText("Họ và tên");
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jLabel29))
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(NameLabel)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addComponent(jLabel29)
+                .addGap(34, 34, 34)
+                .addComponent(NameLabel)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                .addContainerGap(241, Short.MAX_VALUE)
-                .addComponent(jLabel29)
-                .addGap(18, 18, 18)
-                .addComponent(NameLabel)
-                .addGap(181, 181, 181))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(NameLabel))
+                .addGap(125, 125, 125))
         );
 
         jPanel22.setBackground(new java.awt.Color(255, 255, 255));
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder("THÔNG TIN CÁ NHÂN"));
-
-        jLabel25.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel25.setText("Mã người dùng");
-
-        jLabel23.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel23.setText("Tên tài khoản");
 
         jLabel24.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel24.setText("Giới tính");
@@ -1447,81 +1491,71 @@ public class PersonScreen extends javax.swing.JFrame {
         jLabel31.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel31.setText("Địa chỉ ");
 
-        jLabel32.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel32.setText("Tình trạng của tài khoản");
-
         DistrictLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         DistrictLabel.setText("null");
+        DistrictLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         TownLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TownLabel.setText("null");
+        TownLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         AddressLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         AddressLabel.setText("null");
+        AddressLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         ProvinceLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ProvinceLabel.setText("null");
+        ProvinceLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         GenderLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         GenderLabel.setText("null");
+        GenderLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         PhoneLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         PhoneLabel.setText("null");
-
-        UsernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        UsernameLabel.setText("null");
-
-        IdperLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        IdperLabel.setText("null");
-
-        StatusLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        StatusLabel.setText("null");
+        PhoneLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel26)
-                    .addComponent(jLabel27)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel30)
-                    .addComponent(jLabel31)
-                    .addComponent(jLabel32))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(StatusLabel)
-                    .addComponent(AddressLabel)
-                    .addComponent(TownLabel)
-                    .addComponent(DistrictLabel)
-                    .addComponent(ProvinceLabel)
-                    .addComponent(PhoneLabel)
-                    .addComponent(GenderLabel)
-                    .addComponent(UsernameLabel)
-                    .addComponent(IdperLabel))
-                .addContainerGap(235, Short.MAX_VALUE))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addGap(121, 121, 121)
+                        .addComponent(GenderLabel))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addGap(91, 91, 91)
+                        .addComponent(PhoneLabel))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(jLabel27)
+                        .addGap(76, 76, 76)
+                        .addComponent(ProvinceLabel))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(jLabel28)
+                        .addGap(45, 45, 45)
+                        .addComponent(DistrictLabel))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel30)
+                            .addComponent(jLabel31))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AddressLabel)
+                            .addComponent(TownLabel))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(IdperLabel))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(UsernameLabel))
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(GenderLabel))
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
                     .addComponent(PhoneLabel))
@@ -1541,11 +1575,83 @@ public class PersonScreen extends javax.swing.JFrame {
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
                     .addComponent(AddressLabel))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "THÔNG TIN TÀI KHOẢN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14))); // NOI18N
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel25.setText("Mã người dùng");
+
+        IdperLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        IdperLabel.setText("null");
+        IdperLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel23.setText("Tên tài khoản");
+
+        UsernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        UsernameLabel.setText("null");
+        UsernameLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel32.setText("Tình trạng của tài khoản");
+
+        StatusLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        StatusLabel.setText("null");
+        StatusLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+
+        ChangePasswordButton.setText("ĐỔI MẬT KHẨU");
+        ChangePasswordButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        ChangePasswordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangePasswordButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel23))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(IdperLabel)
+                            .addComponent(UsernameLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addComponent(ChangePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(StatusLabel)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ChangePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel25)
+                            .addComponent(IdperLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23)
+                            .addComponent(UsernameLabel))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
                     .addComponent(StatusLabel))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout card3PanelLayout = new javax.swing.GroupLayout(card3Panel);
@@ -1558,7 +1664,9 @@ public class PersonScreen extends javax.swing.JFrame {
                     .addGroup(card3PanelLayout.createSequentialGroup()
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1569,8 +1677,12 @@ public class PersonScreen extends javax.swing.JFrame {
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(card3PanelLayout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1584,7 +1696,7 @@ public class PersonScreen extends javax.swing.JFrame {
         );
         card4PanelLayout.setVerticalGroup(
             card4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 626, Short.MAX_VALUE)
+            .addGap(0, 574, Short.MAX_VALUE)
         );
 
         RightPanel.add(card4Panel, "card4");
@@ -1728,6 +1840,7 @@ public class PersonScreen extends javax.swing.JFrame {
 
     private void SupplyTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SupplyTableMouseClicked
         // TODO add your handling code here:
+        
         SetdataforSupplyDetail();
         
     }//GEN-LAST:event_SupplyTableMouseClicked
@@ -1777,13 +1890,17 @@ public class PersonScreen extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) SupplyTable.getModel();
         int selectedRowIndex = SupplyTable.getSelectedRow();      
         selectedRowIndex = SupplyTable.convertRowIndexToModel(selectedRowIndex);
+        if(selectedRowIndex<0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 đơn để xóa!",
+                        "Thông báo!", JOptionPane.WARNING_MESSAGE);
+        }else{
         check = SupplyController.DeleteSupply(Integer.valueOf(model.getValueAt(selectedRowIndex, 0).toString()) );
         if(check==0){
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
-                        "Thông báo!", JOptionPane.YES_OPTION);}
+                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);}
         setTableManageSupply(person.getIdper());
         resizeColumnWidth(SupplyTable);
-        RefeshSupplyDetail();
+        RefeshSupplyDetail();}
     }//GEN-LAST:event_DeleteSupplyButtonActionPerformed
 
     private void HaveStatus1CheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_HaveStatus1CheckBoxItemStateChanged
@@ -1800,6 +1917,7 @@ public class PersonScreen extends javax.swing.JFrame {
     private void RefeshSupplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefeshSupplyButtonActionPerformed
         // TODO add your handling code here:
         RefeshSupplyDetail();
+        SupplyTable.getSelectionModel().clearSelection();
     }//GEN-LAST:event_RefeshSupplyButtonActionPerformed
 
     private void UpdateSupplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateSupplyButtonActionPerformed
@@ -1812,15 +1930,13 @@ public class PersonScreen extends javax.swing.JFrame {
 
     private void RefeshAdvisoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefeshAdvisoryButtonActionPerformed
          RefeshAdvisoryDetail();
+         AdvisoryTable.getSelectionModel().clearSelection();
     }//GEN-LAST:event_RefeshAdvisoryButtonActionPerformed
 
     private void UpdateAdvisoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateAdvisoryButtonActionPerformed
-       if (IdadTextField.getText().equals("null"))
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để sửa",
-                    "Lỗi!", JOptionPane.ERROR_MESSAGE);
-        else {
+        
            setEventUpdateAdvisory(person.getIdper(),person.getStatus());
-       }
+       
     }//GEN-LAST:event_UpdateAdvisoryButtonActionPerformed
 
     private void DeleteAdvisoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteAdvisoryButtonActionPerformed
@@ -1828,6 +1944,10 @@ public class PersonScreen extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) AdvisoryTable.getModel();
         int selectedRowIndex = AdvisoryTable.getSelectedRow();      
         selectedRowIndex = AdvisoryTable.convertRowIndexToModel(selectedRowIndex);
+        if(selectedRowIndex<0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 đơn để xóa!",
+                        "Thông báo!", JOptionPane.WARNING_MESSAGE);
+        }else{
         check = AdvisoryPersonController.DeleteAdvisory(Integer.valueOf(model.getValueAt(selectedRowIndex, 0).toString()) );
         if(check==0){
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
@@ -1835,6 +1955,7 @@ public class PersonScreen extends javax.swing.JFrame {
         setTableManageAdvisory(person.getIdper());
         resizeColumnWidth(AdvisoryTable);
         RefeshAdvisoryDetail();
+        }
     }//GEN-LAST:event_DeleteAdvisoryButtonActionPerformed
 
     private void HaveStatus1CheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_HaveStatus1CheckBox1ItemStateChanged
@@ -1868,6 +1989,12 @@ public class PersonScreen extends javax.swing.JFrame {
     private void DetailTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DetailTextFieldKeyPressed
         LimitChar(DetailTextField,evt,1000);
     }//GEN-LAST:event_DetailTextFieldKeyPressed
+
+    private void ChangePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangePasswordButtonActionPerformed
+        // TODO add your handling code here:
+        //this.dispose();
+        new ChangePasswordScreen().setVisible(true);
+    }//GEN-LAST:event_ChangePasswordButtonActionPerformed
 
     
     //Set color for Jpanel being clicked
@@ -2010,6 +2137,7 @@ public class PersonScreen extends javax.swing.JFrame {
     private javax.swing.JPopupMenu AdvisoryPopupMenu;
     private javax.swing.JTextField AdvisorySearchTextField;
     private javax.swing.JTable AdvisoryTable;
+    private com.k33ptoo.components.KButton ChangePasswordButton;
     private javax.swing.JLabel CloseLabel;
     private javax.swing.JTextField CreatedAdTextField;
     private javax.swing.JTextField CreatedTextField;
@@ -2116,6 +2244,7 @@ public class PersonScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

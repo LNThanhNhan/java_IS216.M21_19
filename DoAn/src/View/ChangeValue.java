@@ -153,4 +153,16 @@ public static boolean getValueCheckBoxBoolean(int cb){
     else
         return false;
 }
+
+public static String NeedSupply(int value)
+    {
+        switch(value)
+        {
+            case 1: 
+                return "Có";
+            case 0:
+                return "Không";
+        }
+        return "ERROR";
+    }
 }

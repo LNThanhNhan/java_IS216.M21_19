@@ -101,7 +101,7 @@ public class AdvisoryController {
 //                                    public void run()  {
                     try {
                         //Ngu 10 giay
-                        Thread.sleep(10000);
+                        Thread.sleep(30000);
                         //Bat dau thuc hien lan 2
                         System.out.println("2");
                         AdvisoryTable.getSelectionModel().clearSelection();
