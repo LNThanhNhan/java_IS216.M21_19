@@ -265,6 +265,56 @@ public class AdvisoryController {
         return 0;
     }
     
+    //DEMO DEADLOCK
+    public int AcceptDLAdvisory(String iddoc,String idad1,String idad2)
+    {
+        try{
+            con = OracleConnection.getOracleConnection();
+            con.setAutoCommit(false);
+            String CallProc1 = "{call PROC_ACCEPT_ADVISORY(?,?)}";
+            CallableStatement callSt1=con.prepareCall(CallProc1);;
+            callSt1.setString(1,iddoc);
+            callSt1.setString(2,idad1);
+            callSt1.execute();
+            System.err.println("2");
+            Thread.sleep(5000);
+            
+            String CallProc2 = "{call PROC_ACCEPT_ADVISORY(?,?)}";
+            CallableStatement callSt2=con.prepareCall(CallProc2);;
+            callSt2.setString(1,iddoc);
+            callSt2.setString(2,idad2);
+            //try{
+                callSt2.execute();
+            //}
+//            catch (SQLException sqle) {
+//                if (sqle.getErrorCode() == 60) {
+//                    JOptionPane.showMessageDialog(null, "Đã có Deadlock xảy ra!",
+//                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+//                    con.rollback();
+//                    sqle.printStackTrace();
+//                }
+//            }
+            callSt1.close();
+            callSt2.close();
+            con.commit();
+            con.close();
+            return 1;
+        }catch (SQLException sqle) {
+            if (sqle.getErrorCode() == 20241)
+                JOptionPane.showMessageDialog(null, "Trạng thái yêu cầu này không hợp lệ để nhận, vui lòng tải lại!",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+            if (sqle.getErrorCode() == 20242)
+                JOptionPane.showMessageDialog(null, "Yêu cầu này không còn tồn tại, vui lòng tải lại!",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+            sqle.printStackTrace();
+        } catch (UnsupportedOperationException e) {
+            e.printStackTrace();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
     //Phần này là chỉnh sửa cột và và header cho bảng vì không thể lấy
     // hàm từ bên màn hình bác sĩ qua được
     private void setAdvisoryTableSize(JTable AdvisoryTable)
