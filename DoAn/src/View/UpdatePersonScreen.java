@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.PersonController;
+import Process.PersonController;
 import Model.Person;
 import static View.ChangeValue.PersonStatus;
 import static View.ChangeValue.getGender;
@@ -260,10 +260,12 @@ public class UpdatePersonScreen extends javax.swing.JDialog {
         StatusTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         StatusTextField.setEnabled(false);
 
+        MaleGenderRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         GendeButtonGroup.add(MaleGenderRadioButton);
         MaleGenderRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         MaleGenderRadioButton.setText("Nam");
 
+        FeMaleGenderRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         GendeButtonGroup.add(FeMaleGenderRadioButton);
         FeMaleGenderRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         FeMaleGenderRadioButton.setText("Nữ");

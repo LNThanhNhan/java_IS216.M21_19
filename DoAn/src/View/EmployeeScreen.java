@@ -4,12 +4,12 @@
  */
 package View;
 
-import Controller.CharityController;
-import static Controller.CharityController.exportCharityMarkToPdf;
-import Controller.DoctorController;
-import static Controller.DoctorController.exportDoctorToPdf;
-import Controller.EmployeeController;
-import Controller.PersonController;
+import Process.CharityController;
+import static Process.CharityController.exportCharityMarkToPdf;
+import Process.DoctorController;
+import static Process.DoctorController.exportDoctorToPdf;
+import Process.EmployeeController;
+import Process.PersonController;
 import Model.Account;
 import Model.Person;
 import Model.Charity;
@@ -38,9 +38,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
-import Controller.PersonController;
-import Controller.SupplyController;
-import static Controller.SupplyController.exportSupplyToPdf;
+import Process.PersonController;
+import Process.SupplyController;
+import static Process.SupplyController.exportSupplyToPdf;
 import Model.CharityTableModel;
 import Model.Doctor;
 import Model.DoctorTableModel;
@@ -433,6 +433,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         if(cb.isSelected())
             trs.setRowFilter(RowFilter.regexFilter("(?i)"+"mẹ mày|cmm|đéo|người yêu|tao", 8));
         table.setRowSorter(trs);
+        resizeColumnWidth(SupplyTable);
     }
     
     //Tự động tăng kích thước cột để phù ợp với dữ liệu hiện có và các dữ liệu sẽ được
@@ -2335,18 +2336,30 @@ public class EmployeeScreen extends javax.swing.JFrame {
     private void DeleteSupplyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteSupplyMenuItemActionPerformed
         // TODO add your handling code here:
         int check =-1;
+        
         DefaultTableModel model = (DefaultTableModel) SupplyTable.getModel();
         int selectedRowIndex = SupplyTable.getSelectedRow();      
         selectedRowIndex = SupplyTable.convertRowIndexToModel(selectedRowIndex);
         check =SupplyController.DeleteSupply((int) model.getValueAt(selectedRowIndex, 0));
-        setTableManageSupply();
-        resizeColumnWidth(getSupplyTable());
         
-        if(check==0){
-            JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
-                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);}
         setTableManageSupply();
-        resizeColumnWidth(getSupplyTable());
+        resizeColumnWidth(SupplyTable);
+
+        
+        if (check == 0) {
+            JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
+                    "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
+
+            if (SearchSupplyTextField.getText().equals("") == false) {
+                TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+
+                trs.setRowFilter(RowFilter.regexFilter("^" + SearchSupplyTextField.getText() + "$", 0));
+                SupplyTable.setRowSorter(trs);
+            }
+            
+            
+        }
+        
     }//GEN-LAST:event_DeleteSupplyMenuItemActionPerformed
 
     private void EmployeeSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeSearchTextFieldActionPerformed
@@ -2405,6 +2418,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         "Thông báo!", JOptionPane.INFORMATION_MESSAGE);}
         setTableManageSupply();
         resizeColumnWidth(getSupplyTable());
+        
             
     }//GEN-LAST:event_DenySupplyMenuItemActionPerformed
 
@@ -2416,7 +2430,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         //if(evt.getStateChange()==1)
             FilterSupply(test, SupplyTable, modelTableSupply);
-            resizeColumnWidth(SupplyTable);
+            
     }//GEN-LAST:event_testItemStateChanged
 
     private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed

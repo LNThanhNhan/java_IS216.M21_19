@@ -4,14 +4,13 @@
  */
 package View;
 
+import Process.DoctorController;
 import View.*;
-import Controller.*;
-import static Controller.DoctorController.getNextValueDoctor;
+import static Process.DoctorController.getNextValueDoctor;
 import Model.*;
 import static View.ChangeValue.*;
 import java.awt.event.KeyEvent;
 import static java.lang.Integer.parseInt;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -22,7 +21,7 @@ import javax.swing.JTextField;
  */
 public class AddDoctorScreen extends javax.swing.JDialog {
 
-    /**
+    /**Hàm khởi tạo JDialg nhận Jframe EmployeeScreen làm parent
      * Creates new form AddDoctorScreen
      */
     EmployeeScreen  emp = new EmployeeScreen();
@@ -44,6 +43,8 @@ public class AddDoctorScreen extends javax.swing.JDialog {
         }
     }
     
+    //Dùng để giới hạn số điện thoại của người dùng
+    //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
    public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -70,6 +71,8 @@ public class AddDoctorScreen extends javax.swing.JDialog {
         
     }
     
+   //Dùng để giới hạn ký tự cho Jtextfield
+   //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -89,6 +92,7 @@ public class AddDoctorScreen extends javax.swing.JDialog {
             }      
     }
     
+    //Đặt sự kiện khi nhấn nút thêm tại JDialog
     public void setView() {
      
         IddocTextField.setText(getNextValueDoctor());
@@ -113,6 +117,7 @@ public class AddDoctorScreen extends javax.swing.JDialog {
 
     }   
     
+    //Đặt sự kiện khi nhấn nút thêm tại JDialog
     public void setEvent(){ 
        int check=-1;
         Doctor doctor = new Doctor();

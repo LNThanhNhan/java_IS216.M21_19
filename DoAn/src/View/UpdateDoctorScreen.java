@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.*;
+import Process.DoctorController;
 import Model.*;
 import static View.ChangeValue.*;
 import java.awt.event.KeyEvent;

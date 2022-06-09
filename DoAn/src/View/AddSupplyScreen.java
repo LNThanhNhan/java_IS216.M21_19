@@ -4,8 +4,8 @@
  */
 package View;
 
-import Controller.*;
-import static Controller.SupplyController.getNextValueSupply;
+import Process.SupplyController;
+import static Process.SupplyController.getNextValueSupply;
 import Model.*;
 import static View.ChangeValue.*;
 import java.awt.event.KeyEvent;
@@ -30,6 +30,8 @@ public class AddSupplyScreen extends javax.swing.JDialog {
         setView();
     }   
     
+    //Dùng để giới hạn ký tự cho Jtextfield
+   //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
     public void LimitCharnumber(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -53,8 +55,8 @@ public class AddSupplyScreen extends javax.swing.JDialog {
         }
     }
     
-    
-    
+    //Dùng để giới hạn ký tự cho Jtextfield
+   //Giới hạn "lenghth_char_exp" kí tự
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -74,6 +76,7 @@ public class AddSupplyScreen extends javax.swing.JDialog {
             }      
     }
     
+    //Đặt dữ liệu lại khi nhấn vào button thêm tại Jframe
     public void setView() {
         
         // set data
@@ -107,13 +110,14 @@ public class AddSupplyScreen extends javax.swing.JDialog {
                     "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
         } else {
             check = SupplyController.AddSupply(Supply);
-            emp.setTableManageSupply();
-            emp.resizeColumnWidth(emp.getSupplyTable());
+            
         }
         
         if(check == 0){ 
             int option =JOptionPane.showConfirmDialog(null, "Thêm thông tin thành công, bạn muốn tiếp tục?",
                     "Thông báo!", JOptionPane.YES_NO_OPTION);
+            emp.setTableManageSupply();
+            emp.resizeColumnWidth(emp.getSupplyTable());
             if(option == JOptionPane.YES_OPTION)
                 setView();
             else

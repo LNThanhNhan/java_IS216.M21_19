@@ -4,10 +4,10 @@
  */
 package View;
 
+import Process.EmployeeController;
 import View.*;
-import Controller.*;
-import static Controller.EmployeeController.getNextValueEmployee;
-import static Controller.EmployeeController.getUsernameEmp;
+import static Process.EmployeeController.getNextValueEmployee;
+import static Process.EmployeeController.getUsernameEmp;
 import Model.*;
 import static View.ChangeValue.*;
 import java.awt.event.KeyEvent;

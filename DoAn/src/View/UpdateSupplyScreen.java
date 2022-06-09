@@ -4,9 +4,9 @@
  */
 package View;
 
+import Process.SupplyController;
 import View.*;
-import Controller.*;
-import static Controller.SupplyController.getNextValueSupply;
+import static Process.SupplyController.getNextValueSupply;
 import Model.*;
 import static View.ChangeValue.*;
 import java.awt.event.KeyEvent;

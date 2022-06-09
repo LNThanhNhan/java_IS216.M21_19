@@ -4,10 +4,10 @@
  */
 package View;
 
-import static Controller.AccountController.CheckAccount;
-import static Controller.AccountController.getRoleUser;
-import Controller.EmployeeController;
-import static Controller.PersonController.getStatusPerson;
+import static Process.AccountController.CheckAccount;
+import static Process.AccountController.getRoleUser;
+import Process.EmployeeController;
+import static Process.PersonController.getStatusPerson;
 import Model.Account;
 import Model.Employee;
 import Model.Person;

@@ -4,10 +4,10 @@
  */
 package View;
 
+import Process.CharityController;
 import View.*;
-import Controller.*;
-import static Controller.CharityController.getNextValueCharity;
-import Database.OracleConnection;
+import static Process.CharityController.getNextValueCharity;
+import ConnectDB.OracleConnection;
 import Model.*;
 import static View.ChangeValue.*;
 import java.awt.event.KeyEvent;

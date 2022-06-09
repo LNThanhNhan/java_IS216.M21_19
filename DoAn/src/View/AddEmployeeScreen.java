@@ -4,9 +4,9 @@
  */
 package View;
 
+import Process.EmployeeController;
 import View.*;
-import Controller.*;
-import static Controller.EmployeeController.getNextValueEmployee;
+import static Process.EmployeeController.getNextValueEmployee;
 import Model.*;
 import static View.ChangeValue.*;
 import java.awt.event.KeyEvent;
@@ -21,7 +21,7 @@ import javax.swing.JTextField;
  */
 public class AddEmployeeScreen extends javax.swing.JDialog {
 
-    /**
+    /**Hàm khởi tạo JDialg nhận Jframe EmployeeScreen làm parent
      * Creates new form AddemployeeScreen
      */
     EmployeeScreen  emp = new EmployeeScreen();
@@ -34,6 +34,8 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
    
     }   
     
+    //Dùng để giới hạn số điện thoại của người dùng
+    //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
     public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -60,6 +62,8 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         
     }
     
+    //Dùng để giới hạn ký tự cho Jtextfield
+   //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -79,6 +83,7 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
             }      
     }
     
+    //Đặt dữ liệu lại khi nhấn vào button thêm tại Jframe
     public void setView() {
         
         // set data
@@ -94,6 +99,7 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         
     }   
     
+    //Đặt sự kiện khi nhấn nút lưu  tại JDialog
     public void setEvent(){ 
         int check = -1;
         if ((PhoneTextField.getText().length()) < 10) {

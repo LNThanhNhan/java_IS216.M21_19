@@ -5,8 +5,8 @@
 package View;
 
 import View.*;
-import Controller.PersonController;
-import static Controller.PersonController.getNextValuePerson;
+import Process.PersonController;
+import static Process.PersonController.getNextValuePerson;
 import Model.Account;
 import Model.Person;
 import static View.ChangeValue.PersonStatus;
@@ -25,7 +25,7 @@ import javax.swing.JTextField;
  */
 public class AddPersonScreen extends javax.swing.JDialog {
 
-    /**
+    /** Hàm khởi tạo JDialg nhận Jframe EmployeeScreen làm parent
      * Creates new form AddPersonScreen
      */
     EmployeeScreen  emp = new EmployeeScreen();
@@ -36,6 +36,8 @@ public class AddPersonScreen extends javax.swing.JDialog {
         setView();
     }
     
+    //Dùng để giới hạn số điện thoại của người dùng
+    //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
    public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -57,11 +59,11 @@ public class AddPersonScreen extends javax.swing.JDialog {
             } else {
                 txt.setEditable(false);
             }
-         
-        
-        
+    
     }
     
+   //Dùng để giới hạn ký tự cho Jtextfield
+   //Giới hạn "lenghth_char_exp" kí tự
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -81,6 +83,7 @@ public class AddPersonScreen extends javax.swing.JDialog {
             }      
     }
     
+    //Đặt dữ liệu lại khi nhấn vào button thêm tại Jframe
     public void setView() {
         
         // set data
@@ -102,7 +105,7 @@ public class AddPersonScreen extends javax.swing.JDialog {
         MaleGenderRadioButton.setSelected(false);
     }
     
-    
+    //Đặt sự kiện khi nhấn nút lưu  tại JDialog
     public void setEvent(){  
         int check =-1;
         if ((PhoneTextField.getText().length()) < 10) {

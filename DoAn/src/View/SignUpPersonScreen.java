@@ -9,9 +9,9 @@ package View;
  * @author MyPC
  */
 
-import Controller.PersonController;
-import Controller.AccountController;
-import static Controller.AccountController.checkSignUpAccount;
+import Process.PersonController;
+import Process.AccountController;
+import static Process.AccountController.checkSignUpAccount;
 import Model.Account;
 import Model.Person;
 import static View.ChangeValue.getGender;
