@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package Process;
 
-import Database.OracleConnection;
+import ConnectDB.OracleConnection;
 import Model.*;
 import View.UpdateDoctorScreen;
 import java.io.FileOutputStream;

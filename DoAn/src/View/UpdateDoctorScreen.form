@@ -88,7 +88,7 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Th&#xf4;ng tin ng&#x1b0;&#x1edd;i c&#x1ea7;n gi&#xfa;p &#x111;&#x1ee1;">
+                <TitledBorder title="Th&#xf4;ng tin b&#xe1;c s&#x129;">
                   <Font PropertyName="font" name="Segoe UI Semibold" size="15" style="0"/>
                 </TitledBorder>
               </Border>

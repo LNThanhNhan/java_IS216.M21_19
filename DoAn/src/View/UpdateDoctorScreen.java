@@ -190,7 +190,7 @@ public class UpdateDoctorScreen extends javax.swing.JDialog {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin người cần giúp đỡ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 15))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin bác sĩ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 15))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel1.setText("Mã người dùng");

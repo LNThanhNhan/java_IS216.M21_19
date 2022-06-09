@@ -366,10 +366,10 @@ public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int leng
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin vật phẩm"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin vật phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14))); // NOI18N
 
         HasFoodCheckBox.setBackground(new java.awt.Color(255, 255, 255));
-        HasFoodCheckBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        HasFoodCheckBox.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         HasFoodCheckBox.setSelected(true);
         HasFoodCheckBox.setText("Lương thực");
         HasFoodCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -379,11 +379,11 @@ public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int leng
         });
 
         HasNecessCheckBox.setBackground(new java.awt.Color(255, 255, 255));
-        HasNecessCheckBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        HasNecessCheckBox.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         HasNecessCheckBox.setText("Nhu yếu phẩm");
 
         HasEquipCheckBox.setBackground(new java.awt.Color(255, 255, 255));
-        HasEquipCheckBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        HasEquipCheckBox.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         HasEquipCheckBox.setText("Vật dụng");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -440,7 +440,7 @@ public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int leng
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
