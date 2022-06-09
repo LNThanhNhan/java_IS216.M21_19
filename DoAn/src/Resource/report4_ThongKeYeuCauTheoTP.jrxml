@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4_p2" language="groovy" pageWidth="1200" pageHeight="650" orientation="Landscape" columnWidth="1160" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="745b4c70-95f6-4a6c-bd5c-57919d27d840">
+	<property name="ireport.zoom" value="1.210000000000007"/>
+	<property name="ireport.x" value="87"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="c9e7b9a9-1a53-47a0-8991-c783d256ff53"/>
+	<queryString>
+		<![CDATA[select p.idper, p.name as NguoiGui, p.province, p.district, p.town, p.address, c.name as TrungTam, s.status as TinhTrang, s.needfood, s.neednecess, s.needequip, s.created, s.idsup
+from person p, supply s, charity c
+where p.idper = s.idper and c.idchar = s.idchar]]>
+	</queryString>
+	<field name="IDPER" class="java.math.BigDecimal"/>
+	<field name="NGUOIGUI" class="java.lang.String"/>
+	<field name="PROVINCE" class="java.lang.String"/>
+	<field name="DISTRICT" class="java.lang.String"/>
+	<field name="TOWN" class="java.lang.String"/>
+	<field name="ADDRESS" class="java.lang.String"/>
+	<field name="TRUNGTAM" class="java.lang.String"/>
+	<field name="TINHTRANG" class="java.math.BigDecimal"/>
+	<field name="NEEDFOOD" class="java.math.BigDecimal"/>
+	<field name="NEEDNECESS" class="java.math.BigDecimal"/>
+	<field name="NEEDEQUIP" class="java.math.BigDecimal"/>
+	<field name="CREATED" class="java.sql.Timestamp"/>
+	<field name="IDSUP" class="java.math.BigDecimal"/>
+	<variable name="IDSUP_1" class="java.lang.Integer" resetType="Group" resetGroup="PROVINCE" calculation="Count">
+		<variableExpression><![CDATA[$F{IDSUP}]]></variableExpression>
+	</variable>
+	<variable name="IDSUP_2" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{IDSUP}]]></variableExpression>
+	</variable>
+	<group name="PROVINCE">
+		<groupExpression><![CDATA[$F{PROVINCE}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="5" width="1160" height="24" forecolor="#B89F7D" backcolor="#6EADCF" uuid="ad429353-9803-45a5-a05e-114977a0ae4c"/>
+				</frame>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="SubTitle" isPrintRepeatedValues="false" x="-66" y="5" width="263" height="23" forecolor="#FFFFFF" uuid="9dc623e8-8657-4ee6-adbe-950a3dfffaaf"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="15" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PROVINCE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="40">
+				<staticText>
+					<reportElement style="Column header" positionType="Float" mode="Transparent" x="859" y="0" width="165" height="36" forecolor="#000000" backcolor="#000000" uuid="1313c456-763b-4a9d-b8c6-ac595e287046"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Segoe UI" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Tổng yêu cầu đã nhận:]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="979" y="0" width="108" height="36" forecolor="#000000" backcolor="#000000" uuid="14dbd7c5-5b99-4c3c-9f9f-a08028c5fb61"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Segoe UI" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{IDSUP_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="155" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="17" width="1158" height="95" forecolor="#006699" backcolor="#006699" uuid="72436021-b1da-452f-b17b-bca7f3fc0611"/>
+				<staticText>
+					<reportElement x="214" y="22" width="782" height="62" forecolor="#FFFFFF" uuid="b4215297-455a-4284-9496-5ac8f8568376"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="32" isBold="true"/>
+					</textElement>
+					<text><![CDATA[THỐNG KÊ YÊU CẦU GỬI THEO TỈNH/THÀNH PHỐ]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement style="SubTitle" x="774" y="83" width="449" height="29" forecolor="#CCCCCC" uuid="c73cf869-a0bb-4561-8ef7-ae4981dac4dc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI" size="18" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hệ thống hỗ trợ người bị Covid-19]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-26" y="-29" width="193" height="182" uuid="4feeacc2-43c4-41a0-9936-483567206fa9"/>
+				<imageExpression><![CDATA["src//Resource//r4_locyeucautheothanhpho.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<frame>
+				<reportElement x="87" y="0" width="1073" height="30" uuid="31358359-41fe-4ba0-a851-ecf6cb6c4294"/>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="0" y="0" width="121" height="30" forecolor="#000000" uuid="464982c4-3bd0-421f-8d17-f7932f962a0b"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="17" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Mã yêu cầu]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="152" y="0" width="177" height="30" forecolor="#000000" uuid="97dff6b7-51ac-41b9-b229-77776a2ff022"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="17" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Người gửi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="534" y="0" width="101" height="30" forecolor="#000000" uuid="6144e0fc-6fe9-4680-836d-17b0210ae48d"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="17" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Thị xã]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="701" y="0" width="210" height="30" forecolor="#000000" uuid="ff3ce498-3f27-41ac-b52f-6dd094fb5d84"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="17" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Trung tâm nhận yêu cầu]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="357" y="0" width="115" height="30" forecolor="#000000" uuid="99758bd7-a67b-4ec5-8cad-156cdf68bb9b"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="15" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Quận/Huyện]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="937" y="0" width="121" height="30" forecolor="#000000" uuid="7d41f932-8b80-40d7-9d8b-c5dd5af285ed"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="17" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Tình trạng]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="97" y="26" width="1063" height="2" uuid="22ff31be-8057-4c6d-b08c-6cb54fecd17d"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="640" y="0" width="82" height="24" uuid="77a2d2b4-c74f-4884-92f1-0be2e7103ffc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI" size="15" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOWN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="256" y="1" width="147" height="25" uuid="d116a27f-3b6d-456c-b32a-f12110365f74"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI" size="15" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NGUOIGUI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="1091" y="0" width="40" height="25" uuid="1a3585a4-93d8-4b9a-acef-0c0afe6719b3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI" size="15" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TINHTRANG}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="78" y="1" width="1053" height="25" uuid="7a8037b9-c90f-482d-8750-155304f43381"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="47" y="0" width="55" height="24" uuid="d9ac2b50-f3e8-46a0-a7be-49932fff7242"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="15" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IDSUP}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="381" y="0" width="96" height="24" uuid="5d89185e-5506-4470-af43-38a4a2246e32"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="15" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DISTRICT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="734" y="2" width="157" height="23" uuid="5539f4bb-a53e-46e8-b81b-445252319d02"/>
+					<textElement textAlignment="Center">
+						<font fontName="Segoe UI" size="15" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TRUNGTAM}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="899" y="11" width="125" height="31" forecolor="#000000" uuid="93a05d0a-d8e1-4aac-a7e3-cdc24c22c39d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI" size="16" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Tổng số yêu cầu:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="982" y="11" width="94" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="2e2f854b-2e13-4a7a-894e-4243bf64cd6f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Segoe UI" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{IDSUP_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="0" width="1158" height="21" forecolor="#D0B48E" backcolor="#006699" uuid="b5932903-e388-4010-aeb6-cd042a2bd8f6"/>
+				<textField pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="1067" y="0" width="91" height="21" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="9edff317-ce81-4827-a6bc-cdea779e9d54"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Segoe UI" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[""+$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField pattern="dd/MM/yy">
+				<reportElement style="Column header" x="-25" y="0" width="205" height="21" forecolor="#FFFFFF" uuid="86a4c7d1-8195-43af-8f03-9063510a9a3c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

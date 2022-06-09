@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1_DSBacSi" pageWidth="900" pageHeight="900" columnWidth="850" leftMargin="30" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f69160f-b098-4617-82f4-8da92c565511">
+	<property name="ireport.zoom" value="1.1000000000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[select iddoc, name, phone, academicrank, subject, workunits from doctor]]>
+	</queryString>
+	<field name="IDDOC" class="java.math.BigDecimal"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="PHONE" class="java.lang.String"/>
+	<field name="ACADEMICRANK" class="java.math.BigDecimal"/>
+	<field name="SUBJECT" class="java.math.BigDecimal"/>
+	<field name="WORKUNITS" class="java.lang.String"/>
+	<group name="IDDOC">
+		<groupExpression><![CDATA[$F{IDDOC}]]></groupExpression>
+		<groupHeader>
+			<band height="42">
+				<frame>
+					<reportElement mode="Opaque" x="1" y="5" width="871" height="37" forecolor="#B89F7D" backcolor="#AECEDF" uuid="809133fe-236c-4caa-a291-3907f29309e6"/>
+					<textField>
+						<reportElement style="SubTitle" x="125" y="7" width="163" height="25" forecolor="#000000" uuid="ad5355e3-0145-4358-839b-9a34f2e510d6"/>
+						<textElement>
+							<font fontName="Segoe UI" size="16" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement style="SubTitle" x="294" y="7" width="126" height="25" forecolor="#000000" uuid="7c4f08df-b0b4-4787-89e4-d279538511a9"/>
+						<textElement>
+							<font fontName="Segoe UI" size="16" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{SUBJECT}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement style="SubTitle" x="450" y="7" width="126" height="25" forecolor="#000000" uuid="9f309f8c-e784-4466-b18f-d1c104354a05"/>
+						<textElement>
+							<font fontName="Segoe UI" size="16" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{ACADEMICRANK}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement style="SubTitle" x="615" y="7" width="247" height="25" forecolor="#000000" uuid="091027ce-2bfe-4c7d-9075-3cd46e5c1774"/>
+						<textElement>
+							<font fontName="Segoe UI" size="16" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{WORKUNITS}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<textField>
+					<reportElement style="SubTitle" x="1" y="8" width="51" height="29" forecolor="#000000" uuid="1dea7671-4953-4a85-a582-0c145f4009cb"/>
+					<textElement>
+						<font fontName="Segoe UI" size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IDDOC}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="23"/>
+		</groupFooter>
+	</group>
+	<group name="ACADEMICRANK">
+		<groupExpression><![CDATA[$F{ACADEMICRANK}]]></groupExpression>
+	</group>
+	<group name="SUBJECT">
+		<groupExpression><![CDATA[$F{SUBJECT}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="162" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="52" y="3" width="798" height="113" forecolor="#006699" backcolor="#006699" uuid="50a3026e-ca1e-4866-8348-a08aa7610c7f"/>
+			</frame>
+			<staticText>
+				<reportElement style="Title" x="198" y="3" width="444" height="105" forecolor="#FFFFFF" uuid="24a13c1a-67c1-4a38-97c3-086ff676d11f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="44" isBold="true" isItalic="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[DANH SÁCH BÁC SĨ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="559" y="87" width="296" height="33" forecolor="#CCCCCC" uuid="0526c26f-dc57-4dc2-8011-34118cdf5465"/>
+				<textElement>
+					<font fontName="Segoe UI" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Hệ thống hỗ trợ người bị Covid-19]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="-11" width="147" height="168" uuid="5669e557-b2e2-47b7-9fc4-fc64be19c34f"/>
+				<imageExpression><![CDATA["src//Resource//r1_bacsi-removebg-preview.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="1" y="35" width="836" height="1" uuid="59134886-1cf3-48f0-90ca-a257ce2224d3"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="-4" y="-5" width="102" height="45" forecolor="#000000" uuid="784f0bba-aaf3-4f48-8800-73b047970818"/>
+				<textElement>
+					<font fontName="Segoe UI" size="18"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="616" y="0" width="150" height="39" forecolor="#000000" uuid="bac50dd1-6f3f-4ec3-8ca2-3446e4b34cc0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI" size="18"/>
+				</textElement>
+				<text><![CDATA[Đơn vị làm việc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" mode="Transparent" x="275" y="0" width="143" height="40" forecolor="#000000" uuid="ec3b258a-944a-4017-8bba-a7afbe15476b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI" size="18"/>
+				</textElement>
+				<text><![CDATA[Chuyên môn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="440" y="0" width="123" height="40" forecolor="#000000" uuid="49fc6362-b1af-4842-87e4-2b4348ae9ab3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI" size="18"/>
+				</textElement>
+				<text><![CDATA[Học vấn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="126" y="0" width="102" height="36" forecolor="#000000" uuid="1c603fa2-8162-41aa-aa34-781ff6a19e26"/>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe UI" size="18"/>
+				</textElement>
+				<text><![CDATA[Họ và tên]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="24" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="837" height="1" uuid="9d76700b-5e20-4b67-97dd-fdd2e5eeb654"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="34" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="891" height="24" forecolor="#B89F7D" backcolor="#AECEDF" uuid="b40dcfbe-a52b-4250-b1a0-103f360a5a3d"/>
+				<textField pattern="dd/MM/yy">
+					<reportElement style="Column header" x="22" y="0" width="183" height="24" forecolor="#736343" uuid="91dfbcfc-579b-4ba6-b288-3b38f96408bc"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Segoe UI" size="15" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="777" y="0" width="60" height="25" forecolor="#736343" backcolor="#FFFFFF" uuid="f0e899fe-8f87-4a5f-8a80-fc668816157b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Segoe UI" size="15" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

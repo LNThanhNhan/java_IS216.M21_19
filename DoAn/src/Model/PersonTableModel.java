@@ -18,7 +18,7 @@ public class PersonTableModel {
             , "Giới tính", "Số điện thoại","Tỉnh/Thành phố", "Quận/huyện", "Phường"
             , "Địa chỉ", "Trạng thái"};
     
-    public DefaultTableModel setAdvisoryTable(ArrayList<Person> listItem){    
+    public DefaultTableModel setTable(ArrayList<Person> listItem){    
         DefaultTableModel dtm = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
