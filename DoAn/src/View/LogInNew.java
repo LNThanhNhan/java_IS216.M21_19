@@ -178,7 +178,7 @@ public class LogInNew extends javax.swing.JFrame {
         kGradientPanel1.setkBorderRadius(0);
         kGradientPanel1.setkEndColor(new java.awt.Color(106, 197, 254));
         kGradientPanel1.setkGradientFocus(50);
-        kGradientPanel1.setkStartColor(new java.awt.Color(183, 226, 254));
+        kGradientPanel1.setkStartColor(new java.awt.Color(225, 243, 254));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(776, 442));
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -219,8 +219,9 @@ public class LogInNew extends javax.swing.JFrame {
         LoginButton.setkBorderRadius(40);
         LoginButton.setkEndColor(new java.awt.Color(106, 128, 254));
         LoginButton.setkHoverEndColor(new java.awt.Color(106, 197, 254));
-        LoginButton.setkHoverForeGround(new java.awt.Color(106, 128, 254));
-        LoginButton.setkHoverStartColor(new java.awt.Color(106, 128, 254));
+        LoginButton.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        LoginButton.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        LoginButton.setkIndicatorColor(new java.awt.Color(106, 197, 254));
         LoginButton.setkPressedColor(new java.awt.Color(106, 128, 254));
         LoginButton.setkSelectedColor(new java.awt.Color(106, 128, 254));
         LoginButton.setkStartColor(new java.awt.Color(99, 131, 224));
@@ -237,6 +238,14 @@ public class LogInNew extends javax.swing.JFrame {
 
         SignUpLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         SignUpLabel.setText("Đăng kí ngay");
+        SignUpLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SignUpLabelMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SignUpLabelMousePressed(evt);
+            }
+        });
         kGradientPanel1.add(SignUpLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 390, 100, -1));
         kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 260, -1, 30));
 
@@ -319,6 +328,16 @@ public class LogInNew extends javax.swing.JFrame {
         // TODO add your handling code here:
         LimitPassword(PasswordField, evt, 30);
     }//GEN-LAST:event_PasswordFieldKeyPressed
+
+    private void SignUpLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignUpLabelMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SignUpLabelMouseClicked
+
+    private void SignUpLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignUpLabelMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+        new SignUpPersonScreen(this, true).setVisible(true);
+    }//GEN-LAST:event_SignUpLabelMousePressed
 
     /**
      * @param args the command line arguments

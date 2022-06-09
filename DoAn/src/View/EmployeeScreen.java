@@ -49,12 +49,16 @@ import Model.EmployeeTableModel;
 import Model.Supply;
 import Model.SupplyTableModel;
 import java.awt.Font;
+import java.util.List;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -233,7 +237,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         ips.setResizable(false);
         ips.setTitle("Cập nhật thông tin trung tâm");
         ips.setVisible(true);
-    }//chưa
+    }
     
     //Đổ dữ liệu lên dialog AddCharityScreen
     public void SetdataforAddCharityScreen(){ 
@@ -304,7 +308,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         supply.setDetail(model.getValueAt(selectedRowIndex, 8).toString().trim());
         
         if (supply.getStatus() != 1) {
-            JOptionPane.showConfirmDialog(null, "Trạng thái không hợp lệ, không thể sửa!", "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Trạng thái không hợp lệ, không thể sửa!", "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
         } else {
             //AddPersonScreen aps = new AddPersonScreen(person);
             UpdateSupplyScreen ips = new UpdateSupplyScreen(this, true, supply);
@@ -409,7 +413,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
     //Tìm kiếm theo ID 
     public void Search(JTextField txt, JTable table, DefaultTableModel model, java.awt.event.KeyEvent e) { 
         String ID = txt.getText();
-        System.out.print(ID);
         model = (DefaultTableModel) table.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         
@@ -482,8 +485,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
     public EmployeeScreen(Employee employee, Account account) { 
         setLookandFeel();
         initComponents();
-        //this.main(null);
-        //setLookandFeel();
+        this.setLocationRelativeTo(null);
         usernameempcur = account.getUsername();
         setdataforcard2(employee, account);
         SetTabel(PersonTable);
@@ -826,6 +828,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         });
         ActionsPanel.add(MaximizeLabel);
 
+        CloseLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/button.png"))); // NOI18N
         CloseLabel.setPreferredSize(new java.awt.Dimension(18, 18));
         CloseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1122,7 +1125,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                 .addComponent(index6Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(index7Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         ParentPanel.add(jPanel2, java.awt.BorderLayout.LINE_START);
@@ -1215,6 +1218,16 @@ public class EmployeeScreen extends javax.swing.JFrame {
         UsernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         kButton11.setText("ĐỔI MẬT KHẨU");
+        kButton11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        kButton11.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton11.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton11.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton11.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton11.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton11.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton11.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton11.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton11.setkStartColor(new java.awt.Color(102, 255, 204));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1407,6 +1420,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Search_new.jpg"))); // NOI18N
 
         kButton1.setText("THÊM");
+        kButton1.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton1.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton1.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton1.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton1.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton1.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton1.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton1.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton1.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton1ActionPerformed(evt);
@@ -1414,6 +1436,14 @@ public class EmployeeScreen extends javax.swing.JFrame {
         });
 
         kButton2.setText("THÊM HOTLINE");
+        kButton2.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton2.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton2.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton2.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton2.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton2.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton2.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton2.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton2ActionPerformed(evt);
@@ -1454,7 +1484,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         card3PanelLayout.setVerticalGroup(
             card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, card3PanelLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1472,7 +1502,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                 .addGroup(card3PanelLayout.createSequentialGroup()
                     .addGap(269, 269, 269)
                     .addComponent(jLabel21)
-                    .addContainerGap(284, Short.MAX_VALUE)))
+                    .addContainerGap(288, Short.MAX_VALUE)))
         );
 
         RightPanel.add(card3Panel, "card3");
@@ -1535,6 +1565,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Search_new.jpg"))); // NOI18N
 
         kButton3.setText("IN THỐNG KÊ");
+        kButton3.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton3.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton3.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton3.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton3.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton3.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton3.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton3.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton3.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton3ActionPerformed(evt);
@@ -1542,6 +1581,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
         });
 
         kButton4.setText("THÊM");
+        kButton4.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton4.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton4.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton4.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton4.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton4.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton4.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton4.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton4.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton4ActionPerformed(evt);
@@ -1586,7 +1634,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                     .addGroup(card4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(kButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(kButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -1645,6 +1693,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Search_new.jpg"))); // NOI18N
 
         kButton5.setText("IN THỐNG KÊ");
+        kButton5.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton5.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton5.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton5.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton5.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton5.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton5.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton5.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton5.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton5ActionPerformed(evt);
@@ -1652,6 +1709,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
         });
 
         kButton6.setText("THÊM");
+        kButton6.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton6.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton6.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton6.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton6.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton6.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton6.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton6.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton6.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton6ActionPerformed(evt);
@@ -1686,7 +1752,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         card5CharityPanelLayout.setVerticalGroup(
             card5CharityPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, card5CharityPanelLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(card5CharityPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1755,6 +1821,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Search_new.jpg"))); // NOI18N
 
         kButton7.setText("THÊM");
+        kButton7.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton7.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton7.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton7.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton7.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton7.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton7.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton7.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton7.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton7ActionPerformed(evt);
@@ -1785,7 +1860,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         card6PanelLayout.setVerticalGroup(
             card6PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, card6PanelLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(card6PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1850,6 +1925,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Search_new.jpg"))); // NOI18N
 
         kButton8.setText("THÊM");
+        kButton8.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton8.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton8.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton8.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton8.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton8.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton8.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton8.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton8.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton8ActionPerformed(evt);
@@ -1857,6 +1941,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
         });
 
         kButton9.setText("XÓA YÊU CẦU QUÁ HẠN");
+        kButton9.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton9.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton9.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton9.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton9.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton9.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton9.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton9.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton9.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton9ActionPerformed(evt);
@@ -1864,6 +1957,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
         });
 
         kButton10.setText("IN THỐNG KÊ");
+        kButton10.setkBackGroundColor(new java.awt.Color(153, 255, 255));
+        kButton10.setkEndColor(new java.awt.Color(102, 153, 255));
+        kButton10.setkForeGround(new java.awt.Color(0, 0, 0));
+        kButton10.setkHoverColor(new java.awt.Color(0, 0, 0));
+        kButton10.setkHoverEndColor(new java.awt.Color(255, 102, 204));
+        kButton10.setkHoverForeGround(new java.awt.Color(153, 255, 255));
+        kButton10.setkHoverStartColor(new java.awt.Color(51, 204, 255));
+        kButton10.setkSelectedColor(new java.awt.Color(153, 255, 255));
+        kButton10.setkStartColor(new java.awt.Color(102, 255, 204));
         kButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton10ActionPerformed(evt);
@@ -1883,7 +1985,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         card7PanelLayout.setHorizontalGroup(
             card7PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, card7PanelLayout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(card7PanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
@@ -1895,7 +1997,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addComponent(SearchSupplyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel29)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addGroup(card7PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(test)
                             .addGroup(card7PanelLayout.createSequentialGroup()
@@ -1909,7 +2011,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         card7PanelLayout.setVerticalGroup(
             card7PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, card7PanelLayout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(card7PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(card7PanelLayout.createSequentialGroup()
@@ -1940,7 +2042,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         );
         Card8InforEmployeePanelLayout.setVerticalGroup(
             Card8InforEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 574, Short.MAX_VALUE)
         );
 
         RightPanel.add(Card8InforEmployeePanel, "card8");
@@ -2172,6 +2274,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
 
     private void SearchPersonTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchPersonTextFieldKeyPressed
         // TODO add your handling code here:
+        Search(SearchPersonTextField, PersonTable, modelTablePerson, evt);
     }//GEN-LAST:event_SearchPersonTextFieldKeyPressed
 
     private void PersonTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonTableMouseClicked
@@ -2221,14 +2324,27 @@ public class EmployeeScreen extends javax.swing.JFrame {
         int selectedRowIndex = PersonTable.getSelectedRow();      
         selectedRowIndex = PersonTable.convertRowIndexToModel(selectedRowIndex);
         check = PersonController.DeletePerson((int) model.getValueAt(selectedRowIndex, 0));
-        setTableManagePerson();
-        resizeColumnWidth(getPersonTable());
+//        setTableManagePerson();
+//        resizeColumnWidth(getPersonTable());
         
         if(check==0){
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
-                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);}
-        setTableManageDoctor();
-        resizeColumnWidth(getDoctorTable());
+                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
+        
+        }
+        
+        if (SearchPersonTextField.getText().equals("") == false) {
+            setTableManagePerson();
+            resizeColumnWidth(getPersonTable());
+            model = (DefaultTableModel) PersonTable.getModel();
+            TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+
+            trs.setRowFilter(RowFilter.regexFilter("^" +SearchPersonTextField.getText().trim(), 0));
+            PersonTable.setRowSorter(trs);
+        }
+        
+        
+        
     }//GEN-LAST:event_DeleteMenuItemActionPerformed
 
     private void UpdateDoctorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateDoctorMenuItemActionPerformed
@@ -2480,7 +2596,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         resizeColumnWidth(getSupplyTable());
         
         if(check==0){
-            JOptionPane.showMessageDialog(null, "Hủy yêu cầu thành công!",
+            JOptionPane.showMessageDialog(null, "Xóa yêu cầu quá hạn thành công!",
                         "Thông báo!", JOptionPane.INFORMATION_MESSAGE);}
         setTableManageSupply();
         resizeColumnWidth(getSupplyTable());
@@ -2517,6 +2633,8 @@ public class EmployeeScreen extends javax.swing.JFrame {
         table.getTableHeader().setForeground(new Color(255,255,255));
         table.setRowHeight(30);
         //table.set
+        
+        //table.setAutoCreateRowSorter(true);
        
     }
     
