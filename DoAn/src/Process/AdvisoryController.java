@@ -4,7 +4,7 @@
  */
 package Process;
 
-import Database.OracleConnection;
+import ConnectDB.OracleConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.sql.*;
