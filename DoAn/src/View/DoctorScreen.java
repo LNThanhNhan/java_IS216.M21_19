@@ -306,12 +306,10 @@ public class DoctorScreen extends javax.swing.JFrame {
         handleComboBoxEventForSearchScreen();
         setDoctorInformation();
         addSelectRowEventForSearchScreen();
-<<<<<<< HEAD
-//        DoctorAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/doctorNu.png")));
-=======
+
         if(doctor.getGender()==0)
         DoctorAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/doctorNu.png")));
->>>>>>> main
+
         //=============================================================
         //Bỏ chi tiết yêu cầu đang chờ vào scrollpane
         jScrollPane2.getViewport().setView(DetailPanel);
@@ -1150,11 +1148,10 @@ public class DoctorScreen extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(DoctorInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-<<<<<<< HEAD
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
-=======
+
+
                     .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
->>>>>>> main
+
                 .addContainerGap())
         );
 
