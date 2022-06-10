@@ -447,6 +447,7 @@ public class CharityScreen extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setName("DoctorFrame"); // NOI18N
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1350, 530));
 
         TopPanel.setBackground(new java.awt.Color(106, 128, 254));
         TopPanel.setPreferredSize(new java.awt.Dimension(1024, 30));
