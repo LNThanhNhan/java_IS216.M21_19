@@ -45,13 +45,9 @@ ALTER TABLE advisory
 ALTER TABLE advisory
     ADD CONSTRAINT weight_ad CHECK(weight >0);
 
-insert into advisory values(1,1,3,default,1986,170,80,3,NULL,'Xin tu van hau covid 19');
-insert into advisory values(2,2,10,default,1990,165,60,3,'Hen suyen','Em muon hoi cach dieu tri covid-19 tai nha');
-insert into advisory values(3,3,NULL,default,2002,170,86,1,NULL,'Huong dan cach xai kit test nhanh');
-insert into advisory values(4,4,NULL,default,1978,160,65,1,NULL,'Xin tu van hau covid 19');
-insert into advisory values(5,5,5,default,1980,164,55,2,'Huyet ap cao','Khi bi mac covid thì can lam gi');
-insert into advisory values(6,6,2,default,1965,158,57,2,'Tim mach','Tu van cach tu dieu tri covid tai nha');
-insert into advisory values(7,7,NULL,default,2000,176,69,1,NULL,'Hoi cach cham sóc cho nguoi nha bi covid');
-insert into advisory values(8,8,NULL,default,1997,180,70,1,NULL,'Em hien nay dang bi ho khan, mong bác si tu van');
-insert into advisory values(9,9,9,default,1995,171,74,2,NULL,'Cho em hoi neu mà mac covid tho mình se có nhung trieu chung gi');
-insert into advisory values(10,10,1,default,1989,167,71,3,NULL,'Mong bac si chan doan và kê don cho em thuoc dieu tri hau covid');
+--sequence cho id advisory
+create sequence idad
+    start with 21
+    increment by 1
+    nocache
+    nocycle;

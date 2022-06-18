@@ -1,61 +1,10 @@
-DELETE FROM SUPPLY;
-DELETE FROM ADVISORY;
-DELETE FROM PERSON;
-DELETE FROM EMPLOYEE;
-DELETE FROM CHARITY;
-DELETE FROM DOCTOR;
-DELETE FROM ACCOUNT;
-
---Luu y
---can phai chuyen du lieu phan workunit cua doctor thanh 50
---CAN SUA LAI TRONG BAO CAO DO AN
-ALTER TABLE doctor
-MODIFY WORKUNITS VARCHAR2(50);
-
---can phai drop sequence
-drop sequence idper;
-drop sequence idemp;
-drop sequence iddoc;
-drop sequence idchar;
-drop sequence idad;
-drop sequence idsup;
-
---them sequence moi
-create sequence idper
-    start with 31
-    increment by 1
-    nocache
-    nocycle;
---sequence cho ide employee
-create sequence idemp
-    start with 11
-    increment by 1
-    nocache
-    nocycle;
---sequence cho id doctor
-create sequence iddoc
-    start with 11
-    increment by 1
-    nocache
-    nocycle;
---sequence cho id char
-create sequence idchar
-    start with 11
-    increment by 1
-    nocache
-    nocycle;
---sequence cho id advisory
-create sequence idad
-    start with 21
-    increment by 1
-    nocache
-    nocycle;
---sequence cho id supply
-create sequence idsup
-    start with 31
-    increment by 1
-    nocache
-    nocycle;
+--DELETE FROM SUPPLY;
+--DELETE FROM ADVISORY;
+--DELETE FROM PERSON;
+--DELETE FROM EMPLOYEE;
+--DELETE FROM CHARITY;
+--DELETE FROM DOCTOR;
+--DELETE FROM ACCOUNT;
 
 --insert account
 INSERT INTO account VALUES ('user01' , '123123', 4);
@@ -240,3 +189,4 @@ INSERT INTO SUPPLY VALUES(27,27,NULL,TO_DATE('11/05/2022','dd/mm/yyyy'),0,1,0,2,
 INSERT INTO SUPPLY VALUES(28,28,NULL,TO_DATE('12/05/2022','dd/mm/yyyy'),1,0,1,2,'Cần khẩu trang và trái cây');
 INSERT INTO SUPPLY VALUES(29,29,NULL,TO_DATE('12/03/2022','dd/mm/yyyy'),1,1,0,2,'Tôi thiếu nước uống và dụng cụ ăn uống');
 INSERT INTO SUPPLY VALUES(30,30,NULL,TO_DATE('14/05/2022','dd/mm/yyyy'),1,1,1,2,'Cần nhận khẩu phần ăn cho 1 gia đình 3 người');
+Commit;
