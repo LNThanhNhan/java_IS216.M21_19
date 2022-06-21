@@ -107,7 +107,7 @@ public class CharityScreen extends javax.swing.JFrame {
     }
     
     //Từ đây xuống dưới là cài đặt bằng CSDL, xử lý sự kiện
-    //Hàm lấy tất cả tỉnh thành phố có người yêu cầu tư ván
+    //Hàm lấy tất cả tỉnh thành phố có người yêu cầu tiếp tế
     private void getComboboxItemForSearchScreen()
     {
         DefaultComboBoxModel<String> ProvinceComboBoxModel = new DefaultComboBoxModel();

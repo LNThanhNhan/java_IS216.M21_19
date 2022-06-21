@@ -571,9 +571,7 @@ public class PersonScreen extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         SupplyTable = new javax.swing.JTable();
-        SearchSupplyTextField = new javax.swing.JTextField();
         HaveStatus1CheckBox = new javax.swing.JCheckBox();
-        jLabel35 = new javax.swing.JLabel();
         card2Panel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -603,9 +601,7 @@ public class PersonScreen extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         AdvisoryTable = new javax.swing.JTable();
-        AdvisorySearchTextField = new javax.swing.JTextField();
         HaveStatus1CheckBox1 = new javax.swing.JCheckBox();
-        jLabel34 = new javax.swing.JLabel();
         card3Panel = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -1163,12 +1159,6 @@ public class PersonScreen extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(SupplyTable);
 
-        SearchSupplyTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                SearchSupplyTextFieldKeyReleased(evt);
-            }
-        });
-
         HaveStatus1CheckBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         HaveStatus1CheckBox.setText("Yêu cầu đã mở");
         HaveStatus1CheckBox.addItemListener(new java.awt.event.ItemListener() {
@@ -1182,8 +1172,6 @@ public class PersonScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Search_new.jpg"))); // NOI18N
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1195,10 +1183,7 @@ public class PersonScreen extends javax.swing.JFrame {
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(SearchSupplyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel35)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addGap(211, 261, Short.MAX_VALUE)
                         .addComponent(HaveStatus1CheckBox)
                         .addGap(18, 18, 18))))
         );
@@ -1206,12 +1191,9 @@ public class PersonScreen extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel35)
-                    .addComponent(SearchSupplyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(HaveStatus1CheckBox))
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane5)
+                .addComponent(HaveStatus1CheckBox)
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1519,17 +1501,6 @@ public class PersonScreen extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(AdvisoryTable);
 
-        AdvisorySearchTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdvisorySearchTextFieldActionPerformed(evt);
-            }
-        });
-        AdvisorySearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                AdvisorySearchTextFieldKeyReleased(evt);
-            }
-        });
-
         HaveStatus1CheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         HaveStatus1CheckBox1.setText("Yêu cầu đã mở");
         HaveStatus1CheckBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -1537,8 +1508,6 @@ public class PersonScreen extends javax.swing.JFrame {
                 HaveStatus1CheckBox1ItemStateChanged(evt);
             }
         });
-
-        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Search_new.jpg"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1549,10 +1518,7 @@ public class PersonScreen extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(AdvisorySearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel34)
-                        .addGap(18, 18, 18)
+                        .addGap(260, 260, 260)
                         .addComponent(HaveStatus1CheckBox1)
                         .addGap(0, 11, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -1560,12 +1526,8 @@ public class PersonScreen extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(AdvisorySearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(HaveStatus1CheckBox1))
-                    .addComponent(jLabel34))
+                .addGap(47, 47, 47)
+                .addComponent(HaveStatus1CheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
@@ -1994,11 +1956,6 @@ public class PersonScreen extends javax.swing.JFrame {
         SetdataforAdvisoryDetail();
     }//GEN-LAST:event_AdvisoryTableMouseClicked
 
-    private void AdvisorySearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AdvisorySearchTextFieldKeyReleased
-        // TODO add your handling code here:
-        Search(AdvisorySearchTextField, AdvisoryTable, modelTableAdvisory, evt);
-    }//GEN-LAST:event_AdvisorySearchTextFieldKeyReleased
-
     private void DeleteSupplyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteSupplyMenuItemActionPerformed
         // TODO add your handling code here:
 //        DefaultTableModel model = (DefaultTableModel) SupplyTable.getModel();
@@ -2008,15 +1965,6 @@ public class PersonScreen extends javax.swing.JFrame {
 //        setTableManageSupply();
 //        resizeColumnWidth(getSupplyTable());
     }//GEN-LAST:event_DeleteSupplyMenuItemActionPerformed
-
-    private void AdvisorySearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdvisorySearchTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AdvisorySearchTextFieldActionPerformed
-
-    private void SearchSupplyTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchSupplyTextFieldKeyReleased
-        // TODO add your handling code here:
-         Search(SearchSupplyTextField, SupplyTable, modelTableSupply, evt);
-    }//GEN-LAST:event_SearchSupplyTextFieldKeyReleased
 
     private void SupplyTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SupplyTableMouseClicked
         // TODO add your handling code here:
@@ -2363,7 +2311,6 @@ public class PersonScreen extends javax.swing.JFrame {
     private com.k33ptoo.components.KButton AddAdvisoryButton1;
     private javax.swing.JLabel AddressLabel;
     private javax.swing.JPopupMenu AdvisoryPopupMenu;
-    private javax.swing.JTextField AdvisorySearchTextField;
     private javax.swing.JTable AdvisoryTable;
     private com.k33ptoo.components.KButton ChangePasswordButton;
     private javax.swing.JLabel CloseLabel;
@@ -2400,7 +2347,6 @@ public class PersonScreen extends javax.swing.JFrame {
     private javax.swing.JLabel RefeshButton;
     private javax.swing.JLabel RefeshButton1;
     private javax.swing.JPanel RightPanel;
-    private javax.swing.JTextField SearchSupplyTextField;
     private javax.swing.JTextField StatusAdTextField;
     private javax.swing.JLabel StatusLabel;
     private javax.swing.JTextField StatusTextField;
@@ -2459,8 +2405,6 @@ public class PersonScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
