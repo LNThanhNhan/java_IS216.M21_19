@@ -10,14 +10,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
-
+import static View.ChangeValue.*;
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class SupplyTableModel {
     private String[] listColumn = {"Mã yêu cầu", "Mã người dùng", "Mã trung tâm"
-            , "Ngày tạo","Cần thức ăn", "Cần nhu yếu %nphẩm", "Cần vật dụng"
+            , "Ngày tạo","Cần thức ăn", "Cần nhu yếu phẩm", "Cần vật dụng"
             , "Trạng thái", "Chi tiết"};
     
     public DefaultTableModel setSupplyTable(ArrayList<Supply> listItem){    
@@ -37,7 +37,7 @@ public class SupplyTableModel {
                 String Created = sdf.format(Supply.getCreated());
                 
                 dtm.addRow(new Object[]{Supply.getIdsup(), Supply.getIdper(),
-                        Supply.getIdchar(), Created,
+                        IdcharEmptyCase(Supply.getIdchar()), Created,
                         Ishas(Supply.getNeedfood()), Ishas(Supply.getNeednecess()), 
                         Ishas(Supply.getNeedequip()), SupplyStatus(Supply.getStatus()), Supply.getDetail()});
             }

@@ -15,7 +15,14 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 /**
@@ -58,6 +65,7 @@ public class EmployeeController {
         return ListEmployee;
     }
     
+    //Thêm nhân viên
     public static int AddEmployee( Employee Employee, Account account) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -84,7 +92,7 @@ public class EmployeeController {
                 JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
             else if (sqlex.getErrorCode() == 1){
-                JOptionPane.showMessageDialog(null, "Số điện thoại này đã tồn tại",
+                JOptionPane.showMessageDialog(null, "Số điện thoại hoăc tên người dùng này đã tồn tại",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
             return 1;
 
@@ -95,7 +103,9 @@ public class EmployeeController {
         return 0;
         
     }  
-     
+    
+    
+    //Lấy ID tiếp  theo của nhân viên 
     public static String getNextValueEmployee() {
         String id = "";
         try {
@@ -133,6 +143,8 @@ public class EmployeeController {
         return id;
     } 
     
+    
+    //Xóa nhân viên
      public static int DeleteEmployee (int idemp) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -146,12 +158,16 @@ public class EmployeeController {
        
             ps.close();
             con.close();
-        } catch (Exception ex) {
+        }catch (SQLException sqlex) {
+            sqlex.printStackTrace(); 
+        } 
+        catch (Exception ex) {
             ex.printStackTrace();
         }
         return 0;    
     }
      
+     //Cập nhât nhân viên
      public static int UpdateEmployee(Employee Employee) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -190,7 +206,7 @@ public class EmployeeController {
         
     }
      
-     
+    //Lấy thông tin nhân viên 
     public  Employee getEmployeeInfo(String username)
     {
         Employee emp = new Employee();
@@ -227,6 +243,7 @@ public class EmployeeController {
         return emp;
     }
 
+    
     public static String getUsernameEmp(int idper){
         String usernameemp="" ;
         try {
@@ -254,5 +271,24 @@ public class EmployeeController {
             ex.printStackTrace();
         }
         return usernameemp;
+    }
+    
+    //In thống kê danh sách nhân viên
+    public static void exportEmployeeToPdf() {
+        try {
+            Connection con = OracleConnection.getOracleConnection();
+            String source = "src/Resource/report5_DSNhanVien.jrxml";
+            JasperReport jr = JasperCompileManager.compileReport(source);
+
+            JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap(), con);
+
+            
+            JasperExportManager.exportReportToPdfFile(jp, "test.pdf" );
+            JasperViewer.viewReport(jp, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 }

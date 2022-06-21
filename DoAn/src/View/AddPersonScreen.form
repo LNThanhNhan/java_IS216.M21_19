@@ -134,7 +134,7 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="UsernameTextField" pref="200" max="32767" attributes="0"/>
-                                          <Component id="PasswordTextField" max="32767" attributes="0"/>
+                                          <Component id="PasswordTextField" pref="200" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -148,10 +148,10 @@
                               </Group>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="TownTextField" max="32767" attributes="0"/>
-                                  <Component id="DistrictTextField" max="32767" attributes="0"/>
-                                  <Component id="AddressTextField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="StatusTextField" max="32767" attributes="0"/>
+                                  <Component id="TownTextField" pref="200" max="32767" attributes="0"/>
+                                  <Component id="DistrictTextField" pref="200" max="32767" attributes="0"/>
+                                  <Component id="AddressTextField" alignment="0" pref="200" max="32767" attributes="0"/>
+                                  <Component id="StatusTextField" pref="200" max="32767" attributes="0"/>
                                   <Component id="ProvinceComboBox" alignment="0" pref="200" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -351,6 +351,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="0"/>
                 </Property>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Nam"/>
               </Properties>
             </Component>

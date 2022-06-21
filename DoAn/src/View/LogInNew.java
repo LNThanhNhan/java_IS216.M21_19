@@ -9,8 +9,11 @@ import static Process.AccountController.getRoleUser;
 import Process.EmployeeController;
 import static Process.PersonController.getStatusPerson;
 import Model.Account;
+import Model.Charity;
+import Model.Doctor;
 import Model.Employee;
 import Model.Person;
+import Process.PersonController;
 import java.awt.Color; 
 import java.awt.Color; 
 import java.awt.event.KeyEvent;
@@ -57,6 +60,7 @@ public class LogInNew extends javax.swing.JFrame {
         }
     }
     
+    //Gioi hạn kí tự cho JtextField
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -76,7 +80,7 @@ public class LogInNew extends javax.swing.JFrame {
         }
     }
     
-    
+    //Gioi hạn kí tự cho JPaswordField
     public void LimitPassword(JPasswordField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = String.valueOf(txt.getPassword());
         ErrorLabel.setText("");
@@ -96,6 +100,7 @@ public class LogInNew extends javax.swing.JFrame {
         }
     }
     
+    //Đặt sự kiện
     public void setEvent(){ 
         if(UsernameTextField.getText().equals("") || String.valueOf(PasswordField.getPassword()).equals("")) {
             JOptionPane.showMessageDialog(null,"Không được để trống các miền giá trị bắt buộc!","Cảnh báo",
@@ -105,17 +110,18 @@ public class LogInNew extends javax.swing.JFrame {
             int roleuser = getRoleUser(UsernameTextField.getText().toString());
             switch(roleuser) {
                 case 1: {
-                    int status = getStatusPerson(UsernameTextField.getText().toString());
-                    if(status==1){
-                        JOptionPane.showMessageDialog(null,"Tài khoản của bạn đã bị khóa!","Cảnh báo",
-                        JOptionPane.WARNING_MESSAGE);
-                    }
-                    
-                    
-                    //code
+                    //Người cần giúp đỡ
+                    PersonController percon = new PersonController();
+                    Person person = new Person();
+                    person = percon.getPersonInfo(UsernameTextField.getText().toString());
+                    //new PersonScreen(person).setVisible(true);
+                     //a.setVisible(true);
+                    this.dispose();
                     
                 }
+                break;
                 case 2: {
+                    //Nhân Viên
                     Account account = new Account();
                     Employee employee = new Employee();
                     employee.setUsername(UsernameTextField.getText().toString());
@@ -129,11 +135,21 @@ public class LogInNew extends javax.swing.JFrame {
                     this.dispose();
                     //EmployeeScreen a = new EmployeeScreen();                    
                 }
+                break;
                 case 3: {
-                    //code
+                    //Trung Tâm
+                    Charity charity = new Charity();
+                    charity.setUsername(UsernameTextField.getText().toString());
+                    //new CharityScreen(charity).setVisible(true);
+                    this.dispose();
                 }
+                break;
                 case 4: {
-                    
+                    //Bác sĩ
+                    Doctor doctor = new Doctor();
+                    doctor.setUsername(UsernameTextField.getText().toString());
+                    //new DoctorScreen(doctor).setVisible(true);
+                    this.dispose();
                 }
             }
         }
@@ -364,6 +380,7 @@ public class LogInNew extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LogInNew.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

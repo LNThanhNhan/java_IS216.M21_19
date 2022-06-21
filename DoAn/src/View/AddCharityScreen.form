@@ -125,7 +125,7 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="UsernameTextField" pref="200" max="32767" attributes="0"/>
-                                          <Component id="PasswordTextField" max="32767" attributes="0"/>
+                                          <Component id="PasswordTextField" pref="200" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -399,8 +399,8 @@
                       <EmptySpace pref="92" max="32767" attributes="0"/>
                       <Component id="HasNecessCheckBox" min="-2" pref="221" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                      <Component id="HasEquipCheckBox" min="-2" pref="81" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="HasEquipCheckBox" min="-2" pref="113" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

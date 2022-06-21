@@ -15,27 +15,27 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class UpdateDoctorScreen extends javax.swing.JDialog {
 
     /**
      * Creates new form InformationPersonScreen
      */
-   
-    EmployeeScreen  emp = new EmployeeScreen();
+    EmployeeScreen emp = new EmployeeScreen();
+
     public UpdateDoctorScreen(java.awt.Frame parent, boolean modal, Doctor doctor) {
         super(parent, modal);
         initComponents();
         emp = (EmployeeScreen) parent;
         setView(doctor);
-        
+
     }
-    
+
     public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
-        
+
         int length = string.length();
 
         if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
@@ -44,91 +44,82 @@ public class UpdateDoctorScreen extends javax.swing.JDialog {
             } else {
                 txt.setEditable(false);
                 ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-            }   
-        }
-        else
-            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE ){
-                ErrorLabel.setText("");
-                txt.setEditable(true);
-            } else {
-                txt.setEditable(false);
             }
-         
-        
-        
+        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+            ErrorLabel.setText("");
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+        }
+
     }
-    
+
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
 
         int length = string.length();
-            if (length < lenghth_char_exp) {
+        if (length < lenghth_char_exp) {
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+            ErrorLabel.setText("Nhập quá kí tự cho phép!!");
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                ErrorLabel.setText("");
                 txt.setEditable(true);
             } else {
                 txt.setEditable(false);
-                ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-                if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
-                    ErrorLabel.setText("");
-                    txt.setEditable(true);
-                } else {
-                    txt.setEditable(false);
-                }
-            }      
+            }
+        }
     }
-    
+
     //set view dialog
-    public void setView(Doctor doctor) {       
+    public void setView(Doctor doctor) {
         // set data
         IddocTextField.setText(String.valueOf(doctor.getIddoc()));
-        //UsernameTextField.setText(String.valueOf(doctor.getUsername())); 
         NameTextField.setText(doctor.getName());
         PhoneTextField.setText(doctor.getPhone());
-        
+
         ProvinceComboBox.setModel(new DefaultComboBoxModel(getProvince()));
         ProvinceComboBox.setSelectedItem(doctor.getProvince());
 
         AccademicrankComboBox.setModel(new DefaultComboBoxModel(getAcademicRank()));
         AccademicrankComboBox.setSelectedItem(AcademicRank(doctor.getAccademicrank()));
-        
+
         SubjectComboBox.setModel(new DefaultComboBoxModel(getSubject()));
         SubjectComboBox.setSelectedItem(Subject(doctor.getSubject()));
-        
+
         WorkunitsTextField.setText(doctor.getWorkunits());
-        
-        
-        if (doctor.getGender()==1) {
+
+        if (doctor.getGender() == 1) {
             MaleGenderRadioButton.setSelected(true);
             FeMaleGenderRadioButton.setSelected(false);
-        } else if(doctor.getGender()==0){
+        } else if (doctor.getGender() == 0) {
             FeMaleGenderRadioButton.setSelected(true);
             MaleGenderRadioButton.setSelected(false);
-        } else { 
-            FeMaleGenderRadioButton.setSelected(false);
-            MaleGenderRadioButton.setSelected(false);
-        }
+        } 
     }
-    
+
     //set event for button
-    public void setEvent(){ 
-        
-        int check=-1;
-        if((PhoneTextField.getText().length())<10){
+    public void setEvent() {
+
+        int check = -1;
+        if ((PhoneTextField.getText().length()) < 10) {
             JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
-        } else { 
+                    "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        } else {
             Doctor doctor = new Doctor();
             doctor.setIddoc(parseInt(IddocTextField.getText()));
             //doctor.setUsername(UsernameTextField.getText());
             doctor.setName(NameTextField.getText());
             doctor.setGender(getGender(MaleGenderRadioButton));
-            
+
             if (ProvinceComboBox.getSelectedIndex() != 0) {
                 doctor.setProvince(String.valueOf(ProvinceComboBox.getSelectedItem()));
             } else {
                 doctor.setProvince("");
             }
-            
+
             doctor.setAccademicrank(AcademicRankInt(getComboBoxValue(AccademicrankComboBox)));
             doctor.setSubject(SubjectInt(getComboBoxValue(SubjectComboBox)));
             doctor.setWorkunits(WorkunitsTextField.getText());
@@ -138,16 +129,16 @@ public class UpdateDoctorScreen extends javax.swing.JDialog {
             emp.setTableManageDoctor();
             emp.resizeColumnWidth(emp.getDoctorTable());
         }
-        
-        if(check ==0){
+
+        if (check == 0) {
             JOptionPane.showMessageDialog(null, "Cập nhật thông tin thành công!",
                     "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
-       
+
         }
-        
-     
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -385,8 +376,8 @@ public class UpdateDoctorScreen extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:  
-            setEvent();
-        
+        setEvent();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void NameTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NameTextFieldKeyReleased
@@ -440,6 +431,10 @@ public class UpdateDoctorScreen extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(UpdateDoctorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>    
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
