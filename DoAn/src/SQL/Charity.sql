@@ -37,14 +37,11 @@ ALTER TABLE charity
     ADD CONSTRAINT point_char CHECK(point >=0);
 --Trung tam phai cung cap duoc it nhat 1 loai yeu cau
 ALTER TABLE charity
-    ADD CONSTRAINT fill_a_need_char CHECK (hasfood =1 or hasnecess=1 or hasequip=1);    
-INSERT INTO Charity VALUES (1, 'user11', 'Tinh  Thuong', '0373484186', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '72 DUONG 17',1, 1, 1, 1);
-INSERT INTO Charity VALUES (2, 'user12', 'Hoa Tu Bi', '0347694188', 'Ho Chi Minh', 'QUAN 1', 'BEN NGHE', '32 DUONG LE DUAN', 1, 1, 0, 0);
-INSERT INTO Charity VALUES(3, 'user13', 'Hoa Hao', '0398437179', 'Ho Chi Minh', 'THU DUC',  'LINH TRUNG', '6/2D KHU PHO 2' ,1,1,1,1);
-INSERT INTO Charity VALUES(4, 'user14', 'Mai Am', '0374892969', 'Ho Chi Minh', 'THU DUC', 'LINH TRUNG', '22 DUONG 1', 1,1,1,1);
-INSERT INTO Charity VALUES(5, 'user15', 'Bep Com Van Tinh', '0358806568', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '4/14 DUONG 18', 1,1,1,1);
-INSERT INTO Charity VALUES(6, 'user16', 'Huong Sen', '0343804268', 'Ho Chi Minh', 'THU DUC', 'LINH CHIEU', '108 DUONG HOANG DIEU 2', 1,1,1,1);
-INSERT INTO Charity VALUES(7, 'user17', 'Tinh Nguyen Tre', '0335181173', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '109 HEM 21 DUONG 11', 1,1,1,1);
-INSERT INTO Charity VALUES(8, 'user18', 'Suc Song', '0334658575', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '69 DUONG TRUONG TRE', 1,1,1,1);
-INSERT INTO Charity VALUES(9, 'user19', 'Minh Tam', '0396171180', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '83/1QUOC LO 1A', 1,1,1,1);
-INSERT INTO Charity VALUES(10, 'user20', 'Mam Non', '0967596794', 'Ho Chi Minh', 'THU DUC', 'LINH XUAN', '31 DUONG 10', 1,1,1,1);
+    ADD CONSTRAINT fill_a_need_char CHECK (hasfood =1 or hasnecess=1 or hasequip=1);   
+    
+--sequence cho id char
+create sequence idchar
+    start with 11
+    increment by 1
+    nocache
+    nocycle;

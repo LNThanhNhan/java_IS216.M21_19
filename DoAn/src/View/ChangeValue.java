@@ -5,7 +5,12 @@
 package View;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -37,8 +42,38 @@ public class ChangeValue {
         }
         return "ERROR";
     }
-    public static String Subject(int value)
+    
+    public static int AcademicRankInt(String value)
     {
+        switch(value)
+        {
+            case "Cử nhân": 
+                return 1 ;
+            case "Bác sĩ":
+                return 2;
+            case "Thạc sĩ":
+                return 3;    
+            case "Tiến sĩ":
+                return 4;
+            case "Giáo sư/Phó giáo sư":
+                return 5;    
+            case "Chuyên khoa 1":
+                return 6;
+            case "Chuyên khoa 2":
+                return 7;
+            case "Sinh viên năm cuối/kế cuối Y Dược":
+                return 8;
+            case "Kỹ thuật viên":
+                return 9;
+        }
+        return -1;
+    }
+    
+    
+    
+   public static String Subject(int value)
+    {
+        
         switch(value)
         {
             case 1: 
@@ -54,6 +89,25 @@ public class ChangeValue {
         }
         return "ERROR";
     }
+    
+    public static int SubjectInt(String value)
+    {
+        switch(value)
+        {
+            case "Bác sĩ chuyên khoa": 
+                return 1;
+            case "Chuyên viên tâm lý":
+                return 2;
+            case "Dược sĩ":
+                return 3 ;    
+            case "Điều dưỡng, hộ sinh":
+                return 4 ;
+            case "Sinh viên năm cuối/kế cuối Y Dược":
+                return 5;   
+        }
+        return -1;
+    }
+    
     public static String Gender(int value)
     {
         if(value==1)
@@ -63,6 +117,17 @@ public class ChangeValue {
         else
             return "ERROR";
     }
+    
+    public static int GenderInt(String value)
+    {
+        if(value=="Nam")
+            return 1;
+        else if(value=="Nữ")
+            return 0;
+        else
+            return -1;
+    }
+    
     public static String AdvisoryStatus(int value)
     {
         switch(value)
@@ -93,6 +158,25 @@ public class ChangeValue {
         }
         return "ERROR";
     }
+    
+    public static int SupplyStatusInt(String value)
+    {
+        switch(value)
+        {
+            case "Đã mở": 
+                return 1;
+            case "Đã xác thực":
+                return 2;
+            case "Đang chờ":
+                return 3;
+            case "Hoàn thành":
+                return 4;
+            case "Đã hủy":
+                return 5;
+        }
+        return -1;
+    }
+    
     public static String PersonStatus(int value)
     {
         if(value==1)
@@ -102,6 +186,17 @@ public class ChangeValue {
         else
             return "ERROR";
     }
+    
+    public static int PersonStatusInt(String value)
+    {
+        if(value=="Đã bị khóa")
+            return 1;
+        else if(value=="Đang sử dụng")
+            return 0;
+        else
+            return -1;
+    }
+    
     public static String AccountRole(int value)
     {
         switch(value)
@@ -122,7 +217,35 @@ public class ChangeValue {
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(date);
     }
-    public static String[] getProvince()
+    
+    public static String Ishas(int value) {
+        if(value==1)
+            return "Có";
+        else if(value==0)
+            return "Không";
+        else
+            return "ERROR";
+    }
+    
+    public static int IshasInt(String value) {
+        if(value=="Có")
+            return 1;
+        else if(value=="Không")
+            return 0;
+        else
+            return -1;
+    }
+    
+    
+    
+    /*
+    public static String UserName(String value) {
+        if (value == "thường")
+            return "";
+        else if (value == "hotline");
+            return value;
+}*/
+     public static String[] getProvince()
     {
         String province[]={"Tỉnh/Thành phố",
         "Hà Nội","Hồ Chí Minh","An Giang","Bà Rịa – Vũng Tàu","Bắc Giang",
@@ -138,5 +261,63 @@ public class ChangeValue {
         "Trà Vinh","Tuyên Quang","Vĩnh Long","Vĩnh Phúc","Yên Bái"
     };
         return province;
+    }
+     
+    public static String[] getAcademicRank()
+    {
+        String AcademicRank[]={"Học hàm/Học vị","Cử nhân","Bác sĩ","Thạc sĩ","Tiến sĩ","Giáo sư/Phó giáo sư",
+        "Chuyên khoa 1","Chuyên khoa 2", "Sinh viên năm cuối/kế cuối Y Dược","Kỹ thuật viên"
+    };
+        return AcademicRank;
+    }
+    
+     public static String[] getSubject()
+    {
+        String Subject[]={"Chuyên khoa","Bác sĩ chuyên khoa","Chuyên viên tâm lý","Dược sĩ","Tiến sĩ","Điều dưỡng, hộ sinh",
+        "Sinh viên năm cuối/kế cuối Y Dược"
+    };
+        return Subject;
+    }
+     
+    public static String getComboBoxValue(JComboBox cbb){ 
+        String string ="";
+            if (cbb.getSelectedIndex() == 0) {
+                string = "";
+            } else {
+                string = cbb.getSelectedItem().toString();
+            }
+        return string;
+    }
+    
+    public static int getGender(JRadioButton rd){ 
+        if (rd.isSelected()==true) {
+            return 1;
+            } else
+            return 0;
+    }
+    
+    public static int getValueCheckBox(JCheckBox cb){ 
+        if(cb.isSelected()==true)
+            return 1;
+        else
+            return 0;
+    }
+public static boolean getValueCheckBoxBoolean(int cb){
+    if(cb == 1)
+        return true;
+    else
+        return false;
+}
+
+public static String NeedSupply(int value)
+    {
+        switch(value)
+        {
+            case 1: 
+                return "Có";
+            case 0:
+                return "Không";
+        }
+        return "ERROR";
     }
 }

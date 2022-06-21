@@ -112,7 +112,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         {
             if(e.getStateChange()==ItemEvent.SELECTED)
             {
-                if(0==ProvinceComboBox.getSelectedIndex())
+                if(0!=ProvinceComboBox.getSelectedIndex())
                 {
                     refreshForSearchScreen();
                     //Dung để thực hiện xử lý truy xuất đồng thời 
@@ -162,12 +162,12 @@ public class DoctorScreen extends javax.swing.JFrame {
     //Đặt lại thông tin trên chi tiết yêu cầu là null
     private void refreshForSearchScreen()
     {
-        IdadValueLabel.setText("");
-        NameValueLabel.setText("");
-        GenderValueLabel.setText("");
-        YearbirthValueLabel.setText("");
-        ProvinceValueLabel.setText("");
-        CreatedValueLabel.setText("");
+        IdadValueLabel.setText("null");
+        NameValueLabel.setText("null");
+        GenderValueLabel.setText("null");
+        YearbirthValueLabel.setText("null");
+        ProvinceValueLabel.setText("null");
+        CreatedValueLabel.setText("null");
         DetailTextArea.setText("");
     }
     
@@ -265,15 +265,15 @@ public class DoctorScreen extends javax.swing.JFrame {
 
     private void refreshForWaitScreen()
     {
-        IdadWaitLabel.setText("");
-        NameWaitLabel.setText("");
-        GenderWaitLabel.setText("");
-        YearbirthWaitLabel.setText("");
-        ProvinceWaitLabel.setText("");
-        CreatedWaitLabel.setText("");
-        HeightWaitLabel.setText("");
-        WeightWaitLabel.setText("");
-        PhoneWaitLabel.setText("");
+        IdadWaitLabel.setText("null");
+        NameWaitLabel.setText("null");
+        GenderWaitLabel.setText("null");
+        YearbirthWaitLabel.setText("null");
+        ProvinceWaitLabel.setText("null");
+        CreatedWaitLabel.setText("null");
+        HeightWaitLabel.setText("null");
+        WeightWaitLabel.setText("null");
+        PhoneWaitLabel.setText("null");
         pmhTextArea.setText("");
         DetailWaitTextArea.setText("");
     }
@@ -295,7 +295,6 @@ public class DoctorScreen extends javax.swing.JFrame {
     public DoctorScreen() {
         adcon = new AdvisoryController();
         doctor=new Doctor(10,"user10","Trần Văn B",0,"0937976863",1,2,"Bệnh viện K","Hà Nội");
-        this.setPreferredSize(new Dimension(1270, 540));
         initComponents();
         setLocationRelativeTo(null);
         SetTableColor(AdvisoryTable);
@@ -307,8 +306,10 @@ public class DoctorScreen extends javax.swing.JFrame {
         handleComboBoxEventForSearchScreen();
         setDoctorInformation();
         addSelectRowEventForSearchScreen();
+
         if(doctor.getGender()==0)
         DoctorAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/doctorNu.png")));
+
         //=============================================================
         //Bỏ chi tiết yêu cầu đang chờ vào scrollpane
         jScrollPane2.getViewport().setView(DetailPanel);
@@ -331,7 +332,8 @@ public class DoctorScreen extends javax.swing.JFrame {
         TopPanel = new javax.swing.JPanel();
         ActionsPanel = new javax.swing.JPanel();
         MinimizeButton = new javax.swing.JLabel();
-        ExitButton = new javax.swing.JLabel();
+        MaximizeButton = new javax.swing.JLabel();
+        CloseLabel = new javax.swing.JLabel();
         TitlePanel = new javax.swing.JPanel();
         TitleLabel = new javax.swing.JLabel();
         ParentPanel = new javax.swing.JPanel();
@@ -382,11 +384,16 @@ public class DoctorScreen extends javax.swing.JFrame {
         RefeshButton = new javax.swing.JLabel();
         DoctorInformationPanel = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
+        ChangePasswordButton = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
         DoctorAvatar = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         DoctorNameLabel = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        UsernameLabel = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         IddocLabel = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
@@ -401,12 +408,6 @@ public class DoctorScreen extends javax.swing.JFrame {
         SubjectLabel = new javax.swing.JLabel();
         WorkUnitLabel = new javax.swing.JLabel();
         DoctorProvinceLabel = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
-        UsernameLabel = new javax.swing.JLabel();
-        ChangePasswordButton = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         WaitingAdvisoryPanel = new javax.swing.JPanel();
         WaitingListPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -447,7 +448,6 @@ public class DoctorScreen extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setName("DoctorFrame"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1270, 540));
 
         TopPanel.setBackground(new java.awt.Color(106, 128, 254));
         TopPanel.setPreferredSize(new java.awt.Dimension(1024, 40));
@@ -469,7 +469,6 @@ public class DoctorScreen extends javax.swing.JFrame {
         ActionsPanel.setBackground(new java.awt.Color(106, 128, 254));
         ActionsPanel.setMinimumSize(new java.awt.Dimension(200, 30));
         ActionsPanel.setPreferredSize(new java.awt.Dimension(150, 30));
-        ActionsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         MinimizeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/web-page.png"))); // NOI18N
         MinimizeButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -479,16 +478,23 @@ public class DoctorScreen extends javax.swing.JFrame {
         });
         ActionsPanel.add(MinimizeButton);
 
-        ExitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/exit.png"))); // NOI18N
-        ExitButton.setToolTipText("Nhấn để thoát ứng dụng");
-        ExitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ExitButtonMouseClicked(evt);
+        MaximizeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/maximize.png"))); // NOI18N
+        MaximizeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MaximizeButtonMousePressed(evt);
             }
         });
-        ActionsPanel.add(ExitButton);
+        ActionsPanel.add(MaximizeButton);
 
-        TopPanel.add(ActionsPanel, java.awt.BorderLayout.PAGE_END);
+        CloseLabel.setPreferredSize(new java.awt.Dimension(18, 18));
+        CloseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                CloseLabelMousePressed(evt);
+            }
+        });
+        ActionsPanel.add(CloseLabel);
+
+        TopPanel.add(ActionsPanel, java.awt.BorderLayout.LINE_END);
 
         TitlePanel.setBackground(new java.awt.Color(106, 128, 254));
         TitlePanel.add(TitleLabel);
@@ -504,7 +510,6 @@ public class DoctorScreen extends javax.swing.JFrame {
         LeftPanel.setPreferredSize(new java.awt.Dimension(230, 570));
 
         index1Panel.setBackground(new java.awt.Color(106, 197, 254));
-        index1Panel.setFont(new java.awt.Font("Cascadia Code", 1, 12)); // NOI18N
         index1Panel.setPreferredSize(new java.awt.Dimension(174, 50));
         index1Panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -533,7 +538,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel1.setText("Tìm kiếm yêu cầu");
         index1Panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 17, -1, 20));
 
-        MapLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/map_fix.png"))); // NOI18N
+        MapLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/map.png"))); // NOI18N
         index1Panel.add(MapLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         index2Panel.setBackground(new java.awt.Color(106, 197, 254));
@@ -566,7 +571,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         index2Panel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 30));
 
-        TuVanLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/tuvan_small_fix.png"))); // NOI18N
+        TuVanLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/tuvan_small.png"))); // NOI18N
         index2Panel.add(TuVanLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         index3Panel.setBackground(new java.awt.Color(106, 197, 254));
@@ -598,7 +603,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel2.setText("Thông tin bác sĩ");
         index3Panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 130, 30));
 
-        DoctorInfoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/doctorThonTin_fix.png"))); // NOI18N
+        DoctorInfoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/doctorThongTin.png"))); // NOI18N
         index3Panel.add(DoctorInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         index4Panel.setBackground(new java.awt.Color(106, 197, 254));
@@ -630,7 +635,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel7.setText("Đăng xuất");
         index4Panel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 30));
 
-        LogoutLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/logout_small_fix.png"))); // NOI18N
+        LogoutLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/logout_small.png"))); // NOI18N
         index4Panel.add(LogoutLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -680,7 +685,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                 .addComponent(index3Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(index4Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         ParentPanel.add(LeftPanel, java.awt.BorderLayout.LINE_START);
@@ -739,18 +744,22 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel14.setText("Giới tính");
 
         NameValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        NameValueLabel.setText("null");
 
         GenderValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        GenderValueLabel.setText("null");
 
         jLabel17.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel17.setText("Năm sinh");
 
         YearbirthValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        YearbirthValueLabel.setText("null");
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel19.setText("Mã tư vấn");
 
         IdadValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        IdadValueLabel.setText("null");
 
         DetailTextArea.setColumns(20);
         DetailTextArea.setLineWrap(true);
@@ -762,10 +771,12 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel21.setText("Tỉnh/Thành phố");
 
         ProvinceValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ProvinceValueLabel.setText("null");
 
-        CreatedValueLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
+        CreatedValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CreatedValueLabel.setText("null");
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel24.setText("Ngày tạo");
 
         jLabel25.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -809,15 +820,15 @@ public class DoctorScreen extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(YearbirthValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel21)
-                                    .addGap(17, 17, 17)
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(25, 25, 25)
                                     .addComponent(ProvinceValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(CreatedValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel25))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 14, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(18, 18, 18)
@@ -861,7 +872,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AcceptButton)
                 .addGap(7, 7, 7))
@@ -894,15 +905,52 @@ public class DoctorScreen extends javax.swing.JFrame {
 
         jPanel20.setBackground(new java.awt.Color(106, 197, 254));
 
+        ChangePasswordButton.setBackground(new java.awt.Color(106, 197, 254));
+        ChangePasswordButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        ChangePasswordButton.setPreferredSize(new java.awt.Dimension(200, 50));
+        ChangePasswordButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ChangePasswordButtonMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel4.setText("Đổi mật khẩu");
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/reset-password.png"))); // NOI18N
+
+        javax.swing.GroupLayout ChangePasswordButtonLayout = new javax.swing.GroupLayout(ChangePasswordButton);
+        ChangePasswordButton.setLayout(ChangePasswordButtonLayout);
+        ChangePasswordButtonLayout.setHorizontalGroup(
+            ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChangePasswordButtonLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel6)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        ChangePasswordButtonLayout.setVerticalGroup(
+            ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ChangePasswordButtonLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
+                .addGap(0, 460, Short.MAX_VALUE)
+                .addComponent(ChangePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(ChangePasswordButton, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
         );
 
         jPanel21.setBackground(new java.awt.Color(255, 255, 255));
@@ -951,6 +999,12 @@ public class DoctorScreen extends javax.swing.JFrame {
         jPanel22.setBackground(new java.awt.Color(255, 255, 255));
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder("THÔNG TIN CÁ NHÂN"));
         jPanel22.setPreferredSize(new java.awt.Dimension(360, 367));
+
+        jLabel36.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel36.setText("Tên tài khoản");
+
+        UsernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        UsernameLabel.setText("null");
 
         jLabel38.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel38.setText("Mã bác sĩ");
@@ -1001,41 +1055,50 @@ public class DoctorScreen extends javax.swing.JFrame {
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(IddocLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel22Layout.createSequentialGroup()
+                            .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(IddocLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel22Layout.createSequentialGroup()
+                            .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel22Layout.createSequentialGroup()
+                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(GenderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel22Layout.createSequentialGroup()
+                            .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(PhoneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel22Layout.createSequentialGroup()
+                            .addComponent(jLabel46)
+                            .addGap(27, 27, 27)
+                            .addComponent(SubjectLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                             .addComponent(jLabel47, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel44, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(AccademicRankLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(WorkUnitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DoctorProvinceLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PhoneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(jLabel46)
-                        .addGap(18, 18, 18)
-                        .addComponent(SubjectLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(GenderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(WorkUnitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(DoctorProvinceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(31, 31, 31)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(IddocLabel)
-                    .addComponent(jLabel38))
+                    .addComponent(jLabel38)
+                    .addComponent(IddocLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(UsernameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel40)
@@ -1045,11 +1108,11 @@ public class DoctorScreen extends javax.swing.JFrame {
                     .addComponent(jLabel42)
                     .addComponent(PhoneLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AccademicRankLabel)
-                    .addComponent(jLabel44))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel44)
+                    .addComponent(AccademicRankLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel46)
                     .addComponent(SubjectLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1057,80 +1120,10 @@ public class DoctorScreen extends javax.swing.JFrame {
                     .addComponent(jLabel47)
                     .addComponent(WorkUnitLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DoctorProvinceLabel)
-                    .addComponent(jLabel48))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("THÔNG TIN TÀI KHOẢN"));
-
-        jLabel36.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel36.setText("Tên tài khoản");
-
-        UsernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        UsernameLabel.setText("null");
-
-        ChangePasswordButton.setBackground(new java.awt.Color(106, 197, 254));
-        ChangePasswordButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        ChangePasswordButton.setPreferredSize(new java.awt.Dimension(200, 50));
-        ChangePasswordButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ChangePasswordButtonMouseClicked(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel4.setText("Đổi mật khẩu");
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/reset-password.png"))); // NOI18N
-
-        javax.swing.GroupLayout ChangePasswordButtonLayout = new javax.swing.GroupLayout(ChangePasswordButton);
-        ChangePasswordButton.setLayout(ChangePasswordButtonLayout);
-        ChangePasswordButtonLayout.setHorizontalGroup(
-            ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChangePasswordButtonLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel6)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        ChangePasswordButtonLayout.setVerticalGroup(
-            ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ChangePasswordButtonLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(ChangePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel36)
-                    .addComponent(UsernameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ChangePasswordButton, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                .addGap(7, 7, 7))
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48)
+                    .addComponent(DoctorProvinceLabel))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DoctorInformationPanelLayout = new javax.swing.GroupLayout(DoctorInformationPanel);
@@ -1144,9 +1137,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                     .addGroup(DoctorInformationPanelLayout.createSequentialGroup()
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(DoctorInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 370, Short.MAX_VALUE))
         );
         DoctorInformationPanelLayout.setVerticalGroup(
@@ -1154,18 +1145,15 @@ public class DoctorScreen extends javax.swing.JFrame {
             .addGroup(DoctorInformationPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
                 .addGroup(DoctorInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(DoctorInformationPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
+
+
+                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
+
                 .addContainerGap())
         );
-
-        jPanel21.getAccessibleContext().setAccessibleName("NGƯỜI DÙNG");
 
         RightPanel.add(DoctorInformationPanel, "DoctorInformationPanel");
 
@@ -1221,18 +1209,22 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel18.setText("Giới tính");
 
         NameWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        NameWaitLabel.setText("null");
 
         GenderWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        GenderWaitLabel.setText("null");
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel20.setText("Năm sinh");
 
         YearbirthWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        YearbirthWaitLabel.setText("null");
 
         jLabel22.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel22.setText("Mã tư vấn");
 
         IdadWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        IdadWaitLabel.setText("null");
 
         DetailWaitTextArea.setEditable(false);
         DetailWaitTextArea.setColumns(20);
@@ -1245,8 +1237,10 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel23.setText("Tỉnh/Thành phố");
 
         ProvinceWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ProvinceWaitLabel.setText("null");
 
         CreatedWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CreatedWaitLabel.setText("null");
 
         jLabel26.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel26.setText("Ngày tạo");
@@ -1272,16 +1266,19 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel13.setText("Chiều cao(cm)");
 
         HeightWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        HeightWaitLabel.setText("null");
 
         jLabel29.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel29.setText("Cân nặng(kg)");
 
         WeightWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        WeightWaitLabel.setText("null");
 
         jLabel31.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel31.setText("Số điện thoại liên lạc");
 
         PhoneWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        PhoneWaitLabel.setText("null");
 
         jLabel33.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel33.setText("Tiền sử bệnh án");
@@ -1479,6 +1476,22 @@ public class DoctorScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MinimizeButtonMousePressed
 
+    private void MaximizeButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MaximizeButtonMousePressed
+        // TODO add your handling code here:
+
+        if (DoctorScreen.this.getExtendedState() == MAXIMIZED_BOTH) {
+            DoctorScreen.this.setExtendedState(JFrame.NORMAL);
+        } else {
+            DoctorScreen.this.setExtendedState(MAXIMIZED_BOTH);
+        }
+
+    }//GEN-LAST:event_MaximizeButtonMousePressed
+
+    private void CloseLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseLabelMousePressed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_CloseLabelMousePressed
+
     private void index1PanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_index1PanelMousePressed
         // TODO add your handling code here:
         setColor(index1Panel);
@@ -1550,7 +1563,7 @@ public class DoctorScreen extends javax.swing.JFrame {
     //Hàm xử lý sự kiện nhận yêu cầu tư vấn
     private void AcceptButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AcceptButtonMouseClicked
         // TODO add your handling code here:
-        if (IdadValueLabel.getText().equals(""))
+        if (IdadValueLabel.getText().equals("null"))
             JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để nhận",
                     "Lỗi!", JOptionPane.ERROR_MESSAGE);
         else {
@@ -1584,7 +1597,7 @@ public class DoctorScreen extends javax.swing.JFrame {
 
     private void FinishButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FinishButtonMouseClicked
         // TODO add your handling code here:
-        if (IdadWaitLabel.getText().equals(""))
+        if (IdadWaitLabel.getText().equals("null"))
             JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để hoàn thành",
                     "Lỗi!", JOptionPane.ERROR_MESSAGE);
         else {
@@ -1610,11 +1623,6 @@ public class DoctorScreen extends javax.swing.JFrame {
         ChangePasswordScreen cps=new ChangePasswordScreen(doctor.getUsername());
         cps.setVisible(true);
     }//GEN-LAST:event_ChangePasswordButtonMouseClicked
-
-    private void ExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitButtonMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_ExitButtonMouseClicked
 
     //Set color for Jpanel being clicked
     void setColor(JPanel panel) {
@@ -1668,11 +1676,14 @@ public class DoctorScreen extends javax.swing.JFrame {
             TopPanel.add(TitlePanel, BorderLayout.EAST);
             TopPanel.add(ActionsPanel, BorderLayout.WEST);
 
+            ActionsPanel.remove(CloseLabel);
+            ActionsPanel.remove(MaximizeButton);
             ActionsPanel.remove(MinimizeButton);
-            ActionsPanel.remove(ExitButton);
-            
+
+            ActionsPanel.add(CloseLabel);
+            ActionsPanel.add(MaximizeButton);
             ActionsPanel.add(MinimizeButton);
-            ActionsPanel.add(ExitButton);   
+
             TitlePanel.remove(TitleLabel);
             TitlePanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 8));
             TitlePanel.add(TitleLabel);
@@ -1685,11 +1696,13 @@ public class DoctorScreen extends javax.swing.JFrame {
             TopPanel.add(TitlePanel, BorderLayout.WEST);
             TopPanel.add(ActionsPanel, BorderLayout.EAST);
 
+            ActionsPanel.remove(CloseLabel);
+            ActionsPanel.remove(MaximizeButton);
             ActionsPanel.remove(MinimizeButton);
-            ActionsPanel.remove(ExitButton);
-            
+
             ActionsPanel.add(MinimizeButton);
-            ActionsPanel.add(ExitButton);   
+            ActionsPanel.add(MaximizeButton);
+            ActionsPanel.add(CloseLabel);
 
             TitlePanel.remove(TitleLabel);
             TitlePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 8));
@@ -1741,6 +1754,7 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JPanel ActionsPanel;
     private javax.swing.JTable AdvisoryTable;
     private javax.swing.JPanel ChangePasswordButton;
+    private javax.swing.JLabel CloseLabel;
     private javax.swing.JLabel CreatedValueLabel;
     private javax.swing.JLabel CreatedWaitLabel;
     private javax.swing.JPanel DetailPanel;
@@ -1751,7 +1765,6 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JPanel DoctorInformationPanel;
     private javax.swing.JLabel DoctorNameLabel;
     private javax.swing.JLabel DoctorProvinceLabel;
-    private javax.swing.JLabel ExitButton;
     private javax.swing.JPanel FindAdvisoryPanel;
     private javax.swing.JLabel FinishButton;
     private javax.swing.JLabel GenderLabel;
@@ -1765,6 +1778,7 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JLabel LogoLabel;
     private javax.swing.JLabel LogoutLabel;
     private javax.swing.JLabel MapLabel;
+    private javax.swing.JLabel MaximizeButton;
     private javax.swing.JLabel MinimizeButton;
     private javax.swing.JLabel NameValueLabel;
     private javax.swing.JLabel NameWaitLabel;
@@ -1838,7 +1852,6 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;

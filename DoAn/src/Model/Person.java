@@ -44,6 +44,19 @@ public class Person {
     public Person() {
     }
 
+    public Person(int idper, String username, String name, int gender, String phone, String province, String district, String town, String address, int status) {
+        this.idper = idper;
+        this.username = username;
+        this.name = name;
+        this.gender = gender;
+        this.phone = phone;
+        this.province = province;
+        this.district = district;
+        this.town = town;
+        this.address = address;
+        this.status = status;
+    }
+
     public int getIdper() {
         return idper;
     }
