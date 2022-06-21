@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,6 +30,8 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author MyPC
  */
 public class DoctorController {
+    
+    //Lấy dữ liệu bác sĩ
     public  ArrayList<Doctor> getDoctor()
     {
         ArrayList<Doctor> ListDoctor = new <Doctor>ArrayList();
@@ -68,6 +71,7 @@ public class DoctorController {
         return ListDoctor;
     }
     
+    //Thêm bác sĩ
      public static int  AddDoctor( Doctor doctor, Account account) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -94,8 +98,10 @@ public class DoctorController {
                 JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
             else if (sqlex.getErrorCode() == 1){
-                JOptionPane.showMessageDialog(null, "Số điện thoại này đã tồn tại",
+                JOptionPane.showMessageDialog(null, "Số điện thoại hoặc tên người dùng này đã tồn tại",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
+            
+            sqlex.printStackTrace();
             return 1;
 
         } catch (Exception ex) {
@@ -105,6 +111,7 @@ public class DoctorController {
        return 0;       
     }  
      
+    //Lấy giá trị ID tiếp theo của bác sĩ
     public static String getNextValueDoctor() {
         String id = "";
         try {
@@ -144,6 +151,7 @@ public class DoctorController {
         return id;
     } 
     
+    //Xóa bác sĩ
      public static int DeleteDoctor (int Iddoc) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -174,6 +182,7 @@ public class DoctorController {
         return 0;    
     }
      
+     //Cập nhât thông tin bác sĩ
      public static int UpdateDoctor(Doctor doctor) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -217,29 +226,62 @@ public class DoctorController {
         
     }
      
+    //Xuất thông kê danh sách bác sĩ 
     public static void exportDoctorToPdf() {
-        //Connection con = null;
         try {
             Connection con = OracleConnection.getOracleConnection();
             String source = "src/Resource/report1_DSBacSi.jrxml";
             JasperReport jr = JasperCompileManager.compileReport(source);
 
-            //HashMap<String, Object> params = new HashMap<String, Object>();
-            //params.put("classId", classId);
-            //params.put("className", className);
-
-//            String localDir = System.getProperty("user.dir");
             JasperPrint jp = JasperFillManager.fillReport(jr, new HashMap(), con);
-//            OutputStream os = new FileOutputStream("STUDENT_MARK_" +  ".pdf");
-//            JasperExportManager.exportReportToPdfStream(jp, os);
-            
+
             JasperExportManager.exportReportToPdfFile(jp, "test.pdf" );
             JasperViewer.viewReport(jp, false);
-//            os.flush();
-//            os.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         
+    }
+    
+    //Lấy thông tin bac sĩ lên card thông tin
+    public  Doctor getDoctorInfo(String username)
+    {
+        Doctor doctor = new Doctor();
+        
+         try {
+            Connection con = OracleConnection.getOracleConnection();
+            String sql = "SELECT * FROM Doctor WHERE Username = ?";
+            PreparedStatement  ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                System.out.println("Vào lấy thông tin");
+                doctor.setIddoc(rs.getInt("IDDOC"));
+                doctor.setUsername(rs.getString("USERNAME"));
+                doctor.setName(rs.getString("NAME"));
+                doctor.setGender(rs.getInt("Gender"));
+                doctor.setPhone(rs.getString("PHONE"));
+                doctor.setProvince(rs.getString("PROVINCE"));
+                doctor.setAccademicrank(rs.getInt("ACADEMICRANK"));
+                doctor.setSubject(rs.getInt("SUBJECT"));
+                doctor.setWorkunits(rs.getString("WORKUNITS"));
+                return doctor;  
+            }
+            rs.close();
+            //st.close();
+            con.close();
+            return doctor;
+        }
+        catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        } catch (UnsupportedOperationException uoe) {
+            uoe.printStackTrace();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return doctor;
     }
 }

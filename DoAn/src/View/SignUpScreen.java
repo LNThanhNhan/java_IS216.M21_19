@@ -132,7 +132,7 @@ public class SignUpScreen extends javax.swing.JFrame {
     private void kButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton4ActionPerformed
         // TODO add your handling code here:
         
-        new SignUpPersonScreen(this, true).setVisible(true);
+     
     }//GEN-LAST:event_kButton4ActionPerformed
 
     /**

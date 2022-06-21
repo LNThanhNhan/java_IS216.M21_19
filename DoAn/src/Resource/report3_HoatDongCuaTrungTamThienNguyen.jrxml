@@ -216,11 +216,11 @@ where c.idchar = s.idchar and p.idper = s.idper and s.idchar = $P{MaTrungTam}]]>
 	<columnFooter>
 		<band height="45" splitType="Stretch">
 			<staticText>
-				<reportElement x="644" y="0" width="140" height="25" uuid="9edd9cf7-1a5b-456f-9f26-394fd11e8286"/>
+				<reportElement x="624" y="0" width="150" height="25" uuid="9edd9cf7-1a5b-456f-9f26-394fd11e8286"/>
 				<textElement>
 					<font fontName="Segoe UI" size="16"/>
 				</textElement>
-				<text><![CDATA[Điểm hoạt động:]]></text>
+				<text><![CDATA[Số yêu cầu đã nhận:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="784" y="0" width="105" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="55963ee4-42ba-4904-8006-9066a01f8d70"/>

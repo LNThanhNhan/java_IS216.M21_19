@@ -10,7 +10,6 @@ package View;
  */
 
 import Process.PersonController;
-import Process.AccountController;
 import static Process.AccountController.checkSignUpAccount;
 import Model.Account;
 import Model.Person;
@@ -33,22 +32,19 @@ public class SignUpPersonScreen extends javax.swing.JDialog {
      * Creates new form SignUpPersonScreen
      */
     private CardLayout cardLayout;
-    
-    SignUpScreen su= new SignUpScreen();
-    
+        
     public SignUpPersonScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         
         initComponents();
-        //su  = (SignUpScreen) parent;
-        //setLookandFeel();
-        //AccountInfoPanel.setPreferredSize(new Dimension(100, 409));
+        
         PWPasswordField.setEchoChar((char)8226);
         VerifyPassword.setEchoChar((char)8226);
         this.setLocationRelativeTo(null);
         setLookandFeel();
     }
     
+    //giới hạn ký tự cho số điện thoại
     public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -71,6 +67,7 @@ public class SignUpPersonScreen extends javax.swing.JDialog {
 
     }
 
+    //giới hạn ký tư  cho Jtextfield
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
@@ -90,6 +87,7 @@ public class SignUpPersonScreen extends javax.swing.JDialog {
         }
     }
     
+    //giới hạn ký tự cho JtextField
      public void LimitCharAccountinfo(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         Error2Label.setText("");
@@ -109,6 +107,7 @@ public class SignUpPersonScreen extends javax.swing.JDialog {
         }
     }
 
+     //giới hạn cho JpasswordField
     public void LimitPassword(JPasswordField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = String.valueOf(txt.getPassword());
         Error2Label.setText("");
@@ -129,6 +128,7 @@ public class SignUpPersonScreen extends javax.swing.JDialog {
         }
     }
 
+    //Tạo sự kiện cho việ nhập tài khoản ( chưa đăng ký)
     public int setEventSignUpAccount() {
         String username = UsernameTextField.getText();
         String password = String.valueOf(PWPasswordField.getPassword());
@@ -149,6 +149,7 @@ public class SignUpPersonScreen extends javax.swing.JDialog {
         }
     }
 
+    //Tạo look and feel thuộc giao diện windows
     public void setLookandFeel() {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -855,6 +856,7 @@ public class SignUpPersonScreen extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(SignUpPersonScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */

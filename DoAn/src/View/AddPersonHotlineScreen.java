@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class AddPersonHotlineScreen extends javax.swing.JDialog {
 
@@ -111,11 +111,14 @@ public class AddPersonHotlineScreen extends javax.swing.JDialog {
         person.setIdper(parseInt(IdperTextField.getText()));
         person.setName(NameTextField.getText());
         person.setGender(getGender(MaleGenderRadioButton));
-        person.setProvince(String.valueOf(ProvinceComboBox.getSelectedItem()));
         person.setDistrict(DistrictTextField.getText());
         person.setTown(TownTextField.getText());
         person.setAddress(AddressTextField.getText());
         person.setPhone(PhoneTextField.getText());
+        if (ProvinceComboBox.getSelectedIndex() != 0) {
+            person.setProvince(String.valueOf(ProvinceComboBox.getSelectedItem()));
+        } else
+            person.setProvince("");
         
         check = PersonController.AddPersonHotLine(person);
         emp.setTableManagePerson();
@@ -234,6 +237,7 @@ public class AddPersonHotlineScreen extends javax.swing.JDialog {
         MaleGenderRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(MaleGenderRadioButton);
         MaleGenderRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MaleGenderRadioButton.setSelected(true);
         MaleGenderRadioButton.setText("Nam");
 
         FeMaleGenderRadioButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -302,9 +306,9 @@ public class AddPersonHotlineScreen extends javax.swing.JDialog {
                         .addGap(45, 45, 45)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TownTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(DistrictTextField)
-                            .addComponent(AddressTextField)
-                            .addComponent(StatusTextField)))
+                            .addComponent(DistrictTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(AddressTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(StatusTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -439,6 +443,38 @@ public class AddPersonHotlineScreen extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AddPersonHotlineScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

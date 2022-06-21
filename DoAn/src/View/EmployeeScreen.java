@@ -9,7 +9,6 @@ import static Process.CharityController.exportCharityMarkToPdf;
 import Process.DoctorController;
 import static Process.DoctorController.exportDoctorToPdf;
 import Process.EmployeeController;
-import Process.PersonController;
 import Model.Account;
 import Model.Person;
 import Model.Charity;
@@ -28,7 +27,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.JFrame;
-//import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -48,21 +46,16 @@ import Model.Employee;
 import Model.EmployeeTableModel;
 import Model.Supply;
 import Model.SupplyTableModel;
-import java.awt.Font;
-import java.util.List;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableModel;
+
 
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class EmployeeScreen extends javax.swing.JFrame {
 
@@ -91,15 +84,16 @@ public class EmployeeScreen extends javax.swing.JFrame {
     DefaultTableModel modelTableSupply = null;
     private ArrayList<Supply> listSupply;
     private String usernameempcur; 
+    private Employee emp_info;
     
     //Đổ dữ liệu lên dialog UpdatePersonScreen
     public void SetdataforanotherJframe(){ 
+        //Lấấy dòng được chọn
         DefaultTableModel model = (DefaultTableModel) PersonTable.getModel();
         int selectedRowIndex = PersonTable.getSelectedRow();
-
-        
         selectedRowIndex = PersonTable.convertRowIndexToModel(selectedRowIndex);
         
+        //Truyền dữ liệu vào đối tượng person để lấy dữ liệu lên JDialog
         Person person = new Person();
         person.setIdper((int) model.getValueAt(selectedRowIndex, 0));
         person.setUsername(String.valueOf(model.getValueAt(selectedRowIndex, 1)));
@@ -112,8 +106,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         person.setAddress(model.getValueAt(selectedRowIndex, 8).toString());
         person.setStatus((int)PersonStatusInt(model.getValueAt(selectedRowIndex, 9).toString()));
         
-        //AddPersonScreen aps = new AddPersonScreen(person);
-        //update
+        //Gọi JDialog, đồng thời truyền dữ  liệu trong person lên
         UpdatePersonScreen ips = new UpdatePersonScreen(this, true, person);
         ips.setLocationRelativeTo(null);
         ips.setResizable(false);
@@ -122,56 +115,20 @@ public class EmployeeScreen extends javax.swing.JFrame {
     }
     
     //Đổ dữ liệu lên dialog AddPersonScreen
-    public void SetdataforanotherJframeadd(){ 
-        DefaultTableModel model = (DefaultTableModel) PersonTable.getModel();
-        int selectedRowIndex = PersonTable.getSelectedRow();
-        
-        selectedRowIndex = PersonTable.convertRowIndexToModel(selectedRowIndex);
-        
-        Person person = new Person();
-        Account account = new Account();
-        person.setIdper(32);
-        person.setUsername("");
-        person.setName("");
-        account.setPassword("");
-        person.setGender(-1);
-        person.setPhone(" ");
-        person.setProvince("");
-        person.setDistrict("");
-        person.setTown("");
-        person.setAddress("");
-        person.setStatus(0);
-        
+    public void SetdataforanotherJframeadd(){     
         AddPersonScreen ips = new AddPersonScreen(this, true);
         ips.setLocationRelativeTo(null);
         ips.setResizable(false);
-        ips.setTitle("Thêm thông tin ngưươi cần giúp đỡ");
+        ips.setTitle("Thêm thông tin người cần giúp đỡ");
         ips.setVisible(true);
     }
     
     //Đổ dữ liệu lên dialog AddPersonHotLineScreen
     public void SetdataforanotherJframeaddhotline(){ 
-        DefaultTableModel model = (DefaultTableModel) PersonTable.getModel();
-        int selectedRowIndex = PersonTable.getSelectedRow();
-        
-        selectedRowIndex = PersonTable.convertRowIndexToModel(selectedRowIndex);
-        
-        Person person = new Person();
-        person.setIdper(31);
-        person.setUsername("hotline");
-        person.setName("");
-        person.setGender(-1);
-        person.setPhone(" ");
-        person.setProvince("");
-        person.setDistrict("");
-        person.setTown("");
-        person.setAddress("");
-        person.setStatus(0);
-        
         AddPersonHotlineScreen ips = new AddPersonHotlineScreen(this, true);
         ips.setLocationRelativeTo(null);
         ips.setResizable(false);
-        ips.setTitle("thêm thông tin người cần giúp đỡ");
+        ips.setTitle("Thêm thông tin người cần giúp đỡ hotline");
         ips.setVisible(true);
     }
     
@@ -179,7 +136,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
      public void SetdataforUpdateDoctorScreen(){ 
         DefaultTableModel model = (DefaultTableModel) DoctorTable.getModel();
         int selectedRowIndex = DoctorTable.getSelectedRow();
-        
         selectedRowIndex = DoctorTable.convertRowIndexToModel(selectedRowIndex);
         
         Doctor doctor = new Doctor();
@@ -193,13 +149,12 @@ public class EmployeeScreen extends javax.swing.JFrame {
         doctor.setWorkunits(model.getValueAt(selectedRowIndex, 7).toString());
         doctor.setProvince(model.getValueAt(selectedRowIndex, 8).toString());
         
-        //AddPersonScreen aps = new AddPersonScreen(person);
         UpdateDoctorScreen ips = new UpdateDoctorScreen(this, true, doctor);
         ips.setLocationRelativeTo(null);
         ips.setResizable(false);
         ips.setTitle("Cập nhật thông tin bác sĩ");
         ips.setVisible(true);
-    }//xong
+    }
      
     //Đổ dữ liệu lên dialog AddDoctorScreen
     public void SetdataforAddDoctorScreen(){ 
@@ -208,13 +163,12 @@ public class EmployeeScreen extends javax.swing.JFrame {
         ips.setResizable(false);
         ips.setTitle("Thêm thông tin bác sĩ");
         ips.setVisible(true);
-    }//xong
+    }
     
     //Đổ dữ liệu lên dialog UpdateCharityScreen
     public void SetdataforUpdateCharityScreen(){ 
         DefaultTableModel model = (DefaultTableModel) CharityTable.getModel();
         int selectedRowIndex = CharityTable.getSelectedRow();
-
         selectedRowIndex = CharityTable.convertRowIndexToModel(selectedRowIndex);
         
         Charity charity = new Charity();
@@ -231,7 +185,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
         charity.setHasequip(IshasInt(model.getValueAt(selectedRowIndex, 10).toString().trim()));
         charity.setPoint((int) model.getValueAt(selectedRowIndex, 11));
         
-        //AddPersonScreen aps = new AddPersonScreen(person);
         UpateCharityScreen ips = new UpateCharityScreen(this, true, charity);
         ips.setLocationRelativeTo(null);
         ips.setResizable(false);
@@ -246,21 +199,19 @@ public class EmployeeScreen extends javax.swing.JFrame {
         ips.setResizable(false);
         ips.setTitle("Thêm thông tin trung tâm");
         ips.setVisible(true);
-    }//testing
+    }
     
     //Đổ dữ liệu lên dialog UpdateEmployeeScreen
     public void SetdataforUpdateEmployeeScreen(){ 
         DefaultTableModel model = (DefaultTableModel) EmployeeTable.getModel();
         int selectedRowIndex = EmployeeTable.getSelectedRow();
-
         selectedRowIndex = EmployeeTable.convertRowIndexToModel(selectedRowIndex);
         
         Employee employee = new Employee();
         employee.setIdemp((int) model.getValueAt(selectedRowIndex, 0));
         employee.setUsername(String.valueOf(model.getValueAt(selectedRowIndex, 1)));
         employee.setName(model.getValueAt(selectedRowIndex, 2).toString());
-        employee.setGender((int)GenderInt(model.getValueAt(selectedRowIndex, 3).toString()));
-        
+        employee.setGender((int)GenderInt(model.getValueAt(selectedRowIndex, 3).toString()));      
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         java.util.Date date;
         try {
@@ -270,8 +221,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
         catch (ParseException e) {
             e.printStackTrace();
         }
-        
-        //employee.setStartdate(date);
         employee.setPhone(model.getValueAt(selectedRowIndex, 5).toString());
         employee.setAddress(model.getValueAt(selectedRowIndex, 6).toString());
            
@@ -295,7 +244,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
     public void SetdataforUpdateSupplyScreen(){ 
         DefaultTableModel model = (DefaultTableModel)SupplyTable.getModel();
         int selectedRowIndex = SupplyTable.getSelectedRow();
-
         selectedRowIndex = SupplyTable.convertRowIndexToModel(selectedRowIndex);
         
         Supply supply = new Supply();
@@ -307,10 +255,10 @@ public class EmployeeScreen extends javax.swing.JFrame {
         supply.setStatus(SupplyStatusInt(model.getValueAt(selectedRowIndex, 7).toString().trim()));
         supply.setDetail(model.getValueAt(selectedRowIndex, 8).toString().trim());
         
+        //Nếu yêu cầu không ở trạng thái 1 ( đã mở ) thì không thể sửa
         if (supply.getStatus() != 1) {
             JOptionPane.showMessageDialog(null, "Trạng thái không hợp lệ, không thể sửa!", "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
         } else {
-            //AddPersonScreen aps = new AddPersonScreen(person);
             UpdateSupplyScreen ips = new UpdateSupplyScreen(this, true, supply);
             ips.setLocationRelativeTo(null);
             ips.setResizable(false);
@@ -331,9 +279,9 @@ public class EmployeeScreen extends javax.swing.JFrame {
     //Đổ dữ liệu lên dialog card2 (thông tin nhân viên đăng nhập)
     public void setdataforcard2(Employee employee, Account account){ 
         EmployeeController econ = new EmployeeController();
-        Employee emp = new Employee();
-        emp = econ.getEmployeeInfo(employee.getUsername());
+        Employee emp = econ.getEmployeeInfo(employee.getUsername());
         
+        emp_info = emp;
         NameLabel.setText(emp.getName());
         RoleLabel.setText(AccountRole(account.getRole()));
         UsernameLabel.setText(emp.getUsername());
@@ -341,6 +289,11 @@ public class EmployeeScreen extends javax.swing.JFrame {
         PhoneLabel.setText(emp.getPhone());
         AddressLabel.setText(emp.getAddress());
         StartdateLabel.setText(emp.getStartdate().toString());
+        if(emp.getGender()==0){
+            AvatarEmployeeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/EmpFemale.png")));
+        }else {
+            AvatarEmployeeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/EmpMale.png")));
+        }
     }
 
     //Lấy Jtable
@@ -443,10 +396,8 @@ public class EmployeeScreen extends javax.swing.JFrame {
     //thêm trong tương lai
     public void resizeColumnWidth(JTable table) {
     final TableColumnModel columnModel = table.getColumnModel();
-//    DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-//    rightRenderer.setHorizontalAlignment(5);
     for (int column = 0; column < table.getColumnCount(); column++) {
-        int width = 85; // Min width
+        int width = 85; // Kích thước nhỏ nhất, sẽ tăng dần từ kích thước này
         for (int row = 0; row < table.getRowCount(); row++) {
             TableCellRenderer renderer = table.getCellRenderer(row, column);
             Component comp = table.prepareRenderer(renderer, row, column);
@@ -455,7 +406,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
         if(width > 600)
             width=600;
         columnModel.getColumn(column).setPreferredWidth(width);
-//        table.getColumnModel().getColumn(column).setCellRenderer(rightRenderer);
     }
 }
     
@@ -506,9 +456,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
         resizeColumnWidth(CharityTable);
         resizeColumnWidth(EmployeeTable);
         resizeColumnWidth(SupplyTable);
-        
-        //test.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Search_new.jpg")));
-         
      }    
     
     //Hàm khởi tạo không tham số
@@ -614,8 +561,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         NameLabel = new javax.swing.JLabel();
         RoleLabel = new javax.swing.JLabel();
-        FemaleLabel = new javax.swing.JLabel();
-        MaleLabel = new javax.swing.JLabel();
+        AvatarEmployeeLabel = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         UsernameLabel = new javax.swing.JLabel();
@@ -635,11 +581,11 @@ public class EmployeeScreen extends javax.swing.JFrame {
         PersonTable = new javax.swing.JTable();
         SearchPersonTextField = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         kButton1 = new com.k33ptoo.components.KButton();
         kButton2 = new com.k33ptoo.components.KButton();
+        kButton12 = new com.k33ptoo.components.KButton();
         card4Panel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         DoctorTable = new javax.swing.JTable();
@@ -1160,9 +1106,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
 
         RoleLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        FemaleLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/EmpFemale.png"))); // NOI18N
-
-        MaleLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/EmpMale.png"))); // NOI18N
+        AvatarEmployeeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/EmpFemale.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -1180,20 +1124,15 @@ public class EmployeeScreen extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(FemaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                    .addContainerGap(29, Short.MAX_VALUE)
-                    .addComponent(MaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)))
+                .addComponent(AvatarEmployeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(FemaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
+                .addComponent(AvatarEmployeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(NameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1202,18 +1141,13 @@ public class EmployeeScreen extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(RoleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
-            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel21Layout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(MaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(137, Short.MAX_VALUE)))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "THÔNG TIN TÀI KHOẢN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 15))); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel15.setText("Username");
+        jLabel15.setText("Tên tài khoản");
 
         UsernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -1228,6 +1162,11 @@ public class EmployeeScreen extends javax.swing.JFrame {
         kButton11.setkHoverStartColor(new java.awt.Color(51, 204, 255));
         kButton11.setkSelectedColor(new java.awt.Color(153, 255, 255));
         kButton11.setkStartColor(new java.awt.Color(102, 255, 204));
+        kButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kButton11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1239,7 +1178,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addComponent(jLabel15)
                         .addGap(45, 45, 45)
-                        .addComponent(UsernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
+                        .addComponent(UsernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(kButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1299,12 +1238,12 @@ public class EmployeeScreen extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(StartdateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AddressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PhoneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GenderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(AddressLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                    .addComponent(GenderLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PhoneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(StartdateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1411,9 +1350,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        jLabel21.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel21.setText("Tìm kiếm");
-
         jLabel23.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel23.setText("Tìm kiếm");
 
@@ -1450,6 +1386,13 @@ public class EmployeeScreen extends javax.swing.JFrame {
             }
         });
 
+        kButton12.setText("kButton12");
+        kButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kButton12ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout card3PanelLayout = new javax.swing.GroupLayout(card3Panel);
         card3Panel.setLayout(card3PanelLayout);
         card3PanelLayout.setHorizontalGroup(
@@ -1469,17 +1412,14 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addComponent(SearchPersonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(kButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)))
                 .addGap(15, 15, 15))
-            .addGroup(card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(card3PanelLayout.createSequentialGroup()
-                    .addGap(379, 379, 379)
-                    .addComponent(jLabel21)
-                    .addContainerGap(380, Short.MAX_VALUE)))
         );
         card3PanelLayout.setVerticalGroup(
             card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1493,16 +1433,12 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addComponent(jLabel23))
                     .addGroup(card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(kButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
-            .addGroup(card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(card3PanelLayout.createSequentialGroup()
-                    .addGap(269, 269, 269)
-                    .addComponent(jLabel21)
-                    .addContainerGap(288, Short.MAX_VALUE)))
         );
 
         RightPanel.add(card3Panel, "card3");
@@ -2011,7 +1947,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         card7PanelLayout.setVerticalGroup(
             card7PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, card7PanelLayout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(card7PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(card7PanelLayout.createSequentialGroup()
@@ -2058,7 +1994,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
     int xy, xx;
     private void TopPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TopPanelMouseClicked
         // TODO add your handling code here:
-        
         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
             if (EmployeeScreen.this.getExtendedState() == MAXIMIZED_BOTH) {
                 EmployeeScreen.this.setExtendedState(JFrame.NORMAL);
@@ -2256,6 +2191,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                     "Thông báo!", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 new LogInNew().setVisible(true);
+                this.dispose();
             } 
         
         
@@ -2320,31 +2256,22 @@ public class EmployeeScreen extends javax.swing.JFrame {
     private void DeleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteMenuItemActionPerformed
         // TODO add your handling code here:
         int check=-1;
+        
         DefaultTableModel model = (DefaultTableModel) PersonTable.getModel();
         int selectedRowIndex = PersonTable.getSelectedRow();      
         selectedRowIndex = PersonTable.convertRowIndexToModel(selectedRowIndex);
         check = PersonController.DeletePerson((int) model.getValueAt(selectedRowIndex, 0));
-//        setTableManagePerson();
-//        resizeColumnWidth(getPersonTable());
         
+        model.removeRow(selectedRowIndex);
+        SupplyTable.getSelectionModel().clearSelection();
+            
         if(check==0){
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
                         "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
-        
-        }
-        
-        if (SearchPersonTextField.getText().equals("") == false) {
+            
             setTableManagePerson();
-            resizeColumnWidth(getPersonTable());
-            model = (DefaultTableModel) PersonTable.getModel();
-            TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
-
-            trs.setRowFilter(RowFilter.regexFilter("^" +SearchPersonTextField.getText().trim(), 0));
-            PersonTable.setRowSorter(trs);
+            resizeColumnWidth(PersonTable);
         }
-        
-        
-        
     }//GEN-LAST:event_DeleteMenuItemActionPerformed
 
     private void UpdateDoctorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateDoctorMenuItemActionPerformed
@@ -2360,6 +2287,10 @@ public class EmployeeScreen extends javax.swing.JFrame {
         int selectedRowIndex = DoctorTable.getSelectedRow();      
         selectedRowIndex = DoctorTable.convertRowIndexToModel(selectedRowIndex);
         check = DoctorController.DeleteDoctor((int) model.getValueAt(selectedRowIndex, 0));
+        
+        model.removeRow(selectedRowIndex);
+        SupplyTable.getSelectionModel().clearSelection();
+        
         if(check==0){
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
                         "Thông báo!", JOptionPane.INFORMATION_MESSAGE);}
@@ -2395,11 +2326,13 @@ public class EmployeeScreen extends javax.swing.JFrame {
         int selectedRowIndex = CharityTable.getSelectedRow();      
         selectedRowIndex = CharityTable.convertRowIndexToModel(selectedRowIndex);
         check = CharityController.DeleteCharity((int) model.getValueAt(selectedRowIndex, 0));
-        setTableManageCharity();
-        resizeColumnWidth(getCharityTable());
+        
+
         if(check==0){
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
                         "Thông báo!", JOptionPane.INFORMATION_MESSAGE);}
+        model.removeRow(selectedRowIndex);
+        SupplyTable.getSelectionModel().clearSelection();
         setTableManageCharity();
         resizeColumnWidth(getCharityTable());
     }//GEN-LAST:event_DeleteCharityPopupMenuActionPerformed
@@ -2426,7 +2359,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
         int selectedRowIndex = EmployeeTable.getSelectedRow();      
         selectedRowIndex = EmployeeTable.convertRowIndexToModel(selectedRowIndex);
         
-        System.out.println(model.getValueAt(selectedRowIndex, 1));
         if (model.getValueAt(selectedRowIndex, 1).equals(usernameempcur)) {
             JOptionPane.showMessageDialog(null, "Không thể xóa thông tin!",
                     "Thông báo!", JOptionPane.WARNING_MESSAGE);
@@ -2435,7 +2367,10 @@ public class EmployeeScreen extends javax.swing.JFrame {
             setTableManageEmployee();
             resizeColumnWidth(getEmployeeTable());
             
-        };
+        }
+        
+        model.removeRow(selectedRowIndex);
+        SupplyTable.getSelectionModel().clearSelection();
         
         if(check==0){
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
@@ -2457,24 +2392,25 @@ public class EmployeeScreen extends javax.swing.JFrame {
         int selectedRowIndex = SupplyTable.getSelectedRow();      
         selectedRowIndex = SupplyTable.convertRowIndexToModel(selectedRowIndex);
         check =SupplyController.DeleteSupply((int) model.getValueAt(selectedRowIndex, 0));
-        
-        setTableManageSupply();
-        resizeColumnWidth(SupplyTable);
-
-        
+        model.removeRow(selectedRowIndex);
+        SupplyTable.getSelectionModel().clearSelection();
+  
         if (check == 0) {
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
                     "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
 
+            setTableManageSupply();
+            resizeColumnWidth(SupplyTable);
             if (SearchSupplyTextField.getText().equals("") == false) {
                 TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
 
-                trs.setRowFilter(RowFilter.regexFilter("^" + SearchSupplyTextField.getText() + "$", 0));
+                trs.setRowFilter(RowFilter.regexFilter("^" + SearchSupplyTextField.getText(), 0));
                 SupplyTable.setRowSorter(trs);
             }
             
             
         }
+        
         
     }//GEN-LAST:event_DeleteSupplyMenuItemActionPerformed
 
@@ -2611,6 +2547,16 @@ public class EmployeeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         SetdataforAddSupplyScreen();
     }//GEN-LAST:event_kButton8ActionPerformed
+
+    private void kButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton11ActionPerformed
+        // TODO add your handling code here:
+        new ChangePasswordScreen(emp_info.getUsername()).setVisible(true);
+    }//GEN-LAST:event_kButton11ActionPerformed
+
+    private void kButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton12ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_kButton12ActionPerformed
   
     //Set color for Jpanel being clicked
     void setColor(JPanel panel) {
@@ -2731,6 +2677,9 @@ public class EmployeeScreen extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EmployeeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         
@@ -2744,6 +2693,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ActionsPanel;
     private javax.swing.JLabel AddressLabel;
+    private javax.swing.JLabel AvatarEmployeeLabel;
     private javax.swing.JPanel Card8InforEmployeePanel;
     private javax.swing.JPopupMenu CharityPopupMenu;
     private javax.swing.JTextField CharitySearchTextField;
@@ -2761,9 +2711,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
     private javax.swing.JPopupMenu EmployeePopupMenu;
     private javax.swing.JTextField EmployeeSearchTextField;
     private javax.swing.JTable EmployeeTable;
-    private javax.swing.JLabel FemaleLabel;
     private javax.swing.JLabel GenderLabel;
-    private javax.swing.JLabel MaleLabel;
     private javax.swing.JLabel MaximizeLabel;
     private javax.swing.JLabel MinimizeLabel;
     private javax.swing.JLabel NameLabel;
@@ -2822,7 +2770,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -2865,6 +2812,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
     private com.k33ptoo.components.KButton kButton1;
     private com.k33ptoo.components.KButton kButton10;
     private com.k33ptoo.components.KButton kButton11;
+    private com.k33ptoo.components.KButton kButton12;
     private com.k33ptoo.components.KButton kButton2;
     private com.k33ptoo.components.KButton kButton3;
     private com.k33ptoo.components.KButton kButton4;
