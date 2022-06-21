@@ -6,12 +6,12 @@ package Process;
 
 import ConnectDB.OracleConnection;
 import Model.Account;
+import Model.Doctor;
 import Model.Person;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.CallableStatement;
-//import java.sql.PrepareCall;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  * @author MyPC
  */
 public class PersonController {
-    public  ArrayList<Person> getPerson()
+     public  ArrayList<Person> getPerson()
     {
         ArrayList<Person> ListPerson = new <Person>ArrayList();
         try{
@@ -64,6 +64,7 @@ public class PersonController {
         return ListPerson;
     }
      
+     //Capậ nhật người cần giúp đỡ
     public static int UpdatePerson(Person person) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -94,6 +95,7 @@ public class PersonController {
             else if (sqlex.getErrorCode() == 1){
                 JOptionPane.showMessageDialog(null, "Số điện thoại này đã tồn tại",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
+            sqlex.printStackTrace();
             return 1;
         }
         catch (Exception ex) {
@@ -103,6 +105,7 @@ public class PersonController {
         
     }
     
+    //Thêm người cần giúp đỡ
     public static int AddPerson(Person person, Account account) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -141,6 +144,7 @@ public class PersonController {
         return 0;  
     }   
         
+    //Thêm người cần giúp đỡ hotline
     public static int AddPersonHotLine(Person person) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -189,10 +193,14 @@ public class PersonController {
             con.close();
             
         } catch (SQLException sqlex) {
-            if (sqlex.getErrorCode() == 20122){
+            if (sqlex.getErrorCode() == 20032){
                 JOptionPane.showMessageDialog(null, "Người cần giúp đỡ còn yêu cầu chưa được hoàn thành",
-                        "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
-            }
+                        "Cảnh báo!", JOptionPane.WARNING_MESSAGE);}
+                
+            else if (sqlex.getErrorCode() == 20033){
+                JOptionPane.showMessageDialog(null, "Người cần giúp đỡ còn yêu cầu tư vấn chưa được hoàn thành",
+                        "Cảnh báo!", JOptionPane.WARNING_MESSAGE);}
+            sqlex.printStackTrace();
             return 1;
         }  
         catch (Exception ex) {
@@ -269,5 +277,44 @@ public class PersonController {
         return statusPerson;
     }
     
+      public  Person getPersonInfo(String username)
+    {
+        Person person = new Person();
+    
+         try {
+            Connection con = OracleConnection.getOracleConnection();
+            String sql = "SELECT * FROM Person WHERE Username = ?";
+            PreparedStatement  ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                person.setIdper(rs.getInt("IDPER"));
+                person.setUsername(rs.getString("USERNAME"));
+                person.setName(rs.getString("NAME"));
+                person.setGender(rs.getInt("Gender"));
+                person.setPhone(rs.getString("PHONE"));
+                person.setProvince(rs.getString("PROVINCE"));
+                person.setDistrict(rs.getString("DISTRICT"));
+                person.setTown(rs.getString("TOWN"));
+                person.setAddress(rs.getString("ADDRESS"));
+                person.setStatus(rs.getInt("STATUS"));
+                return person;  
+            }
+            rs.close();
+            //st.close();
+            con.close();
+            return person;
+        }
+        catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        } catch (UnsupportedOperationException uoe) {
+            uoe.printStackTrace();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return person;
+    }
     
 }

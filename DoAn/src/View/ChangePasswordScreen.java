@@ -3,20 +3,58 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+import Process.AccountController;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 /**
  *
  * @author Luong Nguyen Thanh Nhan
  */
 public class ChangePasswordScreen extends javax.swing.JFrame {
-
+    private AccountController acccon;
     /**
      * Creates new form ChangePasswordScreen
      */
     
     //java.awt.Color
     public ChangePasswordScreen() {
+        acccon=new AccountController();
         initComponents();
+        this.getContentPane().setBackground(new Color(106,197,254));
+        ShowUserNameLabel.setText("user10");
+        setLocationRelativeTo(null);
+        ErrorLabel.setText("");
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+    }
+    
+    public ChangePasswordScreen(String username) {
+        acccon=new AccountController();
+        initComponents();
+        this.getContentPane().setBackground(new Color(106,197,254));
+        ShowUserNameLabel.setText(username);
+        setLocationRelativeTo(null);
+        ErrorLabel.setText("");
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+    }
+    public void LimitPassword(JPasswordField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
+        String string = String.valueOf(txt.getPassword());
+        ErrorLabel.setText("");
+
+        int length = string.length();
+        if (length < lenghth_char_exp) {
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+            ErrorLabel.setText("Nhập quá kí tự cho phép!!");
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                ErrorLabel.setText("");
+                txt.setEditable(true);
+            } else {
+                txt.setEditable(false);
+            }
+        }
     }
 
     /**
@@ -39,11 +77,11 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
         ConfirmPasswordField = new javax.swing.JPasswordField();
         ChangPasswordButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        ErrorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ĐỔI MẬT KHẨU");
         setBackground(new java.awt.Color(106, 197, 254));
-        setPreferredSize(new java.awt.Dimension(512, 360));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -55,14 +93,32 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
         CurrentPasswordLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         CurrentPasswordLabel.setText("Mật khẩu hiện tại");
 
+        CurrentPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CurrentPasswordFieldKeyPressed(evt);
+            }
+        });
+
         NewPasswordLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         NewPasswordLabel.setText("Mật khẩu mới");
+
+        NewPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NewPasswordFieldKeyPressed(evt);
+            }
+        });
 
         ShowUserNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ShowUserNameLabel.setText("username");
 
         ConfirmPasswordLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         ConfirmPasswordLabel.setText("Xác nhận mật khẩu");
+
+        ConfirmPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ConfirmPasswordFieldKeyPressed(evt);
+            }
+        });
 
         ChangPasswordButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         ChangPasswordButton.setText("Đổi mật khẩu");
@@ -74,6 +130,10 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
         });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/change_password_bg.png"))); // NOI18N
+
+        ErrorLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        ErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        ErrorLabel.setText("ERROR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,8 +163,13 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
                 .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(152, 152, 152))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +195,9 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(ErrorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(ChangPasswordButton)
                 .addContainerGap())
         );
@@ -138,14 +205,53 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NewPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NewPasswordFieldActionPerformed
-
     private void ChangPasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangPasswordButtonActionPerformed
         // TODO add your handling code here:
-        
+        if(!(new String(NewPasswordField.getPassword()).equals(new String(ConfirmPasswordField.getPassword()))))
+            JOptionPane.showMessageDialog(null, "Mật xác nhận không trùng với mật khẩu mới",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        else if(new String(CurrentPasswordField.getPassword()).equals("")||
+                new String(NewPasswordField.getPassword()).equals("")||
+                new String(ConfirmPasswordField.getPassword()).equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền đủ thông tin",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            int result=acccon.ChangePassword(ShowUserNameLabel.getText(), 
+                                            new String(CurrentPasswordField.getPassword()), 
+                                            new String(NewPasswordField.getPassword()));
+            if(result==1)
+            {
+                JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công");
+                CurrentPasswordField.setText("");
+                NewPasswordField.setText("");
+                ConfirmPasswordField.setText("");
+            }
+            else
+            {
+                CurrentPasswordField.setText("");
+                NewPasswordField.setText("");
+                ConfirmPasswordField.setText("");
+            }
+        }
     }//GEN-LAST:event_ChangPasswordButtonActionPerformed
+
+    private void CurrentPasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CurrentPasswordFieldKeyPressed
+        // TODO add your handling code here:
+        LimitPassword(CurrentPasswordField, evt, 30);
+    }//GEN-LAST:event_CurrentPasswordFieldKeyPressed
+
+    private void NewPasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NewPasswordFieldKeyPressed
+        // TODO add your handling code here:
+        LimitPassword(NewPasswordField, evt, 30);
+    }//GEN-LAST:event_NewPasswordFieldKeyPressed
+
+    private void ConfirmPasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ConfirmPasswordFieldKeyPressed
+        // TODO add your handling code here:
+        LimitPassword(ConfirmPasswordField, evt, 30);
+    }//GEN-LAST:event_ConfirmPasswordFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -173,7 +279,9 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ChangePasswordScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -188,6 +296,7 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
     private javax.swing.JLabel ConfirmPasswordLabel;
     private javax.swing.JPasswordField CurrentPasswordField;
     private javax.swing.JLabel CurrentPasswordLabel;
+    private javax.swing.JLabel ErrorLabel;
     private javax.swing.JPasswordField NewPasswordField;
     private javax.swing.JLabel NewPasswordLabel;
     private javax.swing.JLabel ShowUserNameLabel;

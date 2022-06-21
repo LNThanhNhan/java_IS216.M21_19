@@ -5,7 +5,6 @@
 package Process;
 
 import ConnectDB.OracleConnection;
-import Model.Person;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -14,11 +13,42 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author MyPC
- */
+
 public class AccountController {
+    private Connection con;
+
+    //Dùng chi việc đổi mật khẩu
+    public int ChangePassword(String Username, String CurrentPass, String NewPassString)
+    {
+        try{
+            con = OracleConnection.getOracleConnection();
+            String CallProc = "{call PROC_CHANGE_PASSWORD(?,?,?)}";
+            CallableStatement callSt=con.prepareCall(CallProc);
+            callSt.setString(1,Username);
+            callSt.setString(2,CurrentPass);
+            callSt.setString(3,NewPassString);
+            
+            callSt.execute();
+            callSt.close();
+            con.close();
+            return 1;
+        }catch (SQLException sqle) {
+            if (sqle.getErrorCode() == 20103){
+                JOptionPane.showMessageDialog(null, "Sai mật khẩu hiện tại",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);}
+            else if (sqle.getErrorCode() == 20104){
+                JOptionPane.showMessageDialog(null, "Mật khẩu mới trùng với mật khẩu cũ!",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);}
+            //sqle.printStackTrace();
+        } catch (UnsupportedOperationException e) {
+            e.printStackTrace();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
+    //Lấy vai trò để đăng nhập
     public static int getRoleUser(String username){
         int role=-1;
         try {
@@ -48,7 +78,7 @@ public class AccountController {
     }
     
    
-    
+    //Kiểm tra tính đúng đắng của tài khoản
     public static int CheckAccount(String username, String password) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -77,8 +107,7 @@ public class AccountController {
         return 1;
     }
     
-
-     
+    //Kiểm tra sự tồn tại của username cho việc đăng ký
     public static int checkSignUpAccount(String usename) { 
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -102,5 +131,4 @@ public class AccountController {
         }
         return 0;
     }
-    
-}
+    }

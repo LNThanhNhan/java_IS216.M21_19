@@ -1,0 +1,192 @@
+--DELETE FROM SUPPLY;
+--DELETE FROM ADVISORY;
+--DELETE FROM PERSON;
+--DELETE FROM EMPLOYEE;
+--DELETE FROM CHARITY;
+--DELETE FROM DOCTOR;
+--DELETE FROM ACCOUNT;
+
+--insert account
+INSERT INTO account VALUES ('user01' , '123123', 4);
+INSERT INTO account VALUES ('user02' , '123123', 4);
+INSERT INTO account VALUES ('user03' , '123123', 4);
+INSERT INTO account VALUES ('user04' , '123123', 4);
+INSERT INTO account VALUES ('user05' , '123123', 4);
+INSERT INTO account VALUES ('user06' , '123123', 4);
+INSERT INTO account VALUES ('user07' , '123123', 4);
+INSERT INTO account VALUES ('user08' , '123123', 4);
+INSERT INTO account VALUES ('user09' , '123123', 4);
+INSERT INTO account VALUES ('user10' , '123123', 4);
+
+INSERT INTO account VALUES ('user11' , '123123', 3);
+INSERT INTO account VALUES ('user12' , '123123', 3);
+INSERT INTO account VALUES ('user13' , '123123', 3);
+INSERT INTO account VALUES ('user14' , '123123', 3);
+INSERT INTO account VALUES ('user15' , '123123', 3);
+INSERT INTO account VALUES ('user16' , '123123', 3);
+INSERT INTO account VALUES ('user17' , '123123', 3);
+INSERT INTO account VALUES ('user18' , '123123', 3);
+INSERT INTO account VALUES ('user19' , '123123', 3);
+INSERT INTO account VALUES ('user20' , '123123', 3);
+
+INSERT INTO account VALUES ('user21' , '25251325', 2);
+INSERT INTO account VALUES ('user22' , '123456', 2);
+INSERT INTO account VALUES ('user23' , '147852369', 2);
+INSERT INTO account VALUES ('user24' , '987654321', 2);
+INSERT INTO account VALUES ('user25' , 'windowns', 2);
+INSERT INTO account VALUES ('user26' , 'linuxxx', 2);
+INSERT INTO account VALUES ('user27' , 'samsam', 2);
+INSERT INTO account VALUES ('user28' , 'dontknow', 2);
+INSERT INTO account VALUES ('user29' , 'hieu123', 2);
+INSERT INTO account VALUES ('user30' , 'viptop1', 2);
+
+INSERT INTO account VALUES ('user31', '123456789', 1);
+INSERT INTO account VALUES ('user32', 'qwerty', 1);
+INSERT INTO account VALUES ('user33', 'password123', 1);
+INSERT INTO account VALUES ('user34', '12345678', 1);
+INSERT INTO account VALUES ('user35', '111111', 1);
+INSERT INTO account VALUES ('user36', '123123', 1);
+
+INSERT INTO ACCOUNT VALUES ('user41','123',1);
+INSERT INTO ACCOUNT VALUES ('user42','456',1);
+INSERT INTO ACCOUNT VALUES ('user43','789',1);
+INSERT INTO ACCOUNT VALUES ('user44','1122',1);
+INSERT INTO ACCOUNT VALUES ('user45','1455',1);
+INSERT INTO ACCOUNT VALUES ('user46','1788',1);
+INSERT INTO ACCOUNT VALUES ('user47','2121',1);
+INSERT INTO ACCOUNT VALUES ('user48','2454',1);
+INSERT INTO ACCOUNT VALUES ('user49','2787',1);
+INSERT INTO ACCOUNT VALUES ('user50','3120',1);
+INSERT INTO ACCOUNT VALUES ('user51','3453',1);
+INSERT INTO ACCOUNT VALUES ('user52','3786',1);
+INSERT INTO ACCOUNT VALUES ('user53','4119',1);
+INSERT INTO ACCOUNT VALUES ('user54','4452',1);
+INSERT INTO ACCOUNT VALUES ('user55','4785',1);
+INSERT INTO ACCOUNT VALUES ('user56','123',1);
+
+--PERSON
+INSERT INTO person VALUES (1, 'user31', 'Mai Hoài An', 0, '0353975568', 'Hồ Chí Minh', 'Thủ Đức', 'Linh Chiểu', '26 đường 15', 0);
+INSERT INTO person VALUES (2, 'user32', 'Phạm Duy Anh', 0, '0962475039', 'Gia Lai', 'Chư Sê', 'Chư Sê', '904B Hùng Vương', 0);
+INSERT INTO person VALUES (3, 'user33', 'Hà Minh Đại', 1, '0399019601', 'Thanh Hóa', 'Sầm Sơn', 'Trường Sơn', '91 Lê Lợi', 0);
+INSERT INTO person VALUES (4, 'user34', 'Nguyễn Văn Ngọc Hiếu', 1, '0346638188','Vĩnh Phúc', 'Phúc Yên', 'Đồng Xuân', '116 Trường Chinh', 0);
+INSERT INTO person VALUES (5, 'user35', 'Nguyễn Xuân Hòa', 0, '0971545751', 'Phú Thọ', 'Tam Nông', 'Hưng Hóa', 'Khu Tân Hưng', 0);
+INSERT INTO person VALUES (6, 'user36', 'Vũ Gia Hòa', 1, '0394304299', 'Quảng Bình', 'Lệ Thủy', 'Kiến Giang', '27 Nguyễn Tất Thành', 0);
+INSERT INTO person VALUES (7, NULL, 'Nguyễn Trí Thanh', 1, '0336074664', 'Quảng Bình', 'Bố Trạch', 'Hoàn Lão', '55 Hùng Vương', 0);
+INSERT INTO person VALUES (8, NULL, 'Nguyễn Đức Nghĩa', 1, '0868437363', 'Hà Nội', 'Hai Bà Trưng', 'Vĩnh Tuy', '349 đường Minh Khai', 0);
+INSERT INTO person VALUES (9, NULL, 'Nguyễn Minh Long', 1, '0329853968', 'Lai Châu', 'Tân Uyên', 'Tân Uyên', 'Tổ 15', 0);
+INSERT INTO person VALUES (10, NULL, 'Trần Huy Khánh', 1, '0375210196', 'Nam Định', 'Nghĩa Hưng', 'Liễu Đề', 'TDP 01', 0);
+INSERT INTO PERSON VALUES(11,'user41','Võ Kim Long',1,'0991443963','Tây Ninh','Lợi Thuận','Mộc Bài','79A Ôn Sơn',0);
+INSERT INTO PERSON VALUES(12,'user42','Đặng Thế Minh',1,'0923035208','Hà Nội','Cầu Giấy','Yên Hòa','03 Phạm Văn Bạch',0);
+INSERT INTO PERSON VALUES(13,'user43','Đỗ Thiện Phước',1,'0926479333','Bắc Ninh','Suối Hoa','Vạn An','31 Lý Thái Tổ',0);
+INSERT INTO PERSON VALUES(14,'user44','Mai Hà Phương',0,'0950642834','Ninh Bình','Ninh Phong','Phúc Trì','136 Hai Bà Trưng',0);
+INSERT INTO PERSON VALUES(15,'user45','Nguyễn Anh Tú',1,'0983265787','Khánh Hòa','1','Vĩnh Hòa','13/15A Lê Duẫn',0);
+INSERT INTO PERSON VALUES(16,'user46','Lương Nguyễn Xuân Thảo',0,'0922144882','Cà Mau','U Minh','Khánh Thuận','231 Phạm Ngũ Lão',0);
+INSERT INTO PERSON VALUES(17,'user47','Đỗ Lâm Ðông',1,'0915181255','An Giang','An Phú','Châu Phong','20 Vòng Thị',0);
+INSERT INTO PERSON VALUES(18,'user48','Bùi Phương Mỹ Anh',0,'0939907234','An Giang','Phú Tân','Hòa Lạc','7 Lý Văn Phúc',0);
+INSERT INTO PERSON VALUES(19,'user49','Trần Gia Huy',1,'0913505719','Nghệ An','Quỳ Châu','Châu Tiến','64A Trưng Nhị',0);
+INSERT INTO PERSON VALUES(20,'user50','Bùi Trúc Linh',0,'0908489098','Nghệ An','Kỳ Sơn ','Mường Sén','393/6 Trần Hưng Đạo',0);
+INSERT INTO PERSON VALUES(21,'user51','Phan Thanh Hương',0,'0911342874','Bình Phước','Đông Xoài','Tân Xuân','202 Điện Biên Phủ',0);
+INSERT INTO PERSON VALUES(22,'user52','Đặng Anh Khoa',1,'0989146559','Bình Phước','Đông Xoài','Tân Thiện','190 Phan Đăng Lưu',0);
+INSERT INTO PERSON VALUES(23,'user53','Nguyễn Hồng Hạnh',0,'0996712609','Yên Bái','Lục Yên','Minh Tiến','05-07 Hoàng Hoa Thám',0);
+INSERT INTO PERSON VALUES(24,'user54','Hồ Việt Huy',1,'0984455680','Yên Bái','Văn Yên','Lang Thíp','56B Nguyễn Thái Sơn',0);
+INSERT INTO PERSON VALUES(25,'user55','Nguyễn Thị Thanh Nga',0,'0977346350','Đồng Nai','Tân Phú','Phú Thanh','37/4V Nguyễn Văn Lượng',0);
+INSERT INTO PERSON VALUES(26,'user56','Huỳnh Cao Phong',1,'0916875557','Đồng Nai','Định Quán','Phú Ngọc','444 Hậu Giang',1);
+INSERT INTO PERSON VALUES(27,NULL,'Trần Ngọc Oanh',0,'0918647092','Hà Nội','Hoàng Mai','Đại Kim','A15 Hoàng Quốc Việt',0);
+INSERT INTO PERSON VALUES(28,NULL,'Nguyễn Ngọc Mỹ Chi',0,'0951749583','Hà Nội','Thanh Xuân ','Phương Liệt','42/7 Trường Trinh',0);
+INSERT INTO PERSON VALUES(29,NULL,'Phan Ðức Minh',1,'0918200998','Thừa Thiên Huế','Phong Điền','Điền Hương','103 Trần Văn Ơn',0);
+INSERT INTO PERSON VALUES(30,NULL,'Đặng Thùy Giang',0,'0943325189','Thừa Thiên Huế','Quảng Điền ','Quảng Lợi','776/7A Nguyễn Kiệm',0);
+
+--employee
+INSERT INTO employee VALUES (1, 'user21', 'Nguyễn Thị Lý', 0, TO_DATE('12/01/2022','dd/mm/yyyy'), '0984626764', '17 Thái Nguyên, Phường Phước Tân, Thành phố Nha Trang, Tỉnh Khánh Hòa');
+INSERT INTO employee VALUES (2, 'user22', 'Nguyễn Thị Xoa', 0, TO_DATE('12/01/2022','dd/mm/yyyy'), '0378574588', 'Tổ dân phố 4, P. Ninh Hiệp, TX. Ninh Hòa, T. Khánh Hòa');
+INSERT INTO employee VALUES (3, 'user23', 'Trần Thị Uyên', 0, TO_DATE('12/01/2022','dd/mm/yyyy'), '0862121185', 'Tiểu khu 19, TT. Hát Lót, H. Mai Sơn, T. Sơn La');
+INSERT INTO employee VALUES (4, 'user24', 'Nguyễn Bùi Thụy Vy' , 0, TO_DATE('22/01/2022','dd/mm/yyyy'), '0332448466', '17B Lê Thánh Tông, TT. Ngọc Lặc, H. Ngọc Lặc, T. Thanh Hóa');
+INSERT INTO employee VALUES (5, 'user25', 'Thân Trong Thiên Ân', 1, TO_DATE('22/01/2022','dd/mm/yyyy'), '0865101714', '99 Chi Lăng, Khu An Ninh, TT. Hữu Lũng, H. Hữu Lũng, T. Lạng Sơn');
+INSERT INTO employee VALUES (6, 'user26', 'Ngô Thị Thoa' , 0, TO_DATE('30/01/2022','dd/mm/yyyy'), '0823101714', 'Số 154, Tổ 4, thị trấn Vị Xuyên, huyện Vị Xuyên, Tỉnh Hà Giang');
+INSERT INTO employee VALUES (7, 'user27', 'Đặng Thị Ngọc Yên', 0, TO_DATE('30/01/2022','dd/mm/yyyy'), '0354306079', 'Đường Trần Đăng Ninh, tổ dân phố 6, P. Tân Thanh, TP. Điện Biên Phủ, T. Điện Biên');
+INSERT INTO employee VALUES (8, 'user28', 'Trương Thị Măng', 0, TO_DATE('30/01/2022','dd/mm/yyyy'), '0368334441', 'Khu phố 5, TT. Kim Tân, H. Thạch Thành, T. Thanh Hóa');
+INSERT INTO employee VALUES (9, 'user29', 'Nguyễn Thị Chi Mai', 0, TO_DATE('05/02/2022','dd/mm/yyyy'), '0374916079', '724 Cù Chính Lan, Tổ 03, Phường Đồng Tiến, Thành Phố Hòa Bình, Tỉnh Hòa Bình');
+INSERT INTO employee VALUES (10, 'user30', 'Nguyễn Mai Quỳnh', 0, TO_DATE('05/02/2022','dd/mm/yyyy'), '0348606057', 'Xã Vĩnh Thanh, Huyện Nhơn Trạch, Tỉnh Đồng Nai');
+
+--insert charity
+INSERT INTO Charity VALUES (1, 'user11', 'Tình Thương', '0373484186', 'Hồ Chí Minh', 'Bình Thạnh', '26', '72 Đường 17',1, 0, 1, 0);
+INSERT INTO Charity VALUES (2, 'user12', 'Hoa Từ Bi', '0347694188', 'Hồ Chí Minh', 'Gò Vấp', '7', '32 Đường Lê Duẫn', 1, 1, 0, 0);
+INSERT INTO Charity VALUES(3, 'user13', 'Hòa Hảo', '0398437179', 'Hồ Chí Minh', 'Tân Bình',  '6', '6/2D Khu Phố 2' ,1,0,0,0);
+INSERT INTO Charity VALUES(4, 'user14', 'Mái Ấm', '0374892969', 'Hồ Chí Minh', 'Tân Phú', 'Sơn Kỳ', '22 Đường 1', 0,1,1,0);
+INSERT INTO Charity VALUES(5, 'user15', 'Bếp Cơm Văn Tịnh', '0358806568', 'Hà Nội', 'Cầu Giấy', 'Dịch Vọng', '4/14 Đường 18', 1,1,1,20);
+INSERT INTO Charity VALUES(6, 'user16', 'Hương Sen', '0343804268', 'Bình Dương', 'Dĩ An', 'Đông Hòa', '108 Đường Hoàng Diệu 2', 1,1,1,90);
+INSERT INTO Charity VALUES(7, 'user17', 'Tình Nguyện Trẻ', '0335181173', 'Đồng Nai', 'Biên Hòa', 'Phước Tân', '109 Hẻm 21 Đường 11', 1,1,0,0);
+INSERT INTO Charity VALUES(8, 'user18', 'Sức Sống', '0334658575', 'Vũng Tàu', 'Phú Mỹ', 'Hắc Dịch', '69 Đường Trường Tre', 1,1,1,60);
+INSERT INTO Charity VALUES(9, 'user19', 'Minh Tâm', '0396171180', 'Bình Dương', 'Dầu Tiếng', 'Định An', '83/1 Quốc Lộ 1A', 1,0,1,0);
+INSERT INTO Charity VALUES(10, 'user20', 'Tiếp Sức', '0967596794', 'Hồ Chí Minh', '1', 'Cầu Ông Lãnh', '31 Đường 10', 1,1,1,120);
+
+--doctor
+insert into doctor values(1,'user01','Hồ Thị Hà',0,'0935716315',1,1,'Bệnh viện Nhi đồng 1','Hồ Chí Minh');
+insert into doctor values(2,'user02','Nguyễn Phương',0,'0764518719',2,1,'Bệnh viện Ung Bướu','Hồ Chí Minh');
+insert into doctor values(3,'user03','Phạm Nhật Linh',1,'0930750831',6,1,'Bệnh viện Quận Bình Thạnh','Hồ Chí Minh');
+insert into doctor values(4,'user04','Nguyễn Minh Công',1,'0944508031',2,1,'Bệnh viện Lê Lợi','Vũng Tàu');
+insert into doctor values(5,'user05','Nguyễn Thành Quân',1,'0768502537',4,1,'Bệnh viện Y học cổ truyền','Bình Dương');
+insert into doctor values(6,'user06','Nguyễn Quỳnh Phương Anh',0,'0984476843',9,4,'Bệnh Viện Bạch Mai','Hà Nội');
+insert into doctor values(7,'user07','Nguyễn Thị Hải Liên',0,'0957270143',8,5,'Bệnh viện K','Hà Nội');
+insert into doctor values(8,'user08','Nguyễn Văn Chánh',1,'0959016831',6,1,'Bệnh Viện 22-12','Khánh Hòa');
+insert into doctor values(9,'user09','Lê Tuấn Thành',1,'0946097020',7,1,'Bệnh viện Trung Ương Huế','Thừa Thiên Huế');
+insert into doctor values(10,'user10','Trần Quỳnh Kim',0,'0937169708',3,2,'Bệnh viện Bình Dân Đà Nẵng
+','Đà Nẵng');
+
+--advisory
+insert into advisory values(1,1,NULL,TO_DATE('12/03/2022','dd/mm/yyyy'),1986,170,80,3,NULL,'Xin tư vấn hậu covid 19');
+insert into advisory values(2,2,NULL, TO_DATE('14/03/2022','dd/mm/yyyy'),1990,165,60,3,'Hen suyễn','Em muốn hỏi cách tư điều trị covid-19 tại nhà');
+insert into advisory values(3,3,NULL,TO_DATE('22/03/2022','dd/mm/yyyy'),2002,170,86,1,NULL,'Hướng dẫn cách xài kit test nhanh covid 19');
+insert into advisory values(4,4,NULL,TO_DATE('1/04/2022','dd/mm/yyyy'),1978,160,65,1,NULL,'Xin khám hậu covid cho bé nhà em');
+insert into advisory values(5,5,NULL,TO_DATE('7/04/2022','dd/mm/yyyy'),1980,164,55,2,'Huyết áp cao','Cho em xin tư vấn khi bị mắc covid thì mình nên làm gì');
+insert into advisory values(6,6,NULL,TO_DATE('10/04/2022','dd/mm/yyyy'),1965,158,57,2,'Tim mạch','Tư vấn cách tự điều trị covid tại nhà');
+insert into advisory values(7,7,NULL,TO_DATE('14/04/2022','dd/mm/yyyy'),2000,176,69,1,NULL,'Hỏi cách chăm sóc cho người nhà bị covid');
+insert into advisory values(8,8,NULL,TO_DATE('14/04/2022','dd/mm/yyyy'),1997,180,70,1,NULL,'Em hiện nay bị ho khan, ho nhiều về đêm, mong bác sĩ tư vấn giúp em');
+insert into advisory values(9,9,NULL,TO_DATE('15/04/2022','dd/mm/yyyy'),1995,171,74,2,NULL,'Cho em được hỏi là nếu mình mắc covid 19 thì sẽ có những triệu chứng gì?');
+insert into advisory values(10,10,NULL,TO_DATE('15/04/2022','dd/mm/yyyy'),1989,167,71,3,NULL,'Mong bác sĩ chuẩn đoán và kê đơn cho em thuốc điều trị hậu covid');
+
+INSERT INTO ADVISORY VALUES(11,11,NULL,TO_DATE('24/04/2022','dd/mm/yyyy'),1959,162,66,1,NULL,'Tôi bị ho nhiều về đêm đặc biệt là trước khi đi ngủ');
+INSERT INTO ADVISORY VALUES(12,12,NULL,TO_DATE('26/04/2022','dd/mm/yyyy'),1964,163,87,1,'Bệnh tiểu đường','Tôi muốn được khám về họng do bị ho khan hậu covid');
+INSERT INTO ADVISORY VALUES(13,13,NULL,TO_DATE('01/05/2022','dd/mm/yyyy'),1974,157,86,1,NULL,'Nhờ bác sĩ xem giùm em vì em cảm thấy mất vị giác khi ăn');
+INSERT INTO ADVISORY VALUES(14,14,NULL,TO_DATE('01/05/2022','dd/mm/yyyy'),1968,173,83,1,NULL,'Em cảm thấy chóng mặt, và chảy mũi, mong bác sĩ tư vấn cho em');
+INSERT INTO ADVISORY VALUES(15,15,NULL,TO_DATE('03/05/2022','dd/mm/yyyy'),1960,172,88,1,NULL,'Bác sĩ cho em hỏi là khi bị covid có nên xông hơi ');
+INSERT INTO ADVISORY VALUES(16,16,NULL,TO_DATE('07/05/2022','dd/mm/yyyy'),1961,152,73,1,'Huyết áp cao','Xin bác sĩ tư vấn cho tôi cách điều trị covid cho trẻ tại nhà');
+INSERT INTO ADVISORY VALUES(17,17,NULL,TO_DATE('11/05/2022','dd/mm/yyyy'),1954,186,53,1,NULL,'Bác sĩ cho em hỏi tình trạng hậu covid thì sẽ kéo dài bao lâu vậy ạ?');
+INSERT INTO ADVISORY VALUES(18,18,NULL,TO_DATE('11/05/2022','dd/mm/yyyy'),1958,182,63,1,NULL,'Em đang tự điều trị covid tại nhà, bác sĩ cho em hỏi là em nên sử dụng những loại thuốc nào vậy ạ?');
+INSERT INTO ADVISORY VALUES(19,19,NULL,TO_DATE('13/05/2022','dd/mm/yyyy'),1966,192,73,1,'Cholesterol cao','Mong bác sĩ khám cho em vì em bị khó thở về đêm vì hậu covid');
+INSERT INTO ADVISORY VALUES(20,20,NULL,TO_DATE('14/05/2022','dd/mm/yyyy'),1988,151,71,1,NULL,'Bác sĩ cho em hỏi là tình trạng bệnh như thế nào thì mình nên nhập viện vậy ạ?');
+
+
+--insert supply
+INSERT INTO Supply VALUES(1, 1, 10, TO_DATE('12/03/2022','dd/mm/yyyy'), 1, 0, 0, 4, 'Xin hỗ trợ lương thực gồm gạo và lương khô' );
+INSERT INTO Supply VALUES(2, 2, 10, TO_DATE('13/03/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Tôi mong muốn được hỗ trợ đầy đủ, đặc biệt là lương thực');
+INSERT INTO Supply VALUES(3, 3, 10, TO_DATE('15/03/2022','dd/mm/yyyy'), 1, 0, 1, 4, 'Tôi xin các trung tâm hỗ trợ nhanh nhất có thể');
+INSERT INTO Supply VALUES(4, 4, 10, TO_DATE('18/03/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Gia đình tôi hiện đang bị covid, rất cần lương thực và các vật dụng y tế');
+INSERT INTO Supply VALUES(5, 5, 10, TO_DATE('20/03/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Xin hỗ trợ gạo, sữa, mắm, muối và que test nhanh');
+INSERT INTO Supply VALUES(6, 6, 6, TO_DATE('26/03/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Mong yêu cầu sẽ được hỗ trợ nhanh');
+INSERT INTO Supply VALUES(7, 7,6, TO_DATE('27/03/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Tôi cần gạo, trứng, giấy vệ sinh, nhiệt kế và que test nhanh');
+INSERT INTO Supply VALUES(8, 8, 6, TO_DATE('28/03/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Tôi hiện đang ở một mình và bị covid, hiện tại không còn gì trong nhà. Mong được hỗ trợ nhanh nhất có thể');
+INSERT INTO Supply VALUES(9, 9, 8, TO_DATE('29/03/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Xin được hỗ trợ gạo, sữa, cơm, que test nhanh');
+INSERT INTO Supply VALUES(10,10, 8, TO_DATE('29/03/2022','dd/mm/yyyy'), 1, 1, 1, 4, 'Xin hỗ trợ gạo, mì tôm, thuốc ho, que test nhanh');
+
+INSERT INTO SUPPLY VALUES(11,11,5,TO_DATE('1/04/2022','dd/mm/yyyy'),1,1,0,4,'Tôi cần 2kg gạo');
+INSERT INTO SUPPLY VALUES(12,12,NULL,TO_DATE('9/04/2022','dd/mm/yyyy'),1,1,0,1,'Mong nhận được phần ăn cho 2 người trong vòng 2 ngày');
+INSERT INTO SUPPLY VALUES(13,13,NULL,TO_DATE('19/04/2022','dd/mm/yyyy'),0,0,1,1,'Hãy cho tôi việc làm');
+INSERT INTO SUPPLY VALUES(14,14,NULL,TO_DATE('20/04/2022','dd/mm/yyyy'),1,1,0,1,'Mong được hỗ trợ về rau củ ');
+INSERT INTO SUPPLY VALUES(15,15,NULL,TO_DATE('26/04/2022','dd/mm/yyyy'),0,1,0,1,'Tôi cần gia vị, đặc biệt là muối');
+INSERT INTO SUPPLY VALUES(16,16,NULL,TO_DATE('27/04/2022','dd/mm/yyyy'),1,1,0,1,'Cần gấp bánh mì và mì ăn liền');
+INSERT INTO SUPPLY VALUES(17,17,NULL,TO_DATE('28/04/2022','dd/mm/yyyy'),0,0,1,1,'Mong trung tâm hỗ trợ thuốc hạ sốt');
+INSERT INTO SUPPLY VALUES(18,18,NULL,TO_DATE('30/04/2022','dd/mm/yyyy'),1,1,1,1,'Tôi cần người để tâm sự');
+INSERT INTO SUPPLY VALUES(19,19,NULL,TO_DATE('30/04/2022','dd/mm/yyyy'),1,0,1,2,'Cần máy thở oxi và đồ ăn trong 3 ngày');
+INSERT INTO SUPPLY VALUES(20,20,NULL,TO_DATE('01/05/2022','dd/mm/yyyy'),0,1,1,2,'Cần dầu gội, bánh xà phòng');
+INSERT INTO SUPPLY VALUES(21,21,NULL,TO_DATE('01/05/2022','dd/mm/yyyy'),1,0,0,2,'Tôi đang thiếu phần ăn cho 1 người trưởng thành, nhất là rau củ');
+INSERT INTO SUPPLY VALUES(22,22,NULL,TO_DATE('01/05/2022','dd/mm/yyyy'),1,1,1,2,'Nhà mình có người mang thai 6 tháng, rất cần hỗ trợ');
+INSERT INTO SUPPLY VALUES(23,23,NULL,TO_DATE('03/05/2022','dd/mm/yyyy'),0,1,0,2,'Tôi cần kéo và dụng cụ nhà bếp');
+INSERT INTO SUPPLY VALUES(24,24,NULL,TO_DATE('04/05/2022','dd/mm/yyyy'),1,0,1,2,'Xin gửi cho tôi 1 phần đồ ăn và thuốc cho người bị bệnh tiểu đường');
+INSERT INTO SUPPLY VALUES(25,25,NULL,TO_DATE('07/05/2022','dd/mm/yyyy'),0,1,1,2,'Cần trung tâm gửi các vật phẩm hỗ trợ người cao tuổi');
+INSERT INTO SUPPLY VALUES(26,1,NULL,TO_DATE('10/05/2022','dd/mm/yyyy'),1,1,1,2,'Tôi cần sữa bột và thuốc bổ cho bé 3 tháng tuổi');
+INSERT INTO SUPPLY VALUES(27,27,NULL,TO_DATE('11/05/2022','dd/mm/yyyy'),0,1,0,2,'Trung tâm có thể hỗ trợ chăn và gối được không?');
+INSERT INTO SUPPLY VALUES(28,28,NULL,TO_DATE('12/05/2022','dd/mm/yyyy'),1,0,1,2,'Cần khẩu trang và trái cây');
+INSERT INTO SUPPLY VALUES(29,29,NULL,TO_DATE('12/03/2022','dd/mm/yyyy'),1,1,0,2,'Tôi thiếu nước uống và dụng cụ ăn uống');
+INSERT INTO SUPPLY VALUES(30,30,NULL,TO_DATE('14/05/2022','dd/mm/yyyy'),1,1,1,2,'Cần nhận khẩu phần ăn cho 1 gia đình 3 người');
+Commit;

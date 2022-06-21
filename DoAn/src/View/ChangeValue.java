@@ -214,7 +214,7 @@ public class ChangeValue {
     }
     public static String DateToString(Date date)
     {
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(date);
     }
     
@@ -302,11 +302,22 @@ public class ChangeValue {
         else
             return 0;
     }
-    
-    public static boolean getValueCheckBoxBoolean(int cb){ 
-        if(cb==1)
-            return true;
-        else
-            return false;
+public static boolean getValueCheckBoxBoolean(int cb){
+    if(cb == 1)
+        return true;
+    else
+        return false;
+}
+
+public static String NeedSupply(int value)
+    {
+        switch(value)
+        {
+            case 1: 
+                return "Có";
+            case 0:
+                return "Không";
+        }
+        return "ERROR";
     }
 }
