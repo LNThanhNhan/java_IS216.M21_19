@@ -43,4 +43,35 @@ public class AdvisoryTableModel {
         }
         return dtm;
     }
+    
+    private String[] listColumnpperson = {"Mã tư vấn","Ngày tạo","Năm sinh","Chiều cao","Cân nặng","Tiền sử"}; 
+    public DefaultTableModel setAdvisoryTableByPerson(ArrayList<HashMap> listItem) {
+        
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };;
+        dtm.setColumnIdentifiers(listColumnpperson);
+        int rows=listItem.size();
+        int column = listColumnpperson.length;
+        Object[] obj = null;
+        if(rows>0)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                HashMap<String,String> ad =listItem.get(i);
+                obj = new Object[column];
+                obj[0]=ad.get("idad");
+                obj[1]=ad.get("created");
+                obj[2]=ad.get("yearbirth");
+                obj[3]=ad.get("height");
+                obj[4]=ad.get("weight");
+                obj[5]=ad.get("pastmedicalhistory");
+                dtm.addRow(obj);
+            }
+        }
+        return dtm;
+    }
 }

@@ -114,7 +114,7 @@ public class LogInNew extends javax.swing.JFrame {
                     PersonController percon = new PersonController();
                     Person person = new Person();
                     person = percon.getPersonInfo(UsernameTextField.getText().toString());
-                    //new PersonScreen(person).setVisible(true);
+                    new PersonScreen(person).setVisible(true);
                      //a.setVisible(true);
                     this.dispose();
                     
@@ -140,7 +140,7 @@ public class LogInNew extends javax.swing.JFrame {
                     //Trung Tâm
                     Charity charity = new Charity();
                     charity.setUsername(UsernameTextField.getText().toString());
-                    //new CharityScreen(charity).setVisible(true);
+                    new CharityScreen(charity).setVisible(true);
                     this.dispose();
                 }
                 break;
