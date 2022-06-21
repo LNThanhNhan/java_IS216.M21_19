@@ -237,14 +237,6 @@ public class ChangeValue {
     }
     
     
-    
-    /*
-    public static String UserName(String value) {
-        if (value == "thường")
-            return "";
-        else if (value == "hotline");
-            return value;
-}*/
      public static String[] getProvince()
     {
         String province[]={"Tỉnh/Thành phố",
@@ -302,14 +294,15 @@ public class ChangeValue {
         else
             return 0;
     }
-public static boolean getValueCheckBoxBoolean(int cb){
-    if(cb == 1)
-        return true;
-    else
-        return false;
-}
-
-public static String NeedSupply(int value)
+    
+    public static boolean getValueCheckBoxBoolean(int cb){ 
+        if(cb==1)
+            return true;
+        else
+            return false;
+    }
+    
+    public static String NeedSupply(int value)
     {
         switch(value)
         {
@@ -319,5 +312,14 @@ public static String NeedSupply(int value)
                 return "Không";
         }
         return "ERROR";
+    }
+    
+    public static String IdcharEmptyCase(int value){
+        String idcharempty;
+        if(value==0)
+            idcharempty= "";
+        else
+            idcharempty= String.valueOf(value);
+        return idcharempty;
     }
 }

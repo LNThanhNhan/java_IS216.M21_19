@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class AddEmployeeScreen extends javax.swing.JDialog {
 
@@ -29,9 +29,7 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         emp = (EmployeeScreen) parent;
-        setView();
-        StartDateDateChooser.setDateFormatString("dd/MM/yyyy");
-   
+        setView();   
     }   
     
     //Dùng để giới hạn số điện thoại của người dùng
@@ -56,10 +54,7 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
                 txt.setEditable(true);
             } else {
                 txt.setEditable(false);
-            }
-         
-        
-        
+            }  
     }
     
     //Dùng để giới hạn ký tự cho Jtextfield
@@ -85,7 +80,6 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
     
     //Đặt dữ liệu lại khi nhấn vào button thêm tại Jframe
     public void setView() {
-        
         // set data
         IdempTextField.setText(getNextValueEmployee());
         UsernameTextField.setText("");
@@ -96,7 +90,7 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         AddressTextField.setText("");              
         FeMaleGenderRadioButton.setSelected(false);
         MaleGenderRadioButton.setSelected(false);
-        
+        StartDateDateChooser.setCalendar(null);
     }   
     
     //Đặt sự kiện khi nhấn nút lưu  tại JDialog
@@ -112,14 +106,21 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
             employee.setUsername(UsernameTextField.getText());
             account.setPassword(PasswordTextField.getText());
             employee.setName(NameTextField.getText());
-            employee.setGender(NameTextField.getText() == "Nam" ? 1 : 0);
+            employee.setGender(getGender(MaleGenderRadioButton));
             employee.setPhone(PhoneTextField.getText());
-            employee.setStartdate(StartDateDateChooser.getDate());
             employee.setAddress(AddressTextField.getText());
+            
+            //Xử lý khi date null
+            if (StartDateDateChooser.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
+                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+            } else {
+                employee.setStartdate(StartDateDateChooser.getDate());
+                check = EmployeeController.AddEmployee(employee, account);
+                emp.setTableManageEmployee();
+                emp.resizeColumnWidth(emp.getEmployeeTable());
+            }
 
-            check = EmployeeController.AddEmployee(employee, account);
-            emp.setTableManageEmployee();
-            emp.resizeColumnWidth(emp.getEmployeeTable());
         }
         if(check == 0){ 
             int option =JOptionPane.showConfirmDialog(null, "Thêm thông tin thành công, bạn muốn tiếp tục?",
@@ -210,6 +211,7 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         MaleGenderRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(MaleGenderRadioButton);
         MaleGenderRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MaleGenderRadioButton.setSelected(true);
         MaleGenderRadioButton.setText("Nam");
         MaleGenderRadioButton.setOpaque(true);
 
@@ -246,10 +248,11 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
             }
         });
 
+        StartDateDateChooser.setDateFormatString("dd/MM/YYYY");
         StartDateDateChooser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
-        jLabel6.setText("Ngày bắt đầu");
+        jLabel6.setText("Ngày vào làm");
 
         ErrorLabel.setBackground(new java.awt.Color(255, 255, 255));
         ErrorLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
@@ -358,7 +361,7 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -422,6 +425,134 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AddEmployeeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

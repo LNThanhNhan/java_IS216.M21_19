@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -78,29 +77,29 @@ public class AdvisoryController {
         try {
             Connection con = OracleConnection.getOracleConnection();
             int i = -1;
-            //Set mức cô lập trong java
-            i = Connection.TRANSACTION_READ_COMMITTED;
-            //i = Connection.TRANSACTION_SERIALIZABLE;
+            //i = Connection.TRANSACTION_READ_COMMITTED;
+            i = Connection.TRANSACTION_SERIALIZABLE;
             con.setAutoCommit(false);
             con.setTransactionIsolation(i);
-            //Phần này là nạp dữ liệu vào table
             AdvisoryTable.getSelectionModel().clearSelection();
             AdvisoryTableModel=getAdvisoryModelTransaction(con, AdvisoryList);
             AdvisoryTable.setModel(AdvisoryTableModel);
             setAdvisoryTableSize(AdvisoryTable);
             //Thông báo đã xong lần 1
             System.out.println("1");
-            //Hàm 1 thread mới và thực hiện trong background chương trình
+            //Hàm 1 thread mới và thực hiện 2 giao tác trong 
+            //Phần này là xử lý trường hợp phantom read
             new SwingWorker() {
                 @Override
                 protected Object doInBackground() throws Exception {
+//                                SwingUtilities.invokeLater(new Runnable() {
+//                                    @Override
+//                                    public void run()  {
                     try {
-                        //Ngủ 10 giay
+                        //Ngu 10 giay
                         Thread.sleep(10000);
-                        //Thực hiện truy xuất lần 2 và giả lập báo lỗi timeout
+                        //Bat dau thuc hien lan 2
                         System.out.println("2");
-                        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Hệ thống bị time out, đang tải lại"));
-                        //Phần này là nạp dữ liệu lần 2 vào table để xảy ra phantom read
                         AdvisoryTable.getSelectionModel().clearSelection();
                         AdvisoryTable.setModel(getAdvisoryModelTransaction(con, AdvisoryList));
                         setAdvisoryTableSize(AdvisoryTable);
@@ -267,31 +266,29 @@ public class AdvisoryController {
         try{
             con = OracleConnection.getOracleConnection();
             con.setAutoCommit(false);
-            //Thực hiện hàm thủ tục để khóa dòng dữ liệu yêu cầu tư vấn đầu tiên trên seisson
             String CallProc1 = "{call PROC_ACCEPT_ADVISORY(?,?)}";
             CallableStatement callSt1=con.prepareCall(CallProc1);;
             callSt1.setString(1,iddoc);
             callSt1.setString(2,idad1);
             callSt1.execute();
             System.err.println("2");
-            //Cho chương trình ngủ 5 giây
             Thread.sleep(5000);
-            //Thực hiện hàm thủ tục lần 2 để yêu cầu khóa dòng dữ liệu yêu cầu tư vấn thứ 2 trên seisson khác đang giữ
+            
             String CallProc2 = "{call PROC_ACCEPT_ADVISORY(?,?)}";
             CallableStatement callSt2=con.prepareCall(CallProc2);;
             callSt2.setString(1,iddoc);
             callSt2.setString(2,idad2);
-            try{
-                callSt2.execute();
-            }
-            catch (SQLException sqle) {
-                if (sqle.getErrorCode() == 60) {
-                    //Thực hiện việc bắt lỗi và thông báo cho người dùng khi có hiện tượng deadlock xảy ra
-                    JOptionPane.showMessageDialog(null, "Đã có Deadlock xảy ra!",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
-                    sqle.printStackTrace();
-                }
-            }
+            //try{
+            callSt2.execute();
+//            }
+//            catch (SQLException sqle) {
+//                if (sqle.getErrorCode() == 60) {
+//                    JOptionPane.showMessageDialog(null, "Đã có Deadlock xảy ra!",
+//                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
+//                    con.rollback();
+//                    sqle.printStackTrace();
+//                }
+//            }
             callSt1.close();
             callSt2.close();
             con.commit();

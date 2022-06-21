@@ -5,7 +5,6 @@
 package View;
 
 import Process.CharityController;
-import View.*;
 import static Process.CharityController.getNextValueCharity;
 import Model.*;
 import static View.ChangeValue.*;
@@ -17,28 +16,29 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class AddCharityScreen extends javax.swing.JDialog {
 
-    /**Hàm khởi tạo JDialg nhận Jframe EmployeeScreen làm parent
-     * Creates new form AddcharityScreen
+    /**
+     * Hàm khởi tạo JDialg nhận Jframe EmployeeScreen làm parent Creates new
+     * form AddcharityScreen
      */
-    EmployeeScreen  emp = new EmployeeScreen();
+    EmployeeScreen emp = new EmployeeScreen();
+
     public AddCharityScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         emp = (EmployeeScreen) parent;
         setView();
-        
-    }  
-    
+    }
+
     //Dùng để giới hạn số điện thoại của người dùng
     //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
-   public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
+    public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
-        
+
         int length = string.length();
 
         if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
@@ -47,68 +47,63 @@ public class AddCharityScreen extends javax.swing.JDialog {
             } else {
                 txt.setEditable(false);
                 ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-            }   
-        }
-        else
-            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE ){
-                ErrorLabel.setText("");
-                txt.setEditable(true);
-            } else {
-                txt.setEditable(false);
             }
-         
-        
-        
+        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+            ErrorLabel.setText("");
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+        }
     }
-    
-   //Dùng để giới hạn ký tự cho Jtextfield
-   //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
+
+    //Dùng để giới hạn ký tự cho Jtextfield
+    //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
 
         int length = string.length();
-            if (length < lenghth_char_exp) {
+        if (length < lenghth_char_exp) {
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+            ErrorLabel.setText("Nhập quá kí tự cho phép!!");
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                ErrorLabel.setText("");
                 txt.setEditable(true);
             } else {
                 txt.setEditable(false);
-                ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-                if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
-                    ErrorLabel.setText("");
-                    txt.setEditable(true);
-                } else {
-                    txt.setEditable(false);
-                }
-            }      
+            }
+        }
     }
-    
+
     //Đặt dữ liệu lại khi nhấn vào button thêm tại Jframe
     public void setView() {
-        
         // set data
         IdcharTextField.setText(getNextValueCharity());
         UsernameTextField.setText("");
-        PasswordTextField.setText(""); 
-        
+        PasswordTextField.setText("");
+
+        //Đổ dữ liệu vào combobox
         ProvinceComboBox.setModel(new DefaultComboBoxModel(getProvince()));
         ProvinceComboBox.setSelectedIndex(0);
 
         NameTextField.setText("");
         PhoneTextField.setText("");
-        DistrictTextField.setText("");      
+        DistrictTextField.setText("");
         TownTextField.setText("");
         AddressTextField.setText("");
         PointTextField.setText("0");
-        
+
         HasFoodCheckBox.setSelected(false);
         HasNecessCheckBox.setSelected(false);
         HasEquipCheckBox.setSelected(false);
-    }   
-    
+    }
+
     //Đặt sự kiện khi nhấn nút thêm tại JDialog
-    public void setEvent(){ 
-        
-        int check =-1;
+    public void setEvent() {
+
+        int check = -1;
         if ((PhoneTextField.getText().length()) < 10) {
             JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!",
                     "Lỗi!", JOptionPane.ERROR_MESSAGE);
@@ -122,29 +117,38 @@ public class AddCharityScreen extends javax.swing.JDialog {
             charity.setDistrict(DistrictTextField.getText());
             charity.setTown(TownTextField.getText());
             charity.setAddress(AddressTextField.getText());
-
-            charity.setProvince(String.valueOf(ProvinceComboBox.getSelectedItem()));
-
             charity.setPhone(PhoneTextField.getText());
             charity.setHasfood(getValueCheckBox(HasFoodCheckBox));
             charity.setHasnecess(getValueCheckBox(HasNecessCheckBox));
             charity.setHasequip(getValueCheckBox(HasEquipCheckBox));
+            
+            //Chưa chọn tỉnh thành phố thì không tạo được tài khoản
+            if (ProvinceComboBox.getSelectedIndex() != 0) {
+                charity.setProvince(String.valueOf(ProvinceComboBox.getSelectedItem()));
+            } else {
+                charity.setProvince("");
+            }
 
-            check = CharityController.AddCharity(charity, account);
-            //int check = CharityController.AddCharity(charity);
-            //EmployeeScreen emp = new EmployeeScreen();
-            emp.setTableManageCharity();
-            emp.resizeColumnWidth(emp.getCharityTable());
+            //Phải cung cấp ít nhất một vật phẩm mới tạo tài khoản giúp đỡ được
+            if (charity.getHasfood() == 0 && charity.getHasnecess() == 0 && charity.getHasequip() == 0) {
+                JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
+                        "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
+            } else {
+                check = CharityController.AddCharity(charity, account);
+                emp.setTableManageCharity();
+                emp.resizeColumnWidth(emp.getCharityTable());
+            }   
         }
-        
-        if(check == 0){ 
-            int option =JOptionPane.showConfirmDialog(null, "Thêm thông tin thành công, bạn muốn tiếp tục?",
+
+        if (check == 0) {
+            int option = JOptionPane.showConfirmDialog(null, "Thêm thông tin thành công, bạn muốn tiếp tục?",
                     "Thông báo!", JOptionPane.YES_NO_OPTION);
-            if(option == JOptionPane.YES_OPTION)
+            if (option == JOptionPane.YES_OPTION) {
                 setView();
-            else
+            } else {
                 this.dispose();
-        }   
+            }
+        }
     }
 
     /**
@@ -304,7 +308,7 @@ public class AddCharityScreen extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(UsernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(PasswordTextField)))
+                                    .addComponent(PasswordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -407,8 +411,8 @@ public class AddCharityScreen extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(HasNecessCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
-                .addComponent(HasEquipCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addComponent(HasEquipCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -656,9 +660,135 @@ public class AddCharityScreen extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-    
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

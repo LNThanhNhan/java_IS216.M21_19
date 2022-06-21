@@ -5,41 +5,36 @@
 package View;
 
 import Process.EmployeeController;
-import View.*;
-import static Process.EmployeeController.getNextValueEmployee;
 import static Process.EmployeeController.getUsernameEmp;
 import Model.*;
 import static View.ChangeValue.*;
 import java.awt.event.KeyEvent;
 import static java.lang.Integer.parseInt;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class UpdateEmployeeScreen extends javax.swing.JDialog {
 
     /**
      * Creates new form AddEmployeeScreen
      */
-    EmployeeScreen  emp = new EmployeeScreen();
+    EmployeeScreen emp = new EmployeeScreen();
+
     public UpdateEmployeeScreen(java.awt.Frame parent, boolean modal, Employee employee) {
         super(parent, modal);
         initComponents();
         emp = (EmployeeScreen) parent;
         setView(employee);
-    }   
-    
+    }
+
     public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
-        
+
         int length = string.length();
 
         if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
@@ -48,94 +43,84 @@ public class UpdateEmployeeScreen extends javax.swing.JDialog {
             } else {
                 txt.setEditable(false);
                 ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-            }   
-        }
-        else
-            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE ){
-                ErrorLabel.setText("");
-                txt.setEditable(true);
-            } else {
-                txt.setEditable(false);
             }
-         
-        
-        
+        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+            ErrorLabel.setText("");
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+        }
+
     }
-    
+
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
 
         int length = string.length();
-            if (length < lenghth_char_exp) {
+        if (length < lenghth_char_exp) {
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+            ErrorLabel.setText("Nhập quá kí tự cho phép!!");
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                ErrorLabel.setText("");
                 txt.setEditable(true);
             } else {
                 txt.setEditable(false);
-                ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-                if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
-                    ErrorLabel.setText("");
-                    txt.setEditable(true);
-                } else {
-                    txt.setEditable(false);
-                }
-            }      
+            }
+        }
     }
-    
+
     public void setView(Employee employee) {
-        
+
         // set data
         IdempTextField.setText(String.valueOf(employee.getIdemp()));
         NameTextField.setText(employee.getName());
         PhoneTextField.setText(employee.getPhone());
         AddressTextField.setText(employee.getAddress());
-        
-        //chưa clean
-        if (employee.getGender()==1) {
+
+        if (employee.getGender() == 1) {
             MaleGenderRadioButton.setSelected(true);
             FeMaleGenderRadioButton.setSelected(false);
-        } else if(employee.getGender()==0){
+        } else if (employee.getGender() == 0) {
             FeMaleGenderRadioButton.setSelected(true);
             MaleGenderRadioButton.setSelected(false);
-        } else { 
-            FeMaleGenderRadioButton.setSelected(false);
-            MaleGenderRadioButton.setSelected(false);
         }
-        
+
         StartDateDateChooser.setDate(employee.getStartdate());
-       
-    }   
-    
-    public void setEvent(){ 
-        
-        int check=-1;
+    }
+
+    public void setEvent() {
+        int check = -1;
         Employee employee = new Employee();
         Account account = new Account();
 
-        if((PhoneTextField.getText().length())<10){
+        if ((PhoneTextField.getText().length()) < 10) {
             JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
-        } else { 
-        
-        employee.setIdemp(parseInt(IdempTextField.getText()));
-        employee.setName(NameTextField.getText());
-        employee.setGender(getGender(MaleGenderRadioButton));
-        employee.setPhone(PhoneTextField.getText());
-        employee.setAddress(AddressTextField.getText());
-        employee.setStartdate(StartDateDateChooser.getDate());
-        
-        check = EmployeeController.UpdateEmployee(employee);
-        emp.setTableManageEmployee();
-        emp.resizeColumnWidth(emp.getEmployeeTable());
+                    "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            employee.setIdemp(parseInt(IdempTextField.getText()));
+            employee.setName(NameTextField.getText());
+            employee.setGender(getGender(MaleGenderRadioButton));
+            employee.setPhone(PhoneTextField.getText());
+            employee.setAddress(AddressTextField.getText());
+            employee.setStartdate(StartDateDateChooser.getDate());
+
+            check = EmployeeController.UpdateEmployee(employee);
+            emp.setTableManageEmployee();
+            emp.resizeColumnWidth(emp.getEmployeeTable());
         }
         employee.setUsername(getUsernameEmp(parseInt(IdempTextField.getText())));
         account.setRole(2);
-        if(check ==0){
+        if (check == 0) {
             JOptionPane.showMessageDialog(null, "Cập nhật thông tin thành công!",
-                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
+                    "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
             emp.setdataforcard2(employee, account);
             this.dispose();
         }
-     
+
     }
 
     /**
@@ -230,10 +215,11 @@ public class UpdateEmployeeScreen extends javax.swing.JDialog {
             }
         });
 
+        StartDateDateChooser.setDateFormatString("dd/MM/yyyy");
         StartDateDateChooser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel6.setText("Ngày bắt đầu");
+        jLabel6.setText("Ngày vào làm");
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
@@ -658,9 +644,263 @@ public class UpdateEmployeeScreen extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-    
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

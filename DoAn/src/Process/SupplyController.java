@@ -234,12 +234,13 @@ public class SupplyController {
             con.close();
             
         } catch (SQLException sqlex) {
-            if (sqlex.getErrorCode() == 20202){
+            if (sqlex.getErrorCode() == 20192){
                 JOptionPane.showMessageDialog(null, "Trạng thái không hợp lệ ! Không thể xác thực yêu cầu",
                         "cảnh báo", JOptionPane.WARNING_MESSAGE);}
             else if (sqlex.getErrorCode() == 1){
                 JOptionPane.showMessageDialog(null, "Yêu cầu này không còn tồn tại trong hệ thống",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
+            sqlex.printStackTrace();
             return 1;
         }
         catch (Exception ex) {
@@ -418,7 +419,6 @@ public class SupplyController {
         return new ArrayList<HashMap>();
     }
 
-
     public static int AddSupply(Supply Supply) {
         try
         {
@@ -552,7 +552,7 @@ public class SupplyController {
     
     
     //Ham lay tat ca yeu tiep te
-    public  ArrayList<HashMap> getSupplyCharity()
+    public  ArrayList<HashMap> getSupplyCharity(int x, int y, int z)
     {
         try{
             con = OracleConnection.getOracleConnection();
@@ -560,7 +560,10 @@ public class SupplyController {
                     + "from supply s\n"
                     + "join person p\n"
                     + "on s.idper=p.idper\n"
-                    + "where s.status=2 ";
+                    + "where s.status=2 "
+                    + "and needfood <="+x
+                    + "and neednecess <="+y
+                    + "and needequip <="+z;
             ArrayList<HashMap> list= new ArrayList<HashMap>(); 
             Statement stat = con.createStatement();
             ResultSet rs = stat.executeQuery(sql);
@@ -681,7 +684,7 @@ public class SupplyController {
 //    }
 //    
     //Hàm lấy tất cả yêu cầu tư vấn theo tỉnh/thành phố đó
-    public ArrayList<HashMap> getSupplyByProvince(String province)
+    public ArrayList<HashMap> getSupplyByProvince(String province,int x, int y, int z)
     {
         try{
             con =OracleConnection.getOracleConnection();
@@ -690,7 +693,10 @@ public class SupplyController {
                     + "join person p\n"
                     + "on s.idper=p.idper\n"
                     + "where s.status=2 and \n"
-                    + "province= '"+province+"'";
+                    + "province= '"+province+"'"
+                    + "and needfood <="+x
+                    + "and neednecess <="+y
+                    + "and needequip <="+z;
             ArrayList<HashMap> list= new ArrayList<>(); 
             Statement stat = con.createStatement();
             ResultSet rs = stat.executeQuery(sql);
@@ -727,7 +733,7 @@ public class SupplyController {
     }
     
     //Hàm này dùng để lấy tất cả tỉnh thành phố mà có người muốn tiếp tế
-    public ArrayList<String> getProvinceFromSup()
+    public ArrayList<String> getProvinceFromSup(int x, int y, int z)
     {
         try{
             con = OracleConnection.getOracleConnection();
@@ -735,7 +741,10 @@ public class SupplyController {
                     + "from supply s\n"
                     + "join person p\n"
                     + "on s.idper=p.idper\n"
-                    + "where s.status=2 \n";
+                    + "where s.status=2 \n"
+                    + "and needfood <="+x
+                    + "and neednecess <="+y
+                    + "and needequip <="+z;;
             ArrayList<String> list= new ArrayList<>(); 
             Statement stat = con.createStatement();
             ResultSet rs = stat.executeQuery(sql);

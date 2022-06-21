@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class AddPersonScreen extends javax.swing.JDialog {
 
@@ -263,6 +263,7 @@ public class AddPersonScreen extends javax.swing.JDialog {
         MaleGenderRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(MaleGenderRadioButton);
         MaleGenderRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MaleGenderRadioButton.setSelected(true);
         MaleGenderRadioButton.setText("Nam");
 
         FeMaleGenderRadioButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -338,7 +339,7 @@ public class AddPersonScreen extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(UsernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(PasswordTextField))))
+                                    .addComponent(PasswordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
                         .addGap(97, 97, 97)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -348,10 +349,10 @@ public class AddPersonScreen extends javax.swing.JDialog {
                             .addComponent(jLabel6))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TownTextField)
-                            .addComponent(DistrictTextField)
-                            .addComponent(AddressTextField)
-                            .addComponent(StatusTextField)
+                            .addComponent(TownTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(DistrictTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(AddressTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(StatusTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(ProvinceComboBox, 0, 200, Short.MAX_VALUE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -500,6 +501,38 @@ public class AddPersonScreen extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AddPersonScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

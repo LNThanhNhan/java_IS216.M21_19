@@ -7,6 +7,7 @@ package View;
 import Process.PersonController;
 import Model.Person;
 import static View.ChangeValue.PersonStatus;
+import static View.ChangeValue.PersonStatusInt;
 import static View.ChangeValue.getGender;
 import static View.ChangeValue.getProvince;
 import java.awt.event.KeyEvent;
@@ -17,26 +18,25 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class UpdatePersonScreen extends javax.swing.JDialog {
 
     /**
      * Creates new form UpdatePersonScreen
      */
-    
-    EmployeeScreen  emp = new EmployeeScreen();
+    EmployeeScreen emp = new EmployeeScreen();
     public UpdatePersonScreen(java.awt.Frame parent, boolean modal, Person person) {
         super(parent, modal);
         initComponents();
         emp = (EmployeeScreen) parent;
         setView(person);
     }
-    
-     public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
+
+    public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
-        
+
         int length = string.length();
 
         if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
@@ -45,75 +45,57 @@ public class UpdatePersonScreen extends javax.swing.JDialog {
             } else {
                 txt.setEditable(false);
                 ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-            }   
-        }
-        else
-            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE ){
-                ErrorLabel.setText("");
-                txt.setEditable(true);
-            } else {
-                txt.setEditable(false);
             }
-         
-        
-        
+        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+            ErrorLabel.setText("");
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+        }
+
     }
-    
+
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
 
         int length = string.length();
-            if (length < lenghth_char_exp) {
+        if (length < lenghth_char_exp) {
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+            ErrorLabel.setText("Nhập quá kí tự cho phép!!");
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                ErrorLabel.setText("");
                 txt.setEditable(true);
             } else {
                 txt.setEditable(false);
-                ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-                if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
-                    ErrorLabel.setText("");
-                    txt.setEditable(true);
-                } else {
-                    txt.setEditable(false);
-                }
-            }      
+            }
+        }
     }
-    
+
     public void setView(Person person) {
-        
+
         // set data
-        IdperTextField.setText(String.valueOf(person.getIdper()));        
+        IdperTextField.setText(String.valueOf(person.getIdper()));
         NameTextField.setText(person.getName());
         PhoneTextField.setText(person.getPhone());
-        
         ProvinceComboBox.setModel(new DefaultComboBoxModel(getProvince()));
-        
         ProvinceComboBox.setSelectedItem(person.getProvince());
-
-
         DistrictTextField.setText(person.getDistrict());
         TownTextField.setText(person.getTown());
         AddressTextField.setText(person.getAddress());
         StatusTextField.setText(PersonStatus(person.getStatus()));
-        
-        
-        if (person.getGender()==1) {
+        if (person.getGender() == 1) {
             MaleGenderRadioButton.setSelected(true);
             FeMaleGenderRadioButton.setSelected(false);
-        } else if(person.getGender()==0){
+        } else if (person.getGender() == 0) {
             FeMaleGenderRadioButton.setSelected(true);
             MaleGenderRadioButton.setSelected(false);
-        } else { 
-            FeMaleGenderRadioButton.setSelected(false);
-            MaleGenderRadioButton.setSelected(false);
         }
-        
-        // set event
-        //setEvent();
     }
-    
-    
-    public void setEvent(){ 
-        
+
+    public void setEvent() {
         int check = -1;
         if ((PhoneTextField.getText().length()) < 10) {
             JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!",
@@ -123,16 +105,18 @@ public class UpdatePersonScreen extends javax.swing.JDialog {
             person.setIdper(parseInt(IdperTextField.getText()));
             person.setName(NameTextField.getText());
             person.setGender(getGender(MaleGenderRadioButton));
-            
+
+            //Xử lý comboBox tỉnh/Thành phố
             if (ProvinceComboBox.getSelectedIndex() != 0) {
                 person.setProvince(String.valueOf(ProvinceComboBox.getSelectedItem()));
             } else {
                 person.setProvince("");
             }
+
             person.setDistrict(DistrictTextField.getText());
             person.setTown(TownTextField.getText());
             person.setAddress(AddressTextField.getText());
-            person.setStatus(StatusTextField.getText() == "Đang sử dụng" ? 1 : 0);
+            person.setStatus(PersonStatusInt(StatusTextField.getText()));
             person.setPhone(PhoneTextField.getText());
 
             check = PersonController.UpdatePerson(person);
@@ -146,6 +130,7 @@ public class UpdatePersonScreen extends javax.swing.JDialog {
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -407,9 +392,9 @@ public class UpdatePersonScreen extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-       //if(UsernameTextField.getText().equals(null))
-            setEvent();
-        
+        //if(UsernameTextField.getText().equals(null))
+        setEvent();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void NameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NameTextFieldKeyPressed
@@ -471,9 +456,11 @@ public class UpdatePersonScreen extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-    
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

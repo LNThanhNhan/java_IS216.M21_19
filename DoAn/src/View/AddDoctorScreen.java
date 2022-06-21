@@ -5,7 +5,6 @@
 package View;
 
 import Process.DoctorController;
-import View.*;
 import static Process.DoctorController.getNextValueDoctor;
 import Model.*;
 import static View.ChangeValue.*;
@@ -17,7 +16,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author MyPC
+ * @author Nguyen Hoang Trung
  */
 public class AddDoctorScreen extends javax.swing.JDialog {
 
@@ -30,25 +29,13 @@ public class AddDoctorScreen extends javax.swing.JDialog {
         initComponents();
         emp = (EmployeeScreen) parent;
         setView();
-        SetDataComboBox();
     }   
-    
-    public void SetDataComboBox(){ 
-        
-        String ListProvince[] = getProvince();
-        //ListProvince = ListProvince.getProvince();
-        ProvinceComboBox.removeAllItems();
-        for(int i =0; i < 55; i++){
-            ProvinceComboBox.addItem(ListProvince[i]);
-        }
-    }
-    
     //Dùng để giới hạn số điện thoại của người dùng
     //Chỉ được là số, giới hạn "lenghth_char_exp" kí tự
-   public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
+    public void LimitCharPhone(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
-        
+
         int length = string.length();
 
         if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
@@ -57,18 +44,13 @@ public class AddDoctorScreen extends javax.swing.JDialog {
             } else {
                 txt.setEditable(false);
                 ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-            }   
-        }
-        else
-            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE ){
-                ErrorLabel.setText("");
-                txt.setEditable(true);
-            } else {
-                txt.setEditable(false);
             }
-         
-        
-        
+        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+            ErrorLabel.setText("");
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+        }
     }
     
    //Dùng để giới hạn ký tự cho Jtextfield
@@ -78,23 +60,23 @@ public class AddDoctorScreen extends javax.swing.JDialog {
         ErrorLabel.setText("");
 
         int length = string.length();
-            if (length < lenghth_char_exp) {
+        if (length < lenghth_char_exp) {
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+            ErrorLabel.setText("Nhập quá kí tự cho phép!!");
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                ErrorLabel.setText("");
                 txt.setEditable(true);
             } else {
                 txt.setEditable(false);
-                ErrorLabel.setText("Nhập quá kí tự cho phép!!");
-                if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
-                    ErrorLabel.setText("");
-                    txt.setEditable(true);
-                } else {
-                    txt.setEditable(false);
-                }
-            }      
+            }
+        }
     }
     
     //Đặt sự kiện khi nhấn nút thêm tại JDialog
     public void setView() {
-     
+
         IddocTextField.setText(getNextValueDoctor());
         UsernameTextField.setText("");
         PasswordTextField.setText("");
@@ -103,53 +85,61 @@ public class AddDoctorScreen extends javax.swing.JDialog {
         PhoneTextField.setText("");
         WorkunitsTextField.setText("");
 
+        //Đổ dữ liệu vào combobox
         ProvinceComboBox.setModel(new DefaultComboBoxModel(getProvince()));
         ProvinceComboBox.setSelectedIndex(0);
 
+        //Đổ dữ liệu vào combobox
         AccademicrankComboBox.setModel(new DefaultComboBoxModel(getAcademicRank()));
         AccademicrankComboBox.setSelectedIndex(0);
 
+        //Đổ dữ liệu vào combobox
         SubjectComboBox.setModel(new DefaultComboBoxModel(getSubject()));
         SubjectComboBox.setSelectedIndex(0);
 
         FeMaleGenderRadioButton.setSelected(false);
         MaleGenderRadioButton.setSelected(false);
 
-    }   
+    }
     
     //Đặt sự kiện khi nhấn nút thêm tại JDialog
-    public void setEvent(){ 
-       int check=-1;
+    public void setEvent() {
+        int check = -1;
         Doctor doctor = new Doctor();
         Account account = new Account();
-        if((PhoneTextField.getText().length())<10){
+        if ((PhoneTextField.getText().length()) < 10) {
             JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ!",
-                        "Lỗi!", JOptionPane.ERROR_MESSAGE);
-        }else {
+                    "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        } else {
             doctor.setIddoc(parseInt(IddocTextField.getText()));
             doctor.setUsername(UsernameTextField.getText());
             account.setPassword(PasswordTextField.getText());
             doctor.setName(NameTextField.getText());
             doctor.setGender(getGender(MaleGenderRadioButton));
-            doctor.setAccademicrank(AcademicRankInt(getComboBoxValue(AccademicrankComboBox)));
-            doctor.setSubject(SubjectInt(getComboBoxValue(SubjectComboBox)));
             doctor.setWorkunits(WorkunitsTextField.getText());
-            doctor.setProvince(String.valueOf(ProvinceComboBox.getSelectedItem()));
             doctor.setPhone(PhoneTextField.getText());
+            if (ProvinceComboBox.getSelectedIndex() != 0 && AccademicrankComboBox.getSelectedIndex() != 0 &&
+                    SubjectComboBox.getSelectedIndex() != 0) {
+                doctor.setProvince(String.valueOf(ProvinceComboBox.getSelectedItem()));
+                doctor.setAccademicrank(AcademicRankInt(getComboBoxValue(AccademicrankComboBox)));
+                doctor.setSubject(SubjectInt(getComboBoxValue(SubjectComboBox)));
+            } else
+                doctor.setProvince("");
 
             check = DoctorController.AddDoctor(doctor, account);
             emp.setTableManageDoctor();
             emp.resizeColumnWidth(emp.getDoctorTable());
         }
-        
-        if(check == 0){ 
-            int option =JOptionPane.showConfirmDialog(null, "Thêm thông tin thành công, bạn muốn tiếp tục?",
-                    "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
-            if(option == JOptionPane.YES_OPTION)
+
+        if (check == 0) {
+            int option = JOptionPane.showConfirmDialog(null, "Thêm thông tin thành công, bạn muốn tiếp tục?",
+                    "Thông báo!", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
                 setView();
-            else
+            } else {
                 this.dispose();
-        }   
+            }
+        }
     }
 
     /**
@@ -230,7 +220,7 @@ public class AddDoctorScreen extends javax.swing.JDialog {
         jLabel7.setText("Học hàm/Học vị");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel8.setText("Chuyên khoa");
+        jLabel8.setText("Nhóm chuyên khoa");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel9.setText("Đơn vị công tác");
@@ -245,6 +235,7 @@ public class AddDoctorScreen extends javax.swing.JDialog {
         MaleGenderRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         GenderDoctorButtonGroup.add(MaleGenderRadioButton);
         MaleGenderRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MaleGenderRadioButton.setSelected(true);
         MaleGenderRadioButton.setText("Nam");
 
         FeMaleGenderRadioButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -328,7 +319,7 @@ public class AddDoctorScreen extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(UsernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(PasswordTextField))))
+                                    .addComponent(PasswordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
                         .addGap(50, 50, 50)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -339,7 +330,7 @@ public class AddDoctorScreen extends javax.swing.JDialog {
                         .addGap(45, 45, 45)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(WorkunitsTextField)
+                                .addComponent(WorkunitsTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                 .addComponent(ProvinceComboBox, 0, 200, Short.MAX_VALUE))
                             .addComponent(PhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,6 +474,70 @@ public class AddDoctorScreen extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AddDoctorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
