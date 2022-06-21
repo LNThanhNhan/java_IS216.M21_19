@@ -148,7 +148,7 @@ public class LogInNew extends javax.swing.JFrame {
                     //Bác sĩ
                     Doctor doctor = new Doctor();
                     doctor.setUsername(UsernameTextField.getText().toString());
-                    //new DoctorScreen(doctor).setVisible(true);
+                    new DoctorScreen(doctor).setVisible(true);
                     this.dispose();
                 }
             }
