@@ -97,7 +97,7 @@ public class Doctor {
         return phone;
     }
 
-    public void setPhonez(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

@@ -17,6 +17,8 @@ public class ChangePasswordScreen extends javax.swing.JFrame {
     /**
      * Creates new form ChangePasswordScreen
      */
+    
+    //java.awt.Color
     public ChangePasswordScreen() {
         acccon=new AccountController();
         initComponents();
