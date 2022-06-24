@@ -21,12 +21,15 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import static oracle.net.aso.b.i;
+import java.sql.PreparedStatement;
 
 /**
  *
  * @author MyPC
  */
 public class CharityController {
+    
+    //Lấy dữ liệu charity
     public  ArrayList<Charity> getCharity()
     {
         ArrayList<Charity> ListCharity = new <Charity>ArrayList();
@@ -68,6 +71,7 @@ public class CharityController {
         return ListCharity;
     }
     
+    //Lấy giá trị ID tiếp theo của trung tâm
     public static String getNextValueCharity() {
         String id = "";
         try {
@@ -105,6 +109,7 @@ public class CharityController {
         return id;
     } 
     
+    //Thêm trung tâm
     public static int AddCharity(Charity Charity, Account account) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -143,7 +148,7 @@ public class CharityController {
 
     }
     
-    
+    //Xóa trung tâm
     public static int DeleteCharity (int Idchar) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -157,10 +162,9 @@ public class CharityController {
             con.close();
             
         }catch (SQLException sqlex) {
-            if (sqlex.getErrorCode() == 20093)
+            if (sqlex.getErrorCode() == 20122)
                 JOptionPane.showMessageDialog(null, "Trung tâm này còn yêu cầu chưa hoàn thành",
                         "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
-            sqlex.printStackTrace();
             return 1;
         }  
         catch (Exception ex) {
@@ -170,6 +174,7 @@ public class CharityController {
         return 0;    
     }
      
+    //Dùng để miêu tả Lost updated
      public static int UpdateCharityLostUpdate(Connection con, Charity Charity) {
         try {
             String sql = "{CALL PROC_UPDATE_CHARITY(?,?,?,?,?,?,?,?,?,?)}";
@@ -188,8 +193,8 @@ public class CharityController {
             
             
             ps.execute();
-            ps.close();
-            con.close();
+            //ps.close();
+            //con.close();
             
             
         }catch (SQLException sqlex) {
@@ -202,6 +207,7 @@ public class CharityController {
             else if (sqlex.getErrorCode() == 1)
                 JOptionPane.showMessageDialog(null, "Số điện thoại này đã tồn tại",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);
+            sqlex.printStackTrace();
             return 1;
         } 
         catch (Exception ex) {
@@ -212,6 +218,7 @@ public class CharityController {
         return 0;
     }
      
+     // Thêm trung tâm
     public static int UpdateCharity(Charity Charity) {
         try {
             Connection con = OracleConnection.getOracleConnection();
@@ -244,6 +251,7 @@ public class CharityController {
             else if (sqlex.getErrorCode() == 1)
                 JOptionPane.showMessageDialog(null, "Số điện thoại này đã tồn tại",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);
+            sqlex.printStackTrace();
             return 1;
         } 
         catch (Exception ex) {
@@ -254,9 +262,8 @@ public class CharityController {
         return 0;
     }
      
+    //Xuất thống kê
      public static void exportCharityMarkToPdf(int idchar) {
-        //Connection con = null;
-        System.out.print("du lieu vao ne"+String.valueOf(idchar));
         try {
             Connection con = OracleConnection.getOracleConnection();
             String source = "src/Resource/report3_HoatDongCuaTrungTamThienNguyen.jrxml";
@@ -264,18 +271,56 @@ public class CharityController {
 
             HashMap<String, Object> params = new HashMap<String, Object>();
             params.put("MaTrungTam", idchar);
-            //params.put("className", className);
-
-            //String localDir = System.getProperty("user.dir");
+            
             JasperPrint jp = JasperFillManager.fillReport(jr, params, con);
-            //OutputStream os = new FileOutputStream("STUDENT_MARK_" +  ".pdf");
-            //JasperExportManager.exportReportToPdfStream(jp, );
+            
             JasperViewer.viewReport(jp, false);
 
-            //os.flush();
-            //os.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+     
+     //Lấy thông tin nhân viên để load lên card thông tin nhân viien
+     public  Charity getCharityInfo(String username)
+    {
+        Charity Charity = new Charity();
+        
+         try {
+            Connection con = OracleConnection.getOracleConnection();
+            String sql = "SELECT * FROM Charity WHERE Username = ?";
+            PreparedStatement  ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Charity.setIdchar(rs.getInt("IDCHAR"));
+                Charity.setUsername(rs.getString("USERNAME"));
+                Charity.setName(rs.getString("NAME"));
+                Charity.setPhone(rs.getString("PHONE"));
+                Charity.setProvince(rs.getString("PROVINCE"));
+                Charity.setDistrict(rs.getString("DISTRICT"));
+                Charity.setTown(rs.getString("TOWN"));
+                Charity.setAddress(rs.getString("ADDRESS"));
+                Charity.setHasfood(rs.getInt("HASFOOD"));
+                Charity.setHasnecess(rs.getInt("HASNECESS"));
+                Charity.setHasequip(rs.getInt("HASEQUIP"));
+                Charity.setPoint(rs.getInt("POINT"));
+                return Charity;  
+            }
+            rs.close();
+            //st.close();
+            con.close();
+            return Charity;
+        }
+        catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        } catch (UnsupportedOperationException uoe) {
+            uoe.printStackTrace();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Charity;
     }
 }

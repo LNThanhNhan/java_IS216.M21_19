@@ -6,8 +6,11 @@ package View;
 
 import Model.Charity;
 import Model.SupplyTableModel;
+import Process.CharityController;
 import Process.SupplyController;
 import View.ChangeValue;
+import static View.ChangeValue.Ishas;
+import com.lowagie.text.Cell;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -17,10 +20,14 @@ import java.awt.Font;
 import java.awt.Frame;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ItemEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,6 +38,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  *
  * @author Tran Nhat Sinh
@@ -47,26 +57,31 @@ public class CharityScreen extends javax.swing.JFrame {
     private static OSType detectedOS;
 
     //Biến cần thiết cho màn hình bác sĩ
-    private SupplyController supcon;
+    private SupplyController supcon = new SupplyController();
     
     //Biến dùng cho màn hình tìm kiếm yêu cầu
     private ArrayList<String> ComboboxProvinceList;
     private ArrayList<HashMap> SupplyList;
     private DefaultTableModel SupplyTableModel;
     
-    //Biến dùng cho màn hình tư vấn yêu cầu đã nhận
+    //Biến dùng cho màn hình tiếp  yêu cầu đã nhận
     private ArrayList<String> ComboboxProvinceWaitList;
     private ArrayList<HashMap> WaitSupplyList;
     private DefaultTableModel WaitSupplyTableModel;
     
-    private final Charity charity;
+    private  Charity charity;
+    
+    
+    
+    
+
 
         //Màn hình tìm kiếm
     //Ham nay duoc goi trong init component, check phia duoi 
     //Hàm cài bảng 
     private DefaultTableModel setSupplyTableModel() 
     {
-        SupplyList = supcon.getSupplyCharity();
+        SupplyList = supcon.getSupplyCharity(charity.getHasfood(),charity.getHasnecess(),charity.getHasequip());
         SupplyTableModel = new SupplyTableModel().setSupplyTableCharity(SupplyList);
         //Chỉnh cho table chỉ chọn được 1 dòng 1 thời điểm, không chọn nhiều dòng được
         SupplyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -92,12 +107,12 @@ public class CharityScreen extends javax.swing.JFrame {
     }
     
     //Từ đây xuống dưới là cài đặt bằng CSDL, xử lý sự kiện
-    //Hàm lấy tất cả tỉnh thành phố có người yêu cầu tư ván
+    //Hàm lấy tất cả tỉnh thành phố có người yêu cầu tiếp tế
     private void getComboboxItemForSearchScreen()
     {
         DefaultComboBoxModel<String> ProvinceComboBoxModel = new DefaultComboBoxModel();
         ProvinceComboBoxModel.addElement("Tất cả tỉnh/thành phố");
-        ComboboxProvinceList=supcon.getProvinceFromSup();
+        ComboboxProvinceList=supcon.getProvinceFromSup(charity.getHasfood(),charity.getHasnecess(),charity.getHasequip());
         for(String i : ComboboxProvinceList)
             ProvinceComboBoxModel.addElement(i);
         ProvinceComboBox.setModel(ProvinceComboBoxModel);
@@ -114,17 +129,18 @@ public class CharityScreen extends javax.swing.JFrame {
                 {
                     refreshForSearchScreen();
                     //Dung để thực hiện xử lý truy xuất đồng thời 
-                    //Demo phantom read
-                    supcon.getSupplyTransaction(SupplyTable,SupplyTableModel,SupplyList);
+                    //supcon.getSupplyTransaction(SupplyTable,SupplyTableModel,SupplyList);
                     //Hàm phía dưới là hàm bình thường nếu không muốn truy xuất đồng thời
 //                    SupplyTable.setModel(setSupplyTableModel());
 //                    setSupplyTableSize();
+                    SupplyTable.setModel(setSupplyTableModel());
+                    setWaitSupplyTableSize();
                 }
                 else
                 {
                     refreshForSearchScreen();
                     String provinceString = (String) ProvinceComboBox.getSelectedItem();
-                    SupplyList = supcon.getSupplyByProvince(provinceString);
+                    SupplyList = supcon.getSupplyByProvince(provinceString,charity.getHasfood(),charity.getHasnecess(),charity.getHasequip());
                     SupplyTableModel=new SupplyTableModel().setSupplyTableCharity(SupplyList);
                     SupplyTable.setModel(SupplyTableModel);
                     setSupplyTableSize();
@@ -145,6 +161,10 @@ public class CharityScreen extends javax.swing.JFrame {
                 NameValueLabel.setText(Supply.get("name"));
                 GenderValueLabel.setText(ChangeValue.Gender(Integer.parseInt(Supply.get("gender"))));
                 ProvinceValueLabel.setText(Supply.get("province"));
+                DistrictValueLabel.setText(Supply.get("district"));
+                TownValueLabel.setText(Supply.get("town"));
+                AddressValueLabel.setText(Supply.get("address"));
+                
                 CreatedValueLabel.setText(Supply.get("created"));
                 NeedFoodValueLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("needfood"))));
                 NeedNecessValueLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("neednecess"))));
@@ -166,6 +186,9 @@ public class CharityScreen extends javax.swing.JFrame {
         NameValueLabel.setText(" ");
         GenderValueLabel.setText(" ");
         ProvinceValueLabel.setText(" ");
+        DistrictValueLabel.setText(" ");
+        TownValueLabel.setText(" ");
+        AddressValueLabel.setText(" ");
         CreatedValueLabel.setText(" ");
         NeedFoodValueLabel.setText(" ");
         NeedNecessValueLabel.setText(" ");
@@ -212,6 +235,7 @@ public class CharityScreen extends javax.swing.JFrame {
         ProvinceWaitSupComboBox.setModel(ProvinceComboBoxModel);
     }
     
+    //Xử lý khi chọn comboBox cho waitScreen
     private void handleComboBoxEventForWaitScreen()
     {
         ProvinceWaitSupComboBox.addItemListener(e->
@@ -249,6 +273,9 @@ public class CharityScreen extends javax.swing.JFrame {
                 NameWaitLabel.setText(Supply.get("name"));
                 GenderWaitLabel.setText(ChangeValue.Gender(Integer.parseInt(Supply.get("gender"))));
                 ProvinceWaitLabel.setText(Supply.get("province"));
+                DistrictWaitLabel.setText(Supply.get("district"));
+                TownWaitLabel.setText(Supply.get("town"));
+                AddressWaitLabel.setText(Supply.get("address"));
                 CreatedWaitLabel.setText(Supply.get("created"));
                 NeedFoodWaitLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("needfood"))));
                 NeedNecessWaitLabel.setText(ChangeValue.NeedSupply(Integer.parseInt(Supply.get("neednecess"))));
@@ -263,12 +290,16 @@ public class CharityScreen extends javax.swing.JFrame {
         });
     }
 
+    //Đặt lại dữ liệu  cho WitScreen
     private void refreshForWaitScreen()
     {
         IdsupWaitLabel.setText(" ");
         NameWaitLabel.setText(" ");
         GenderWaitLabel.setText(" ");
         ProvinceWaitLabel.setText(" ");
+        DistrictWaitLabel.setText(" ");
+        TownWaitLabel.setText(" ");
+        AddressWaitLabel.setText(" ");
         CreatedWaitLabel.setText(" ");
         NeedFoodWaitLabel.setText(" ");
         NeedNecessWaitLabel.setText(" ");
@@ -289,14 +320,42 @@ public class CharityScreen extends javax.swing.JFrame {
         DistrictLabel.setText(charity.getDistrict());
         TownLabel.setText(charity.getTown());
         AddressLabel.setText(charity.getAddress());
-        HasFoodLabel.setText(Integer.toString(charity.getHasfood()));
-        HasNecessLabel.setText(Integer.toString(charity.getHasnecess()));
-        HasEquipLabel.setText(Integer.toString(charity.getHasequip()));
+        HasFoodLabel.setText(Ishas(charity.getHasfood()));
+        HasNecessLabel.setText(Ishas(charity.getHasnecess()));
+        HasEquipLabel.setText(Ishas(charity.getHasequip()));
         PointLabel.setText(Integer.toString(charity.getPoint()));
     }
-    public CharityScreen() {    
-        supcon = new SupplyController();
-        charity=new Charity(10,"user20","Tiếp Sức","0967596794","Hồ Chí Minh","Gò Vấp","Phường 4", "12 Nguyễn Văn Bảo",0,1,1,60);
+    
+    //Đặt look and feel theo giao diện windows
+    public void setLookandFeel(){ 
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(CharityScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(CharityScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(CharityScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CharityScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+    
+    public CharityScreen(Charity charity_signup) {    
+        
+        //charity=new Charity(10,"user20","Tiếp Sức","0967596794","Hồ Chí Minh","Gò Vấp","Phường 4", "12 Nguyễn Văn Bảo",0,1,1,60);
+        CharityController charcon = new CharityController();
+        Charity charity_info = new Charity();
+        
+        charity_info = charcon.getCharityInfo(charity_signup.getUsername());
+        
+        charity = charity_info;
+        setLookandFeel();
         initComponents();
         setLocationRelativeTo(null);
         SetTableColor(SupplyTable);
@@ -314,6 +373,31 @@ public class CharityScreen extends javax.swing.JFrame {
         handleComboBoxEventForWaitScreen();
         addSelectRowEventForWaitScreen();
     }
+    
+   
+    
+    
+    public CharityScreen() {    
+        supcon = new SupplyController();
+        charity=new Charity(10,"user20","Tiếp Sức","0967596794","Hồ Chí Minh","Gò Vấp","Phường 4", "12 Nguyễn Văn Bảo",0,1,1,60);
+                
+        initComponents();
+        setLocationRelativeTo(null);
+        SetTableColor(SupplyTable);
+        SetTableColor(WaitSupplyTable);
+        CheckOSType();
+        
+        setSupplyTableSize();
+        getComboboxItemForSearchScreen();
+        handleComboBoxEventForSearchScreen();
+        setCharityInformation();
+        addSelectRowEventForSearchScreen();
+                
+        setWaitSupplyTableSize();
+        getComboboxItemForWaitScreen();
+        handleComboBoxEventForWaitScreen();
+        addSelectRowEventForWaitScreen();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -324,6 +408,8 @@ public class CharityScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        componentMoverUtil1 = new com.k33ptoo.utils.ComponentMoverUtil();
+        componentResizerUtil1 = new com.k33ptoo.utils.ComponentResizerUtil();
         TopPanel = new javax.swing.JPanel();
         ActionsPanel = new javax.swing.JPanel();
         CloseLabel = new javax.swing.JLabel();
@@ -357,6 +443,7 @@ public class CharityScreen extends javax.swing.JFrame {
         SupplyTable = new javax.swing.JTable();
         ProvinceComboBox = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -379,12 +466,19 @@ public class CharityScreen extends javax.swing.JFrame {
         NeedFoodValueLabel = new javax.swing.JLabel();
         NeedEquipValueLabel = new javax.swing.JLabel();
         AcceptButton = new com.k33ptoo.components.KButton();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        DistrictValueLabel = new javax.swing.JLabel();
+        TownValueLabel = new javax.swing.JLabel();
+        AddressValueLabel = new javax.swing.JLabel();
         WaitingSupplyPanel = new javax.swing.JPanel();
         WaitingListPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         WaitSupplyTable = new javax.swing.JTable();
         ProvinceWaitSupComboBox = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         DetailPanel = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -410,6 +504,12 @@ public class CharityScreen extends javax.swing.JFrame {
         NeedEquipWaitLabel = new javax.swing.JLabel();
         CancelButtonLabel = new com.k33ptoo.components.KButton();
         FinishButton1 = new com.k33ptoo.components.KButton();
+        jLabel48 = new javax.swing.JLabel();
+        DistrictWaitLabel = new javax.swing.JLabel();
+        TownWaitLabel = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        AddressWaitLabel = new javax.swing.JLabel();
         CharityInformationPanel = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -447,9 +547,10 @@ public class CharityScreen extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setName("DoctorFrame"); // NOI18N
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1260, 540));
 
         TopPanel.setBackground(new java.awt.Color(106, 128, 254));
-        TopPanel.setPreferredSize(new java.awt.Dimension(1024, 30));
+        TopPanel.setPreferredSize(new java.awt.Dimension(1100, 30));
         TopPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 TopPanelMouseDragged(evt);
@@ -469,7 +570,7 @@ public class CharityScreen extends javax.swing.JFrame {
         ActionsPanel.setMinimumSize(new java.awt.Dimension(200, 30));
         ActionsPanel.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        CloseLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/exit.png"))); // NOI18N
+        CloseLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/exit_1.png"))); // NOI18N
         CloseLabel.setPreferredSize(new java.awt.Dimension(18, 18));
         CloseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -626,10 +727,10 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel8.setText("THÔNG TIN NGƯỜI DÙNG");
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel9.setText("TIẾP TẾ");
+        jLabel9.setText("QUẢN LÝ THÔNG TIN");
 
         LogoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LogoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Logo_small.png"))); // NOI18N
+        LogoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Logo_small_1.png"))); // NOI18N
 
         javax.swing.GroupLayout LeftPanelLayout = new javax.swing.GroupLayout(LeftPanel);
         LeftPanel.setLayout(LeftPanelLayout);
@@ -669,7 +770,7 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addComponent(index3Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(index4Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         ParentPanel.add(LeftPanel, java.awt.BorderLayout.LINE_START);
@@ -679,12 +780,12 @@ public class CharityScreen extends javax.swing.JFrame {
         RightPanel.setLayout(new java.awt.CardLayout());
 
         FindSupplyPanel.setBackground(new java.awt.Color(255, 255, 255));
-        FindSupplyPanel.setPreferredSize(new java.awt.Dimension(1350, 508));
+        FindSupplyPanel.setPreferredSize(new java.awt.Dimension(1050, 508));
 
         SearchPanel.setBackground(new java.awt.Color(255, 255, 255));
         SearchPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TÌM KIẾM YÊU CẦU TIẾP TẾ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
-        SupplyTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        SupplyTable.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         SupplyTable.setModel(setSupplyTableModel());
         jScrollPane1.setViewportView(SupplyTable);
 
@@ -702,26 +803,33 @@ public class CharityScreen extends javax.swing.JFrame {
             .addGroup(SearchPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ProvinceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(SearchPanelLayout.createSequentialGroup()
+                        .addGroup(SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProvinceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(SearchPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         SearchPanelLayout.setVerticalGroup(
             SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SearchPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ProvinceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
+
+        jScrollPane6.setBorder(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CHI TIẾT YÊU CẦU", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
-        jPanel1.setPreferredSize(new java.awt.Dimension(300, 485));
+        jPanel1.setAutoscrolls(true);
+        jPanel1.setPreferredSize(new java.awt.Dimension(300, 650));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel5.setText("Họ và tên");
@@ -730,17 +838,15 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel14.setText("Giới tính");
 
         NameValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NameValueLabel.setText("null");
 
         GenderValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        GenderValueLabel.setText("null");
 
         jLabel19.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel19.setText("Mã tiếp tế");
 
         IdsupValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        IdsupValueLabel.setText("null");
 
+        DetailTextArea.setEditable(false);
         DetailTextArea.setColumns(20);
         DetailTextArea.setLineWrap(true);
         DetailTextArea.setRows(5);
@@ -751,10 +857,8 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel21.setText("Tỉnh/Thành phố");
 
         ProvinceValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ProvinceValueLabel.setText("null");
 
         CreatedValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        CreatedValueLabel.setText("null");
 
         jLabel24.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel24.setText("Ngày tạo");
@@ -762,7 +866,7 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel25.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel25.setText("Mô tả ");
 
-        RefeshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/refresh.png"))); // NOI18N
+        RefeshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/refresh_1.png"))); // NOI18N
         RefeshButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 RefeshButtonMouseClicked(evt);
@@ -779,13 +883,10 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel32.setText("Nhu yếu phẩm");
 
         NeedNecessValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NeedNecessValueLabel.setText("null");
 
         NeedFoodValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NeedFoodValueLabel.setText("null");
 
         NeedEquipValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NeedEquipValueLabel.setText("null");
 
         AcceptButton.setText("Chấp nhận");
         AcceptButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -806,56 +907,86 @@ public class CharityScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel35.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel35.setText("Quận/Huyện");
+
+        jLabel37.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel37.setText("Phường/Xã");
+
+        jLabel40.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel40.setText("Địa chỉ");
+
+        DistrictValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        TownValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        AddressValueLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(AcceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addGap(18, 18, 18)
-                        .addComponent(IdsupValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RefeshButton))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addGap(18, 18, 18)
+                                .addComponent(IdsupValueLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(RefeshButton))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel25)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(NameValueLabel))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(GenderValueLabel))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(ProvinceValueLabel))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CreatedValueLabel))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TownValueLabel)
+                                            .addComponent(DistrictValueLabel)
+                                            .addComponent(AddressValueLabel)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(NeedFoodValueLabel))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(NeedEquipValueLabel)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(GenderValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(86, 86, 86)
+                                .addComponent(AcceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ProvinceValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(CreatedValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(NameValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(NeedFoodValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel25)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(NeedNecessValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(NeedEquipValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 2, Short.MAX_VALUE)))
+                                .addComponent(NeedNecessValueLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -877,33 +1008,51 @@ public class CharityScreen extends javax.swing.JFrame {
                     .addComponent(GenderValueLabel)
                     .addComponent(jLabel14))
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ProvinceValueLabel)
-                    .addComponent(jLabel21))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CreatedValueLabel)
-                    .addComponent(jLabel24))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel30)
-                    .addComponent(NeedFoodValueLabel))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NeedNecessValueLabel)
-                    .addComponent(jLabel32))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NeedEquipValueLabel)
-                    .addComponent(jLabel28))
-                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ProvinceValueLabel)
+                            .addComponent(jLabel21))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(114, 114, 114)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel24)
+                                    .addComponent(CreatedValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel35)
+                                    .addComponent(DistrictValueLabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel37)
+                                    .addComponent(TownValueLabel))
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel40)
+                                    .addComponent(AddressValueLabel))))
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel30)
+                            .addComponent(NeedFoodValueLabel))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel32)
+                            .addComponent(NeedNecessValueLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel28))
+                    .addComponent(NeedEquipValueLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel25)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(AcceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
+
+        jScrollPane6.setViewportView(jPanel1);
 
         javax.swing.GroupLayout FindSupplyPanelLayout = new javax.swing.GroupLayout(FindSupplyPanel);
         FindSupplyPanel.setLayout(FindSupplyPanelLayout);
@@ -912,17 +1061,20 @@ public class CharityScreen extends javax.swing.JFrame {
             .addGroup(FindSupplyPanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(SearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6)
                 .addContainerGap())
         );
         FindSupplyPanelLayout.setVerticalGroup(
             FindSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FindSupplyPanelLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addGroup(FindSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SearchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
+            .addGroup(FindSupplyPanelLayout.createSequentialGroup()
+                .addGroup(FindSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FindSupplyPanelLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FindSupplyPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -930,10 +1082,11 @@ public class CharityScreen extends javax.swing.JFrame {
 
         WaitingSupplyPanel.setBackground(new java.awt.Color(255, 255, 255));
         WaitingSupplyPanel.setAutoscrolls(true);
-        WaitingSupplyPanel.setPreferredSize(new java.awt.Dimension(1350, 508));
+        WaitingSupplyPanel.setPreferredSize(new java.awt.Dimension(1296, 460));
 
         WaitingListPanel.setBackground(new java.awt.Color(255, 255, 255));
         WaitingListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DANH SÁCH YÊU CẦU TIẾP TẾ ĐÃ NHẬN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        WaitingListPanel.setPreferredSize(new java.awt.Dimension(670, 470));
 
         WaitSupplyTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         WaitSupplyTable.setModel(setWaitSupplyTableModel());
@@ -953,7 +1106,7 @@ public class CharityScreen extends javax.swing.JFrame {
             .addGroup(WaitingListPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(WaitingListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ProvinceWaitSupComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -970,9 +1123,12 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jScrollPane2.setBorder(null);
+
         DetailPanel.setBackground(new java.awt.Color(255, 255, 255));
         DetailPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CHI TIẾT YÊU CẦU", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
-        DetailPanel.setPreferredSize(new java.awt.Dimension(332, 508));
+        DetailPanel.setAutoscrolls(true);
+        DetailPanel.setPreferredSize(new java.awt.Dimension(324, 600));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel16.setText("Họ và tên");
@@ -981,16 +1137,13 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel18.setText("Giới tính");
 
         NameWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NameWaitLabel.setText("null");
 
         GenderWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        GenderWaitLabel.setText("null");
 
         jLabel22.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel22.setText("Mã tiếp tế");
 
         IdsupWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        IdsupWaitLabel.setText("null");
 
         DetailWaitTextArea.setEditable(false);
         DetailWaitTextArea.setColumns(20);
@@ -1003,10 +1156,8 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel23.setText("Tỉnh/Thành phố");
 
         ProvinceWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ProvinceWaitLabel.setText("null");
 
         CreatedWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        CreatedWaitLabel.setText("null");
 
         jLabel26.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel26.setText("Ngày tạo");
@@ -1025,25 +1176,21 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel13.setText("Lương thực");
 
         NeedFoodWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NeedFoodWaitLabel.setText("null");
 
         jLabel29.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel29.setText("Nhu yếu phẩm");
 
         NeedNecessWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NeedNecessWaitLabel.setText("null");
 
         jLabel31.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel31.setText("Số điện thoại liên lạc");
 
         PhoneWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        PhoneWaitLabel.setText("null");
 
         jLabel33.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel33.setText("Vật dụng");
 
         NeedEquipWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NeedEquipWaitLabel.setText("null");
 
         CancelButtonLabel.setText("Hủy");
         CancelButtonLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -1082,6 +1229,21 @@ public class CharityScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel48.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel48.setText("Quận/Huyện");
+
+        DistrictWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        TownWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel50.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel50.setText("Phường/Xã");
+
+        jLabel51.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel51.setText("Địa chỉ");
+
+        AddressWaitLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout DetailPanelLayout = new javax.swing.GroupLayout(DetailPanel);
         DetailPanel.setLayout(DetailPanelLayout);
         DetailPanelLayout.setHorizontalGroup(
@@ -1090,60 +1252,73 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DetailPanelLayout.createSequentialGroup()
-                        .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane5)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(ProvinceWaitLabel))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(GenderWaitLabel))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel26)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(CreatedWaitLabel))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel13)
+                        .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(DetailPanelLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(FinishButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 289, Short.MAX_VALUE)
+                                .addComponent(CancelButtonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38))
+                            .addGroup(DetailPanelLayout.createSequentialGroup()
+                                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(DetailPanelLayout.createSequentialGroup()
+                                        .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(DetailPanelLayout.createSequentialGroup()
+                                                .addComponent(jLabel29)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(NeedNecessWaitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(8, 8, 8))
+                                            .addComponent(jLabel31))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(NeedFoodWaitLabel))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
+                                        .addComponent(PhoneWaitLabel))
+                                    .addGroup(DetailPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel33)
                                         .addGap(18, 18, 18)
                                         .addComponent(NeedEquipWaitLabel))
-                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DetailPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(NameWaitLabel)))
+                                    .addComponent(jLabel27)
+                                    .addGroup(DetailPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(NeedFoodWaitLabel))
+                                    .addGroup(DetailPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel26)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(CreatedWaitLabel)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(DetailPanelLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(FinishButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(CancelButtonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
+                        .addGap(24, 24, 24))
                     .addGroup(DetailPanelLayout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addGap(18, 18, 18)
                         .addComponent(IdsupWaitLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(WaitRefeshButton)
-                        .addContainerGap())
+                        .addComponent(WaitRefeshButton))
                     .addGroup(DetailPanelLayout.createSequentialGroup()
-                        .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(DetailPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel29)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(NeedNecessWaitLabel))
-                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PhoneWaitLabel)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ProvinceWaitLabel))
+                            .addGroup(DetailPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addGap(18, 18, 18)
+                                .addComponent(GenderWaitLabel))
+                            .addGroup(DetailPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(NameWaitLabel))
+                            .addGroup(DetailPanelLayout.createSequentialGroup()
+                                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel48)
+                                    .addComponent(jLabel50)
+                                    .addComponent(jLabel51))
+                                .addGap(30, 30, 30)
+                                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(DistrictWaitLabel)
+                                    .addComponent(TownWaitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(AddressWaitLabel))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         DetailPanelLayout.setVerticalGroup(
             DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1169,23 +1344,37 @@ public class CharityScreen extends javax.swing.JFrame {
                     .addComponent(ProvinceWaitLabel)
                     .addComponent(jLabel23))
                 .addGap(12, 12, 12)
-                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CreatedWaitLabel)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(12, 12, 12)
-                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NeedFoodWaitLabel)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(12, 12, 12)
-                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NeedNecessWaitLabel)
-                    .addComponent(jLabel29))
-                .addGap(12, 12, 12)
-                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel33)
-                    .addComponent(NeedEquipWaitLabel))
+                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48)
+                    .addComponent(DistrictWaitLabel))
+                .addGap(18, 18, 18)
+                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel50)
+                    .addComponent(TownWaitLabel))
                 .addGap(12, 12, 12)
                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel51)
+                    .addComponent(AddressWaitLabel))
+                .addGap(12, 12, 12)
+                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel26)
+                    .addComponent(CreatedWaitLabel))
+                .addGap(12, 12, 12)
+                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(DetailPanelLayout.createSequentialGroup()
+                        .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(DetailPanelLayout.createSequentialGroup()
+                                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(NeedFoodWaitLabel))
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel29))
+                            .addComponent(NeedNecessWaitLabel))
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel33))
+                    .addComponent(NeedEquipWaitLabel))
+                .addGap(12, 12, 12)
+                .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel31)
                     .addComponent(PhoneWaitLabel))
                 .addGap(12, 12, 12)
@@ -1196,8 +1385,10 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addGroup(DetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CancelButtonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FinishButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        jScrollPane2.setViewportView(DetailPanel);
 
         javax.swing.GroupLayout WaitingSupplyPanelLayout = new javax.swing.GroupLayout(WaitingSupplyPanel);
         WaitingSupplyPanel.setLayout(WaitingSupplyPanelLayout);
@@ -1205,25 +1396,25 @@ public class CharityScreen extends javax.swing.JFrame {
             WaitingSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WaitingSupplyPanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(WaitingListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DetailPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(WaitingListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         WaitingSupplyPanelLayout.setVerticalGroup(
             WaitingSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(WaitingSupplyPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WaitingSupplyPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(WaitingSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(WaitingListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DetailPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE))
+                .addGroup(WaitingSupplyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(WaitingListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         RightPanel.add(WaitingSupplyPanel, "WaitingAdvisoryPanel");
 
         CharityInformationPanel.setBackground(new java.awt.Color(255, 255, 255));
-        CharityInformationPanel.setPreferredSize(new java.awt.Dimension(1350, 508));
+        CharityInformationPanel.setPreferredSize(new java.awt.Dimension(1260, 508));
 
         jPanel20.setBackground(new java.awt.Color(106, 197, 254));
 
@@ -1241,12 +1432,11 @@ public class CharityScreen extends javax.swing.JFrame {
         jPanel21.setBackground(new java.awt.Color(255, 255, 255));
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "NGƯỜI DÙNG", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14))); // NOI18N
 
-        jLabel34.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel34.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel34.setText("Trung tâm");
 
-        CharityNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CharityNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CharityNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        CharityNameLabel.setText("Tên trung tâm");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/avatar_Trungtam (2).png"))); // NOI18N
 
@@ -1254,43 +1444,43 @@ public class CharityScreen extends javax.swing.JFrame {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
+            .addGroup(jPanel21Layout.createSequentialGroup()
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
                         .addComponent(jLabel34)
-                        .addGap(34, 34, 34)
+                        .addGap(33, 33, 33)
                         .addComponent(CharityNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
-                .addGap(43, 43, 43))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel4)))
+                .addContainerGap(309, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
                     .addComponent(CharityNameLabel))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel22.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "THÔNG TIN CÁ NHÂN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14))); // NOI18N
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "THÔNG TIN TRUNG TÂM", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14))); // NOI18N
         jPanel22.setPreferredSize(new java.awt.Dimension(360, 367));
 
         jLabel42.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel42.setText("Số điện thoại");
 
         PhoneLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        PhoneLabel.setText("null");
 
         jLabel44.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel44.setText("Tỉnh,Thành phố");
 
         ProvinceLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ProvinceLabel.setText("null");
 
         jLabel46.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel46.setText("Quận, Huyện");
@@ -1299,16 +1489,13 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel47.setText("Xã, Phường, Thị trấn");
 
         DistrictLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        DistrictLabel.setText("null");
 
         TownLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TownLabel.setText("null");
 
         jLabel49.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel49.setText("Tỉnh/ Thành phố");
+        jLabel49.setText("Địa chỉ");
 
         AddressLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        AddressLabel.setText("null");
 
         jLabel39.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel39.setText("Lương thực");
@@ -1323,16 +1510,12 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel45.setText("Điểm ");
 
         HasFoodLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        HasFoodLabel.setText("null");
 
         PointLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        PointLabel.setText("null");
 
         HasNecessLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        HasNecessLabel.setText("null");
 
         HasEquipLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        HasEquipLabel.setText("null");
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -1349,11 +1532,11 @@ public class CharityScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(AddressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(AddressLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TownLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TownLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                             .addComponent(PhoneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(DistrictLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ProvinceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1369,7 +1552,7 @@ public class CharityScreen extends javax.swing.JFrame {
                             .addComponent(HasEquipLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(HasFoodLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(70, 70, 70))
+                .addGap(23, 23, 23))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1422,13 +1605,11 @@ public class CharityScreen extends javax.swing.JFrame {
         jLabel38.setText("Mã trung tâm");
 
         IdcharLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        IdcharLabel.setText("null");
 
         jLabel36.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel36.setText("Tên tài khoản");
 
         UsernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        UsernameLabel.setText("null");
 
         ChangePasswordButton.setText("ĐỔI MẬT KHẨU");
         ChangePasswordButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
@@ -1459,11 +1640,14 @@ public class CharityScreen extends javax.swing.JFrame {
                     .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(UsernameLabel)
-                    .addComponent(IdcharLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ChangePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(IdcharLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(425, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(UsernameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ChangePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1479,9 +1663,9 @@ public class CharityScreen extends javax.swing.JFrame {
                             .addComponent(jLabel36)
                             .addComponent(UsernameLabel)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addGap(15, 15, 15)
                         .addComponent(ChangePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout CharityInformationPanelLayout = new javax.swing.GroupLayout(CharityInformationPanel);
@@ -1490,15 +1674,15 @@ public class CharityScreen extends javax.swing.JFrame {
             CharityInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CharityInformationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(CharityInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(CharityInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(CharityInformationPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(CharityInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(CharityInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         CharityInformationPanelLayout.setVerticalGroup(
             CharityInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1616,60 +1800,39 @@ public class CharityScreen extends javax.swing.JFrame {
         ind_index2Panel.setOpaque(false);
         ind_index3Panel.setOpaque(false);
         ind_index4Panel.setOpaque(true);
+        
+        int option = JOptionPane.showConfirmDialog(null, "Bạn sẽ đăng xuất khỏi tài khoản, muốn tiếp tục?",
+                    "Thông báo!", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                new LogInNew().setVisible(true);
+                this.dispose();
+            } 
 
     }//GEN-LAST:event_index4PanelMousePressed
 
-    private void RefeshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RefeshButtonMouseClicked
-        // TODO add your handling code here:
-        SupplyTable.getSelectionModel().clearSelection();
-        refreshForSearchScreen();
-    }//GEN-LAST:event_RefeshButtonMouseClicked
-
-    private void AcceptButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AcceptButtonMouseClicked
-        // TODO add your handling code here:
-        if (IdsupValueLabel.getText().equals("null"))
-        JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để nhận",
-            "Lỗi!", JOptionPane.ERROR_MESSAGE);
-        else {
-            int choice = JOptionPane.showConfirmDialog(null,
-                "Chấp nhận tư vấn yêu cầu này?", "Xác nhận", JOptionPane.OK_CANCEL_OPTION);
-            if (choice == 0) {
-                int result =supcon.AcceptSupply(Integer.toString(charity.getIdchar()), IdsupValueLabel.getText());
-                if(result==1)
-                {
-                    SupplyTable.getSelectionModel().clearSelection();
-                    refreshForSearchScreen();
-                    JOptionPane.showMessageDialog(null, "Nhận thành công");
-
-                    SupplyTable.setModel(setSupplyTableModel());
-                    setSupplyTableSize();
-                    getComboboxItemForSearchScreen();
-
-                    WaitSupplyTable.setModel(setWaitSupplyTableModel());
-                    setWaitSupplyTableSize();
-                    getComboboxItemForWaitScreen();
-                }
-            }
-        }
-    }//GEN-LAST:event_AcceptButtonMouseClicked
-
     private void FinishButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FinishButton1MouseClicked
         // TODO add your handling code here:
-        if (IdsupWaitLabel.getText().equals("null"))
+        //CharityController charcon = new CharityController();
+        if (IdsupWaitLabel.getText().equals(""))
         JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để hoàn thành",
             "Lỗi!", JOptionPane.ERROR_MESSAGE);
         else {
             int choice = JOptionPane.showConfirmDialog(null,
-                "Hoàn thành việc tư vấn yêu cầu này?", "Xác nhận", JOptionPane.OK_CANCEL_OPTION);
+                "Hoàn thành việc tiếp tế yêu cầu này?", "Xác nhận", JOptionPane.OK_CANCEL_OPTION);
             if (choice == 0) {
                 int result =supcon.FinishSupply(Integer.parseInt(IdsupWaitLabel.getText()));
                 if(result==1)
                 {
                     WaitSupplyTable.getSelectionModel().clearSelection();
                     refreshForWaitScreen();
-                    JOptionPane.showMessageDialog(null, "Đã hoàn thành việc tư vấn");
+                    JOptionPane.showMessageDialog(null, "Đã hoàn thành việc tiếp tế");
                     WaitSupplyTable.setModel(setWaitSupplyTableModel());
                     setWaitSupplyTableSize();
+                    CharityController charcon = new CharityController();
+
+                    charity = charcon.getCharityInfo(charity.getUsername());
+                    
+                    setCharityInformation();
                     getComboboxItemForWaitScreen();
                 }
             }
@@ -1678,7 +1841,7 @@ public class CharityScreen extends javax.swing.JFrame {
 
     private void CancelButtonLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelButtonLabelMouseClicked
         // TODO add your handling code here:
-        if (IdsupWaitLabel.getText().equals("null"))
+        if (IdsupWaitLabel.getText().equals(""))
         JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để hủy",
             "Lỗi!", JOptionPane.ERROR_MESSAGE);
         else {
@@ -1715,6 +1878,40 @@ public class CharityScreen extends javax.swing.JFrame {
         //this.dispose();
         new ChangePasswordScreen().setVisible(true);
     }//GEN-LAST:event_ChangePasswordButtonActionPerformed
+
+    private void AcceptButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AcceptButtonMouseClicked
+        // TODO add your handling code here:
+        if (IdsupValueLabel.getText().equals(""))
+        JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 yêu cầu để nhận",
+            "Lỗi!", JOptionPane.ERROR_MESSAGE);
+        else {
+            int choice = JOptionPane.showConfirmDialog(null,
+                "Chấp nhận tiếp tế yêu cầu này?", "Xác nhận", JOptionPane.OK_CANCEL_OPTION);
+            if (choice == 0) {
+                int result =supcon.AcceptSupply(Integer.toString(charity.getIdchar()), IdsupValueLabel.getText());
+                if(result==1)
+                {
+                    SupplyTable.getSelectionModel().clearSelection();
+                    refreshForSearchScreen();
+                    JOptionPane.showMessageDialog(null, "Nhận thành công");
+
+                    SupplyTable.setModel(setSupplyTableModel());
+                    setSupplyTableSize();
+                    getComboboxItemForSearchScreen();
+
+                    WaitSupplyTable.setModel(setWaitSupplyTableModel());
+                    setWaitSupplyTableSize();
+                    getComboboxItemForWaitScreen();
+                }
+            }
+        }
+    }//GEN-LAST:event_AcceptButtonMouseClicked
+
+    private void RefeshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RefeshButtonMouseClicked
+        // TODO add your handling code here:
+        SupplyTable.getSelectionModel().clearSelection();
+        refreshForSearchScreen();
+    }//GEN-LAST:event_RefeshButtonMouseClicked
 
     //Set color for Jpanel being clicked
     void setColor(JPanel panel) {
@@ -1836,6 +2033,8 @@ public class CharityScreen extends javax.swing.JFrame {
     private com.k33ptoo.components.KButton AcceptButton;
     private javax.swing.JPanel ActionsPanel;
     private javax.swing.JLabel AddressLabel;
+    private javax.swing.JLabel AddressValueLabel;
+    private javax.swing.JLabel AddressWaitLabel;
     private com.k33ptoo.components.KButton CancelButtonLabel;
     private com.k33ptoo.components.KButton ChangePasswordButton;
     private javax.swing.JLabel CharityInfoLabel;
@@ -1848,6 +2047,8 @@ public class CharityScreen extends javax.swing.JFrame {
     private javax.swing.JTextArea DetailTextArea;
     private javax.swing.JTextArea DetailWaitTextArea;
     private javax.swing.JLabel DistrictLabel;
+    private javax.swing.JLabel DistrictValueLabel;
+    private javax.swing.JLabel DistrictWaitLabel;
     private javax.swing.JPanel FindSupplyPanel;
     private com.k33ptoo.components.KButton FinishButton1;
     private javax.swing.JLabel GenderValueLabel;
@@ -1888,11 +2089,15 @@ public class CharityScreen extends javax.swing.JFrame {
     private javax.swing.JPanel TitlePanel;
     private javax.swing.JPanel TopPanel;
     private javax.swing.JLabel TownLabel;
+    private javax.swing.JLabel TownValueLabel;
+    private javax.swing.JLabel TownWaitLabel;
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JLabel WaitRefeshButton;
     private javax.swing.JTable WaitSupplyTable;
     private javax.swing.JPanel WaitingListPanel;
     private javax.swing.JPanel WaitingSupplyPanel;
+    private com.k33ptoo.utils.ComponentMoverUtil componentMoverUtil1;
+    private com.k33ptoo.utils.ComponentResizerUtil componentResizerUtil1;
     private javax.swing.JPanel ind_index1Panel;
     private javax.swing.JPanel ind_index2Panel;
     private javax.swing.JPanel ind_index3Panel;
@@ -1925,10 +2130,13 @@ public class CharityScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
@@ -1936,8 +2144,11 @@ public class CharityScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1947,8 +2158,10 @@ public class CharityScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     // End of variables declaration//GEN-END:variables
 }
