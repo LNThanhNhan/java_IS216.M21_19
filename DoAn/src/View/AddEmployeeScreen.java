@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -78,6 +79,25 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
             }      
     }
     
+    public void LimitPassword(JPasswordField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
+        String string = String.valueOf(txt.getPassword());
+        ErrorLabel.setText("");
+
+        int length = string.length();
+        if (length < lenghth_char_exp) {
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+            ErrorLabel.setText("Nhập quá kí tự cho phép!!");
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                ErrorLabel.setText("");
+                txt.setEditable(true);
+            } else {
+                txt.setEditable(false);
+            }
+        }
+    }
+    
     //Đặt dữ liệu lại khi nhấn vào button thêm tại Jframe
     public void setView() {
         // set data
@@ -104,7 +124,7 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
             Account account = new Account();
             employee.setIdemp(parseInt(IdempTextField.getText()));
             employee.setUsername(UsernameTextField.getText());
-            account.setPassword(PasswordTextField.getText());
+            account.setPassword(String.valueOf(PasswordTextField.getPassword()));
             employee.setName(NameTextField.getText());
             employee.setGender(getGender(MaleGenderRadioButton));
             employee.setPhone(PhoneTextField.getText());
@@ -156,13 +176,13 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         MaleGenderRadioButton = new javax.swing.JRadioButton();
         FeMaleGenderRadioButton = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
-        PasswordTextField = new javax.swing.JTextField();
         NameTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         PhoneTextField = new javax.swing.JTextField();
         StartDateDateChooser = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         ErrorLabel = new javax.swing.JLabel();
+        PasswordTextField = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -224,13 +244,6 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         jLabel11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
         jLabel11.setText("Mật khẩu");
 
-        PasswordTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        PasswordTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                PasswordTextFieldKeyPressed(evt);
-            }
-        });
-
         NameTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         NameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -258,6 +271,17 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         ErrorLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         ErrorLabel.setForeground(new java.awt.Color(255, 51, 51));
 
+        PasswordTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PasswordTextFieldActionPerformed(evt);
+            }
+        });
+        PasswordTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordTextFieldKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -270,20 +294,20 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(NameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                                 .addComponent(IdempTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel11))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(UsernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(PasswordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(101, 101, 101)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -321,10 +345,10 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
-                        .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6))
+                        .addComponent(jLabel6)
+                        .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(StartDateDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(NameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,11 +404,6 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         LimitChar(UsernameTextField, evt, 30);
     }//GEN-LAST:event_UsernameTextFieldKeyPressed
 
-    private void PasswordTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordTextFieldKeyPressed
-        // TODO add your handling code here:
-        LimitChar(PasswordTextField, evt, 30);
-    }//GEN-LAST:event_PasswordTextFieldKeyPressed
-
     private void NameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NameTextFieldKeyPressed
         // TODO add your handling code here:
         LimitChar(NameTextField, evt, 30);
@@ -399,6 +418,15 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
         // TODO add your handling code here:
         LimitChar(AddressTextField, evt, 30);
     }//GEN-LAST:event_AddressTextFieldKeyPressed
+
+    private void PasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PasswordTextFieldActionPerformed
+
+    private void PasswordTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordTextFieldKeyPressed
+        // TODO add your handling code here:
+        LimitPassword(PasswordTextField, evt,30);
+    }//GEN-LAST:event_PasswordTextFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -693,7 +721,7 @@ public class AddEmployeeScreen extends javax.swing.JDialog {
     private javax.swing.JTextField IdempTextField;
     private javax.swing.JRadioButton MaleGenderRadioButton;
     private javax.swing.JTextField NameTextField;
-    private javax.swing.JTextField PasswordTextField;
+    private javax.swing.JPasswordField PasswordTextField;
     private javax.swing.JTextField PhoneTextField;
     private com.toedter.calendar.JDateChooser StartDateDateChooser;
     private javax.swing.JTextField UsernameTextField;

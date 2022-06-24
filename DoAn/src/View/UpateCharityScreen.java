@@ -145,11 +145,15 @@ public class UpateCharityScreen extends javax.swing.JDialog {
 //            emp.setTableManageCharity();
 //            emp.resizeColumnWidth(emp.getCharityTable());
 //            
-            
+            if (charity.getHasfood() == 0 && charity.getHasnecess() == 0 && charity.getHasequip() == 0) {
+                JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
+                        "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
+            } else {
             check = CharityController.UpdateCharity(charity);
             
             emp.setTableManageCharity();
             emp.resizeColumnWidth(emp.getCharityTable());
+            }
             
             if(check ==0){
             JOptionPane.showMessageDialog(null, "Cập nhật thông tin thành công!",

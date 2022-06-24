@@ -216,6 +216,7 @@ public class UpdateEmployeeScreen extends javax.swing.JDialog {
         });
 
         StartDateDateChooser.setDateFormatString("dd/MM/yyyy");
+        StartDateDateChooser.setEnabled(false);
         StartDateDateChooser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
