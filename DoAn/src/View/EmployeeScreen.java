@@ -574,8 +574,9 @@ public class EmployeeScreen extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         GenderLabel = new javax.swing.JLabel();
         PhoneLabel = new javax.swing.JLabel();
-        AddressLabel = new javax.swing.JLabel();
         StartdateLabel = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        AddressLabel = new javax.swing.JTextArea();
         card3Panel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         PersonTable = new javax.swing.JTable();
@@ -585,7 +586,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         kButton1 = new com.k33ptoo.components.KButton();
         kButton2 = new com.k33ptoo.components.KButton();
-        kButton12 = new com.k33ptoo.components.KButton();
         card4Panel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         DoctorTable = new javax.swing.JTable();
@@ -1222,9 +1222,17 @@ public class EmployeeScreen extends javax.swing.JFrame {
 
         PhoneLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        AddressLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
         StartdateLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        AddressLabel.setEditable(false);
+        AddressLabel.setBackground(new java.awt.Color(255, 255, 255));
+        AddressLabel.setColumns(20);
+        AddressLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        AddressLabel.setLineWrap(true);
+        AddressLabel.setRows(5);
+        AddressLabel.setWrapStyleWord(true);
+        AddressLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
+        jScrollPane6.setViewportView(AddressLabel);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1238,12 +1246,12 @@ public class EmployeeScreen extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AddressLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-                    .addComponent(GenderLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PhoneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(StartdateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GenderLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addComponent(StartdateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6)
+                    .addComponent(PhoneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1253,14 +1261,14 @@ public class EmployeeScreen extends javax.swing.JFrame {
                     .addComponent(jLabel17)
                     .addComponent(GenderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
                     .addComponent(PhoneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
-                    .addComponent(AddressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(StartdateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1386,13 +1394,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
             }
         });
 
-        kButton12.setText("kButton12");
-        kButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kButton12ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout card3PanelLayout = new javax.swing.GroupLayout(card3Panel);
         card3Panel.setLayout(card3PanelLayout);
         card3PanelLayout.setHorizontalGroup(
@@ -1412,8 +1413,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addComponent(SearchPersonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(kButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1433,8 +1432,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addComponent(jLabel23))
                     .addGroup(card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(kButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2288,12 +2286,14 @@ public class EmployeeScreen extends javax.swing.JFrame {
         selectedRowIndex = DoctorTable.convertRowIndexToModel(selectedRowIndex);
         check = DoctorController.DeleteDoctor((int) model.getValueAt(selectedRowIndex, 0));
         
-        model.removeRow(selectedRowIndex);
-        SupplyTable.getSelectionModel().clearSelection();
         
-        if(check==0){
+        
+        if (check == 0) {
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
-                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);}
+                    "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
+            model.removeRow(selectedRowIndex);
+            SupplyTable.getSelectionModel().clearSelection();
+        }
         setTableManageDoctor();
         resizeColumnWidth(getDoctorTable());
     }//GEN-LAST:event_DeleteDoctorMenuItemActionPerformed
@@ -2552,11 +2552,6 @@ public class EmployeeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         new ChangePasswordScreen(emp_info.getUsername()).setVisible(true);
     }//GEN-LAST:event_kButton11ActionPerformed
-
-    private void kButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton12ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_kButton12ActionPerformed
   
     //Set color for Jpanel being clicked
     void setColor(JPanel panel) {
@@ -2692,7 +2687,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ActionsPanel;
-    private javax.swing.JLabel AddressLabel;
+    private javax.swing.JTextArea AddressLabel;
     private javax.swing.JLabel AvatarEmployeeLabel;
     private javax.swing.JPanel Card8InforEmployeePanel;
     private javax.swing.JPopupMenu CharityPopupMenu;
@@ -2809,10 +2804,10 @@ public class EmployeeScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private com.k33ptoo.components.KButton kButton1;
     private com.k33ptoo.components.KButton kButton10;
     private com.k33ptoo.components.KButton kButton11;
-    private com.k33ptoo.components.KButton kButton12;
     private com.k33ptoo.components.KButton kButton2;
     private com.k33ptoo.components.KButton kButton3;
     private com.k33ptoo.components.KButton kButton4;
