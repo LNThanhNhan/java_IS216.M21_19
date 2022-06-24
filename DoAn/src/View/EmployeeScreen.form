@@ -1217,7 +1217,7 @@
                                   <Component id="PhoneLabel" alignment="0" max="32767" attributes="0"/>
                                   <Component id="StartdateLabel" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="14" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1346,8 +1346,6 @@
                                   <Component id="SearchPersonTextField" min="-2" pref="250" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel30" min="-2" pref="55" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="kButton12" min="-2" pref="89" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="kButton2" min="-2" pref="129" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1373,7 +1371,6 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="kButton1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="kButton2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="kButton12" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel30" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -1521,14 +1518,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kButton2ActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="com.k33ptoo.components.KButton" name="kButton12">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="kButton12"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kButton12ActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

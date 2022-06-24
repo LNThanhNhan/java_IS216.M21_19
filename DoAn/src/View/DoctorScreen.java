@@ -18,6 +18,8 @@ import java.awt.Font;
 import java.awt.Frame;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ItemEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -32,6 +34,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  *
  * @author Luong Nguyen Thanh Nhan
@@ -474,6 +480,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         WaitAdvisoryTable = new javax.swing.JTable();
         ProvinceWaitAdComboBox = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
+        ExcelExportButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         DetailPanel = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -879,7 +886,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(CreatedValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel25))
-                        .addGap(0, 14, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(18, 18, 18)
@@ -923,7 +930,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addComponent(jScrollPane3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AcceptButton)
                 .addGap(7, 7, 7))
@@ -945,7 +952,7 @@ public class DoctorScreen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FindAdvisoryPanelLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(FindAdvisoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(SearchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1082,7 +1089,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                         .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(GenderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1115,7 +1122,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DoctorProvinceLabel)
                     .addComponent(jLabel48))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -1158,7 +1165,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                 .addGroup(ChangePasswordButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel6))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1203,7 +1210,7 @@ public class DoctorScreen extends javax.swing.JFrame {
                         .addGroup(DoctorInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE))))
-                .addGap(0, 322, Short.MAX_VALUE))
+                .addGap(0, 329, Short.MAX_VALUE))
         );
         DoctorInformationPanelLayout.setVerticalGroup(
             DoctorInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1242,6 +1249,13 @@ public class DoctorScreen extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel15.setText("Chọn tỉnh/thành phố để tìm kiếm");
 
+        ExcelExportButton.setText("Xuất file Excel");
+        ExcelExportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcelExportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout WaitingListPanelLayout = new javax.swing.GroupLayout(WaitingListPanel);
         WaitingListPanel.setLayout(WaitingListPanelLayout);
         WaitingListPanelLayout.setHorizontalGroup(
@@ -1250,20 +1264,25 @@ public class DoctorScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(WaitingListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ProvinceWaitAdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(WaitingListPanelLayout.createSequentialGroup()
+                        .addComponent(ProvinceWaitAdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(ExcelExportButton))
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         WaitingListPanelLayout.setVerticalGroup(
             WaitingListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WaitingListPanelLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ProvinceWaitAdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(WaitingListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ProvinceWaitAdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ExcelExportButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jScrollPane2.setPreferredSize(new java.awt.Dimension(300, 485));
@@ -1676,6 +1695,80 @@ public class DoctorScreen extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ExitButtonMouseClicked
 
+    private void ExcelExportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcelExportButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet spreadsheet = workbook.createSheet("Danh sách tư vấn");
+            XSSFRow row = null;
+            Cell cell = null;
+
+            row = spreadsheet.createRow(2);
+
+            cell = row.createCell(0);
+            cell.setCellValue("Mã tư vấn");
+            cell = row.createCell(1);
+            cell.setCellValue("Họ và tên");
+            cell = row.createCell(2);
+            cell.setCellValue("Giới tính");
+            cell = row.createCell(3);
+            cell.setCellValue("Năm sinh");
+            cell = row.createCell(4);
+            cell.setCellValue("Tỉnh/Thành phố");
+            cell = row.createCell(5);
+            cell.setCellValue("Chiều cao(cm)");
+            cell = row.createCell(6);
+            cell.setCellValue("Cân nặng(kg)");
+            cell = row.createCell(7);
+            cell.setCellValue("Số điện thoại");
+            cell = row.createCell(8);
+            cell.setCellValue("Tiền sử bệnh án");
+            cell = row.createCell(9);
+            cell.setCellValue("Mô tả vấn đề cần tư vấn");
+            WaitAdvisoryList = adcon.getWaitAdvisory(Integer.toString(doctor.getIddoc()));
+            int size = WaitAdvisoryList.size();
+            int rowNum = 3;
+            for (int i = 0; i < size; i++) {
+                row = spreadsheet.createRow(rowNum++);
+                HashMap<String,String> patient = WaitAdvisoryList.get(i);
+
+                cell = row.createCell(0);
+                cell.setCellValue((String) patient.get("idad"));
+                cell = row.createCell(1);
+                cell.setCellValue((String) patient.get("name"));
+                cell = row.createCell(2);
+                String genderString;
+                if(Integer.parseInt(patient.get("gender"))==1)
+                    genderString="Nam";
+                else genderString="Nữ";
+                cell.setCellValue(genderString);
+                cell = row.createCell(3);
+                cell.setCellValue(Integer.parseInt(patient.get("yearbirth")));
+                cell = row.createCell(4);
+                cell.setCellValue((String) patient.get("province"));
+                cell = row.createCell(5);
+                cell.setCellValue(Integer.parseInt(patient.get("height")));
+                cell = row.createCell(6);
+                cell.setCellValue(Integer.parseInt(patient.get("weight")));
+                cell = row.createCell(7);
+                cell.setCellValue((String) patient.get("phone"));
+                cell = row.createCell(8);
+                cell.setCellValue((String) patient.get("pastmedicalhistory"));
+                cell = row.createCell(9);
+                cell.setCellValue((String) patient.get("detail"));
+            }
+            String localDir = System.getProperty("user.dir");
+            String filename=JOptionPane.showInputDialog("Nhập tên file Excel");
+            File f = new File(localDir+"\\src\\Resource\\"+filename+".xlsx");
+            FileOutputStream fos = new FileOutputStream(f);
+            workbook.write(fos);
+            fos.close();
+            JOptionPane.showMessageDialog(null, "Đã xuất File excel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_ExcelExportButtonActionPerformed
+
     //Set color for Jpanel being clicked
     void setColor(JPanel panel) {
         panel.setBackground(new Color(106, 180, 254));
@@ -1811,6 +1904,7 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JPanel DoctorInformationPanel;
     private javax.swing.JLabel DoctorNameLabel;
     private javax.swing.JLabel DoctorProvinceLabel;
+    private javax.swing.JButton ExcelExportButton;
     private javax.swing.JLabel ExitButton;
     private javax.swing.JPanel FindAdvisoryPanel;
     private javax.swing.JLabel FinishButton;
