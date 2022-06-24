@@ -1011,7 +1011,7 @@ public class SupplyController {
             Connection con = OracleConnection.getOracleConnection();
             int i = -1;
             //i = Connection.TRANSACTION_READ_COMMITTED;
-            i = Connection.TRANSACTION_REPEATABLE_READ;
+            i = Connection.TRANSACTION_READ_COMMITTED;
             con.setAutoCommit(false);
             con.setTransactionIsolation(i);
             SupplyTable.getSelectionModel().clearSelection();
