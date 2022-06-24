@@ -585,6 +585,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         kButton1 = new com.k33ptoo.components.KButton();
         kButton2 = new com.k33ptoo.components.KButton();
+        kButton12 = new com.k33ptoo.components.KButton();
         card4Panel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         DoctorTable = new javax.swing.JTable();
@@ -1242,7 +1243,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                     .addComponent(GenderLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PhoneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(StartdateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1385,6 +1386,13 @@ public class EmployeeScreen extends javax.swing.JFrame {
             }
         });
 
+        kButton12.setText("kButton12");
+        kButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kButton12ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout card3PanelLayout = new javax.swing.GroupLayout(card3Panel);
         card3Panel.setLayout(card3PanelLayout);
         card3PanelLayout.setHorizontalGroup(
@@ -1404,6 +1412,8 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addComponent(SearchPersonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(kButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1423,7 +1433,8 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addComponent(jLabel23))
                     .addGroup(card3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(kButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2541,6 +2552,11 @@ public class EmployeeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         new ChangePasswordScreen(emp_info.getUsername()).setVisible(true);
     }//GEN-LAST:event_kButton11ActionPerformed
+
+    private void kButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton12ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_kButton12ActionPerformed
   
     //Set color for Jpanel being clicked
     void setColor(JPanel panel) {
@@ -2796,6 +2812,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
     private com.k33ptoo.components.KButton kButton1;
     private com.k33ptoo.components.KButton kButton10;
     private com.k33ptoo.components.KButton kButton11;
+    private com.k33ptoo.components.KButton kButton12;
     private com.k33ptoo.components.KButton kButton2;
     private com.k33ptoo.components.KButton kButton3;
     private com.k33ptoo.components.KButton kButton4;
