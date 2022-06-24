@@ -11,6 +11,7 @@ import static View.ChangeValue.*;
 import java.awt.event.KeyEvent;
 import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -58,6 +59,25 @@ public class AddSupplyScreen extends javax.swing.JDialog {
     //Dùng để giới hạn ký tự cho Jtextfield
    //Giới hạn "lenghth_char_exp" kí tự
     public void LimitChar(JTextField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
+        String string = txt.getText();
+        ErrorLabel.setText("");
+
+        int length = string.length();
+            if (length < lenghth_char_exp) {
+                txt.setEditable(true);
+            } else {
+                txt.setEditable(false);
+                ErrorLabel.setText("Nhập quá kí tự cho phép!!");
+                if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                    ErrorLabel.setText("");
+                    txt.setEditable(true);
+                } else {
+                    txt.setEditable(false);
+                }
+            }      
+    }
+    
+    public void LimitCharTA(JTextArea txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
         String string = txt.getText();
         ErrorLabel.setText("");
 
@@ -345,7 +365,7 @@ public class AddSupplyScreen extends javax.swing.JDialog {
 
     private void DetailTextAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DetailTextAreaKeyPressed
         // TODO add your handling code here:
-        LimitChar(IdperTextField, evt, 1000);
+        LimitCharTA(DetailTextArea, evt, 1000);
     }//GEN-LAST:event_DetailTextAreaKeyPressed
 
     /**

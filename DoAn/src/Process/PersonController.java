@@ -132,8 +132,9 @@ public class PersonController {
                 JOptionPane.showMessageDialog(null, "Không được để trống các miền giá trị bắt buộc!",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
             else if (sqlex.getErrorCode() == 1){
-                JOptionPane.showMessageDialog(null, "Số điện thoại này đã tồn tại",
+                JOptionPane.showMessageDialog(null, "Số điện thoại hoặc tên người dùng này đã tồn tại",
                         "Lỗi!", JOptionPane.ERROR_MESSAGE);}
+            sqlex.printStackTrace();
             return 1;
         } 
         

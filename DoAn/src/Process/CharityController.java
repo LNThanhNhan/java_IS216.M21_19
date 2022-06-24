@@ -162,7 +162,7 @@ public class CharityController {
             con.close();
             
         }catch (SQLException sqlex) {
-            if (sqlex.getErrorCode() == 20122)
+            if (sqlex.getErrorCode() == 20093)
                 JOptionPane.showMessageDialog(null, "Trung tâm này còn yêu cầu chưa hoàn thành",
                         "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
             return 1;

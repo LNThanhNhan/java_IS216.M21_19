@@ -1211,13 +1211,13 @@
                                   <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="AddressLabel" alignment="0" pref="332" max="32767" attributes="0"/>
-                                  <Component id="GenderLabel" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="PhoneLabel" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="GenderLabel" alignment="0" pref="340" max="32767" attributes="0"/>
                                   <Component id="StartdateLabel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="PhoneLabel" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="14" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1230,16 +1230,16 @@
                                   <Component id="GenderLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="PhoneLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                  <Component id="PhoneLabel" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="AddressLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane6" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="33" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="StartdateLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
@@ -1296,13 +1296,6 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="AddressLabel">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="14" style="0"/>
-                        </Property>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="StartdateLabel">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1310,6 +1303,37 @@
                         </Property>
                       </Properties>
                     </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane6">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="AddressLabel">
+                          <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
+                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                            </Property>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Segoe UI" size="14" style="0"/>
+                            </Property>
+                            <Property name="lineWrap" type="boolean" value="true"/>
+                            <Property name="rows" type="int" value="5"/>
+                            <Property name="wrapStyleWord" type="boolean" value="true"/>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="0" left="0" right="0" top="0">
+                                  <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
+                                </MatteColorBorder>
+                              </Border>
+                            </Property>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                   </SubComponents>
                 </Container>
               </SubComponents>
@@ -1346,8 +1370,6 @@
                                   <Component id="SearchPersonTextField" min="-2" pref="250" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel30" min="-2" pref="55" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="kButton12" min="-2" pref="89" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="kButton2" min="-2" pref="129" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1373,7 +1395,6 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="kButton1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="kButton2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="kButton12" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel30" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -1521,14 +1542,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kButton2ActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="com.k33ptoo.components.KButton" name="kButton12">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="kButton12"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kButton12ActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import static java.lang.Integer.parseInt;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -76,6 +77,25 @@ public class AddCharityScreen extends javax.swing.JDialog {
             }
         }
     }
+    
+    public void LimitPassword(JPasswordField txt, java.awt.event.KeyEvent evt, int lenghth_char_exp) {
+        String string = String.valueOf(txt.getPassword());
+        ErrorLabel.setText("");
+
+        int length = string.length();
+        if (length < lenghth_char_exp) {
+            txt.setEditable(true);
+        } else {
+            txt.setEditable(false);
+            ErrorLabel.setText("Nhập quá kí tự cho phép!!");
+            if (evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                ErrorLabel.setText("");
+                txt.setEditable(true);
+            } else {
+                txt.setEditable(false);
+            }
+        }
+    }
 
     //Đặt dữ liệu lại khi nhấn vào button thêm tại Jframe
     public void setView() {
@@ -112,7 +132,7 @@ public class AddCharityScreen extends javax.swing.JDialog {
             Account account = new Account();
             charity.setIdchar(parseInt(IdcharTextField.getText()));
             charity.setUsername(UsernameTextField.getText());
-            account.setPassword(PasswordTextField.getText());
+            account.setPassword(String.valueOf(PasswordTextField.getPassword()));
             charity.setName(NameTextField.getText());
             charity.setDistrict(DistrictTextField.getText());
             charity.setTown(TownTextField.getText());
@@ -176,7 +196,6 @@ public class AddCharityScreen extends javax.swing.JDialog {
         TownTextField = new javax.swing.JTextField();
         AddressTextField = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        PasswordTextField = new javax.swing.JTextField();
         NameTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         PhoneTextField = new javax.swing.JTextField();
@@ -184,6 +203,7 @@ public class AddCharityScreen extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         PointTextField = new javax.swing.JTextField();
         ErrorLabel = new javax.swing.JLabel();
+        PasswordTextField = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         HasFoodCheckBox = new javax.swing.JCheckBox();
@@ -251,12 +271,6 @@ public class AddCharityScreen extends javax.swing.JDialog {
         jLabel11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel11.setText("Mật khẩu");
 
-        PasswordTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                PasswordTextFieldKeyPressed(evt);
-            }
-        });
-
         NameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 NameTextFieldKeyPressed(evt);
@@ -282,6 +296,18 @@ public class AddCharityScreen extends javax.swing.JDialog {
         ErrorLabel.setBackground(new java.awt.Color(255, 255, 255));
         ErrorLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         ErrorLabel.setForeground(new java.awt.Color(255, 51, 51));
+
+        PasswordTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        PasswordTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PasswordTextFieldActionPerformed(evt);
+            }
+        });
+        PasswordTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordTextFieldKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -353,9 +379,9 @@ public class AddCharityScreen extends javax.swing.JDialog {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(TownTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TownTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -502,9 +528,14 @@ public class AddCharityScreen extends javax.swing.JDialog {
         LimitChar(UsernameTextField, evt, 30);
     }//GEN-LAST:event_UsernameTextFieldKeyPressed
 
+    private void PasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordTextFieldActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_PasswordTextFieldActionPerformed
+
     private void PasswordTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordTextFieldKeyPressed
         // TODO add your handling code here:
-        LimitChar(PasswordTextField, evt, 30);
+        LimitPassword(PasswordTextField, evt,30);
     }//GEN-LAST:event_PasswordTextFieldKeyPressed
 
     /**
@@ -800,7 +831,7 @@ public class AddCharityScreen extends javax.swing.JDialog {
     private javax.swing.JCheckBox HasNecessCheckBox;
     private javax.swing.JTextField IdcharTextField;
     private javax.swing.JTextField NameTextField;
-    private javax.swing.JTextField PasswordTextField;
+    private javax.swing.JPasswordField PasswordTextField;
     private javax.swing.JTextField PhoneTextField;
     private javax.swing.JTextField PointTextField;
     private javax.swing.JComboBox<String> ProvinceComboBox;
