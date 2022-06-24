@@ -42,7 +42,8 @@ STT | Họ và tên | MSSV | Facebook | Số điện thoại | Nhiệm vụ | Đ
     * Hoàn thành yêu cầu tư vấn
 * Xuất report 
     * Nhân viên thực hiện việc xuất các report (**danh sách bác sĩ, danh sách nhân viên, hoạt động của các trung tâm thiện nguyện, thống kê yêu cầu tiếp tế trên tỉnh, thành phố**)
-
+## Chức năng bonus
+* Xuất ra file Excel
 ## Công nghệ sử dụng
 ### 1. NetBeans
 Vì ngôn ngữ chính trong đồ án môn học chính là Java nên nhóm chọn sử dụng phần mềm IDE NetBean để viêt chương trình, giao diện cho hệ thống
