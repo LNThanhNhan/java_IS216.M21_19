@@ -373,12 +373,14 @@ public class EmployeeScreen extends javax.swing.JFrame {
         //VD: Khi nhập 1 và nhấn enter thì chỉ hiển thị ID có số 1, còn không sẽ
         //thị tất cả các số có chữ số bắt đầu bằng chữ số 1 (1x).
         if(e.getKeyCode()==KeyEvent.VK_ENTER)
-            trs.setRowFilter(RowFilter.regexFilter("^"+ID+"$", 0));
+            trs.setRowFilter(RowFilter.regexFilter("^"+"(?i)"+ID+"$", 0,1,2,8));
         else 
-            trs.setRowFilter(RowFilter.regexFilter("^"+ID.trim(), 0)); 
+            trs.setRowFilter(RowFilter.regexFilter("^"+"(?i)"+ID.trim(), 0, 1, 2,8)); 
 
         table.setRowSorter(trs);
     }
+    
+    
     
     //Dùng để lọc các từ ngữ không phù hợp trong phần mô tả
     public void FilterSupply(JCheckBox cb, JTable table, DefaultTableModel model) { 
@@ -456,6 +458,10 @@ public class EmployeeScreen extends javax.swing.JFrame {
         resizeColumnWidth(CharityTable);
         resizeColumnWidth(EmployeeTable);
         resizeColumnWidth(SupplyTable);
+        
+        kButton9.setToolTipText("Xóa yêu cầu tư vấn và tiếp tế ở trạng thái xác thực quá ba ngày");
+        FilterSupply.setToolTipText("Lọc yêu cầu có từ ngữ không phù hợp trong phần chi tiết");
+        
      }    
     
     //Hàm khởi tạo không tham số
@@ -481,6 +487,9 @@ public class EmployeeScreen extends javax.swing.JFrame {
         resizeColumnWidth(CharityTable);
         resizeColumnWidth(EmployeeTable);
         resizeColumnWidth(SupplyTable);
+        
+        kButton9.setToolTipText("Xóa yêu cầu tư vấn và tiếp tế ở trạng thái xác thực quá ba ngày");
+        FilterSupply.setToolTipText("Lọc yêu cầu có từ ngữ không phù hợp trong phần chi tiết");
 
      };
 
@@ -622,7 +631,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         kButton8 = new com.k33ptoo.components.KButton();
         kButton9 = new com.k33ptoo.components.KButton();
         kButton10 = new com.k33ptoo.components.KButton();
-        test = new javax.swing.JCheckBox();
+        FilterSupply = new javax.swing.JCheckBox();
         Card8InforEmployeePanel = new javax.swing.JPanel();
 
         UpdateMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/edit (1).png"))); // NOI18N
@@ -1229,7 +1238,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
         AddressLabel.setColumns(20);
         AddressLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         AddressLabel.setLineWrap(true);
-        AddressLabel.setRows(5);
+        AddressLabel.setRows(3);
         AddressLabel.setWrapStyleWord(true);
         AddressLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
         jScrollPane6.setViewportView(AddressLabel);
@@ -1884,6 +1893,11 @@ public class EmployeeScreen extends javax.swing.JFrame {
         kButton9.setkHoverStartColor(new java.awt.Color(51, 204, 255));
         kButton9.setkSelectedColor(new java.awt.Color(153, 255, 255));
         kButton9.setkStartColor(new java.awt.Color(102, 255, 204));
+        kButton9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                kButton9MouseClicked(evt);
+            }
+        });
         kButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton9ActionPerformed(evt);
@@ -1906,11 +1920,21 @@ public class EmployeeScreen extends javax.swing.JFrame {
             }
         });
 
-        test.setBackground(new java.awt.Color(255, 255, 255));
-        test.setText("Lọc yêu cầu");
-        test.addItemListener(new java.awt.event.ItemListener() {
+        FilterSupply.setBackground(new java.awt.Color(255, 255, 255));
+        FilterSupply.setText("Lọc yêu cầu");
+        FilterSupply.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                testItemStateChanged(evt);
+                FilterSupplyItemStateChanged(evt);
+            }
+        });
+        FilterSupply.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FilterSupplyMouseClicked(evt);
+            }
+        });
+        FilterSupply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilterSupplyActionPerformed(evt);
             }
         });
 
@@ -1933,7 +1957,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addComponent(jLabel29)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addGroup(card7PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(test)
+                            .addComponent(FilterSupply)
                             .addGroup(card7PanelLayout.createSequentialGroup()
                                 .addComponent(kButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1960,7 +1984,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(test)
+                .addComponent(FilterSupply)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -2263,12 +2287,14 @@ public class EmployeeScreen extends javax.swing.JFrame {
         model.removeRow(selectedRowIndex);
         SupplyTable.getSelectionModel().clearSelection();
             
+        setTableManagePerson();
+        resizeColumnWidth(PersonTable);
+        
         if(check==0){
             JOptionPane.showMessageDialog(null, "Xóa thông tin thành công!",
                         "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
             
-            setTableManagePerson();
-            resizeColumnWidth(PersonTable);
+            
         }
     }//GEN-LAST:event_DeleteMenuItemActionPerformed
 
@@ -2460,14 +2486,18 @@ public class EmployeeScreen extends javax.swing.JFrame {
         int check =-1;
         DefaultTableModel model = (DefaultTableModel) SupplyTable.getModel();
         int selectedRowIndex = SupplyTable.getSelectedRow();      
-        selectedRowIndex = SupplyTable.convertRowIndexToModel(selectedRowIndex);
-        check = SupplyController.DenySupply((int) model.getValueAt(selectedRowIndex, 0));
+        //selectedRowIndex = SupplyTable.convertRowIndexToModel(selectedRowIndex);
+       
+        check = SupplyController.DenySupply(Integer.parseInt(model.getValueAt(SupplyTable.getSelectedRow(), 0).toString()));
+        
         setTableManageSupply();
         resizeColumnWidth(getSupplyTable());
         
         if(check==0){
             JOptionPane.showMessageDialog(null, "Hủy yêu cầu thành công!",
-                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);}
+                        "Thông báo!", JOptionPane.INFORMATION_MESSAGE);
+            }
+        
         setTableManageSupply();
         resizeColumnWidth(getSupplyTable());
         
@@ -2478,12 +2508,12 @@ public class EmployeeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CharitySearchTextFieldActionPerformed
 
-    private void testItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_testItemStateChanged
+    private void FilterSupplyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FilterSupplyItemStateChanged
         // TODO add your handling code here:
         //if(evt.getStateChange()==1)
-            FilterSupply(test, SupplyTable, modelTableSupply);
+            FilterSupply(FilterSupply, SupplyTable, modelTableSupply);
             
-    }//GEN-LAST:event_testItemStateChanged
+    }//GEN-LAST:event_FilterSupplyItemStateChanged
 
     private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
         // TODO add your handling code here:
@@ -2552,6 +2582,20 @@ public class EmployeeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         new ChangePasswordScreen(emp_info.getUsername()).setVisible(true);
     }//GEN-LAST:event_kButton11ActionPerformed
+
+    private void FilterSupplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterSupplyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FilterSupplyActionPerformed
+
+    private void FilterSupplyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FilterSupplyMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_FilterSupplyMouseClicked
+
+    private void kButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kButton9MouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_kButton9MouseClicked
   
     //Set color for Jpanel being clicked
     void setColor(JPanel panel) {
@@ -2706,6 +2750,7 @@ public class EmployeeScreen extends javax.swing.JFrame {
     private javax.swing.JPopupMenu EmployeePopupMenu;
     private javax.swing.JTextField EmployeeSearchTextField;
     private javax.swing.JTable EmployeeTable;
+    private javax.swing.JCheckBox FilterSupply;
     private javax.swing.JLabel GenderLabel;
     private javax.swing.JLabel MaximizeLabel;
     private javax.swing.JLabel MinimizeLabel;
@@ -2816,6 +2861,5 @@ public class EmployeeScreen extends javax.swing.JFrame {
     private com.k33ptoo.components.KButton kButton7;
     private com.k33ptoo.components.KButton kButton8;
     private com.k33ptoo.components.KButton kButton9;
-    private javax.swing.JCheckBox test;
     // End of variables declaration//GEN-END:variables
 }
