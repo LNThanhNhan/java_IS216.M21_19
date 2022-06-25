@@ -27,6 +27,7 @@ public class SignUpScreen extends javax.swing.JFrame {
     public SignUpScreen() {
         //setLookandFeel();
         initComponents();
+        this.setLocationRelativeTo(null);
     }
      public void setLookandFeel(){ 
         try {
@@ -60,10 +61,8 @@ public class SignUpScreen extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         kGradientPanel1 = new com.k33ptoo.components.KGradientPanel();
-        kButton1 = new com.k33ptoo.components.KButton();
-        kButton2 = new com.k33ptoo.components.KButton();
-        kButton3 = new com.k33ptoo.components.KButton();
         kButton4 = new com.k33ptoo.components.KButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -80,58 +79,35 @@ public class SignUpScreen extends javax.swing.JFrame {
         kGradientPanel1.setkStartColor(new java.awt.Color(225, 243, 254));
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        kButton1.setText("BÁC SĨ");
-        kButton1.setkBorderRadius(20);
-        kButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kButton1ActionPerformed(evt);
-            }
-        });
-        kGradientPanel1.add(kButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 290, -1));
-
-        kButton2.setText("TRUNG TÂM");
-        kButton2.setkBorderRadius(20);
-        kGradientPanel1.add(kButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 290, -1));
-
-        kButton3.setText("NHÂN VIÊN");
-        kButton3.setkBorderRadius(20);
-        kGradientPanel1.add(kButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, 290, -1));
-
-        kButton4.setText("NGƯỜI CẦN GIÚP ĐỠ");
+        kButton4.setText("ĐĂNG KÝ TÀI KHOẢN");
         kButton4.setkBorderRadius(20);
         kButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton4ActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(kButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 290, -1));
+        kGradientPanel1.add(kButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 290, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Logo.png"))); // NOI18N
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 570, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE))
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_kButton1ActionPerformed
-
     private void kButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton4ActionPerformed
         // TODO add your handling code here:
-        
+        new SignUpPersonScreen(this, true).setVisible(true);
      
     }//GEN-LAST:event_kButton4ActionPerformed
 
@@ -172,11 +148,9 @@ public class SignUpScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.k33ptoo.components.KButton kButton1;
-    private com.k33ptoo.components.KButton kButton2;
-    private com.k33ptoo.components.KButton kButton3;
     private com.k33ptoo.components.KButton kButton4;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
