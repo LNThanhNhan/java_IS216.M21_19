@@ -2415,9 +2415,9 @@ public class EmployeeScreen extends javax.swing.JFrame {
         int check =-1;
         
         DefaultTableModel model = (DefaultTableModel) SupplyTable.getModel();
-        int selectedRowIndex = SupplyTable.getSelectedRow();      
-        selectedRowIndex = SupplyTable.convertRowIndexToModel(selectedRowIndex);
-        check =SupplyController.DeleteSupply((int) model.getValueAt(selectedRowIndex, 0));
+        int selectedRowIndex = SupplyTable.getSelectedRow();  
+        
+        check =SupplyController.DeleteSupply(Integer.parseInt(model.getValueAt(SupplyTable.getSelectedRow(), 0).toString()));
         model.removeRow(selectedRowIndex);
         SupplyTable.getSelectionModel().clearSelection();
   
