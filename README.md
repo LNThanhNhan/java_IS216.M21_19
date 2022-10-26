@@ -54,9 +54,9 @@ Phần mô hình ERD được nhóm sử dụng phần mềm Power Designer phi�
 ### 4. Lucidchart
 Mô hình Class Diagram được thiết kế và vẽ trên nền tảng [LucicChart](https://www.lucidchart.com/pages/)
 ### 5. Smart Git
-Phần mềm này được [anh Nhựt][1] là giảng viên Thực hành môn Lập trình java giới thiệu và hướng dẫn nên nhóm mới có thể hiểu thêm về Git và GitHub để phục vụ cho đồ án môn học.
+Phần mềm này được [anh Nhựt][4] là giảng viên Thực hành môn Lập trình java giới thiệu và hướng dẫn nên nhóm mới có thể hiểu thêm về Git và GitHub để phục vụ cho đồ án môn học.
 
-[1]:https://www.facebook.com/nguyenminh.nhut.75436
+[4]:https://www.facebook.com/nguyenminh.nhut.75436
 
 ## Tài liệu tham khảo
 * [Form thông tin bác sĩ](https://docs.google.com/forms/d/e/1FAIpQLSeW2X0EzYHDp61EjPcB9SK2ZQ5n-Ujdc7PKpRAZ2j_4kypGiw/viewform)
