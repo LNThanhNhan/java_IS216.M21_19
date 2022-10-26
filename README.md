@@ -56,7 +56,7 @@ Mô hình Class Diagram được thiết kế và vẽ trên nền tảng [Lucic
 ### 5. Smart Git
 Phần mềm này được [anh Nhựt][4] là giảng viên Thực hành môn Lập trình java giới thiệu và hướng dẫn nên nhóm mới có thể hiểu thêm về Git và GitHub để phục vụ cho đồ án môn học.
 
-#Thay mặt nhóm, em cảm ơn anh Nhựt rất, rất nhiều đã giúp đỡ nhóm trong việc hoàn thành đồ án. 
+# Thay mặt nhóm, em cảm ơn anh Nhựt rất, rất nhiều đã giúp đỡ nhóm trong việc hoàn thành đồ án. 
 
 [4]:https://www.facebook.com/nguyenminh.nhut.75436
 
