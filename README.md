@@ -1,7 +1,7 @@
 
 # Hệ thống hỗ trợ người bị Covid-19
 ## Mô tả đồ án
-Xây dựng ứng dụng nơi mà bệnh nhân mắc Covid-19 có thể tạo yêu cầu (lương thực, nhu yếu phẩm, vật trang y tế) đến các trung tâm thiện nguyện để nhận được sự giúp đỡ, đồng thời bệnh nhân cũng có thể tạo yêu cầu tư vấn với các bác sĩ tham gia trên hệ thống để nhận được sự tư vấn từ các bác sĩ.
+Lấy cảm hứng từ dự án Giúp tôi của trang web giuptoi.vn (Đã dừng hoạt động). Xây dựng ứng dụng nơi mà bệnh nhân mắc Covid-19 có thể tạo yêu cầu (lương thực, nhu yếu phẩm, vật trang y tế) đến các trung tâm thiện nguyện để nhận được sự giúp đỡ, đồng thời bệnh nhân cũng có thể tạo yêu cầu tư vấn với các bác sĩ tham gia trên hệ thống để nhận được sự tư vấn từ các bác sĩ.
 ## Mục tiêu đồ án
 Đây là đồ án của môn học Lập trình java. Ứng dụng phải đảm bảo được các mục tiêu:
 * Giao diện thân thiện, dễ nhìn
